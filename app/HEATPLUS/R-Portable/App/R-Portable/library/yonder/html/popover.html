@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Popovers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for popover {yonder}"><tr><td>popover {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Popovers</h2>
+
+<h3>Description</h3>
+
+<p>Popovers are small windows of content associated with a tag element. Use
+<code>popover()</code> to construct the element and <code>showPopover()</code> to add it to any tag
+element with an HTML id. Popovers are great for explaining inputs and giving
+hints to the users. Popovers are hidden with <code>closePopover()</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+popover(..., title = NULL)
+
+showPopover(
+  id,
+  popover,
+  placement = "top",
+  duration = NULL,
+  session = getDefaultReactiveDomain()
+)
+
+closePopover(id, session = getDefaultReactiveDomain())
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Character strings or tag elements specifying the content of the
+popover or additional named arguments passed as HTML attributes to the
+parent element.</p>
+</td></tr>
+<tr valign="top"><td><code>title</code></td>
+<td>
+<p>A character string specifying a title for the popover, defaults
+to <code>NULL</code>, in which case a title is not added.</p>
+</td></tr>
+<tr valign="top"><td><code>id</code></td>
+<td>
+<p>A character string specifying the id of a popover's target tag
+element.</p>
+</td></tr>
+<tr valign="top"><td><code>popover</code></td>
+<td>
+<p>The popover element to show, typically a call to <code>popover()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>placement</code></td>
+<td>
+<p>One of <code>"top"</code>, <code>"left"</code>, <code>"bottom"</code>, or <code>"right"</code>
+specifying where the popover is positioned relative to the target tag
+element indicated by <code>id</code>, defaults to <code>"top"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>duration</code></td>
+<td>
+<p>A positive integer specifying the duration of the popover in
+seconds or <code>NULL</code>, in which case the popover is not automatically removed.
+When <code>NULL</code> the popover must be removed with <code>closePopover()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>session</code></td>
+<td>
+<p>A reactive context, defaults to <code><a href="../../crosstalk/html/getDefaultReactiveDomain.html">getDefaultReactiveDomain()</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Example application</h3>
+
+<div class="R"><pre>ui &lt;- container(
+  buttonInput("showHelp", "Help!"),
+  div(
+    id = "textBlock1",
+    "Sociis natoque penatibus et magnis"
+  ) %&gt;%
+    padding(3)
+) %&gt;%
+  display("flex") %&gt;%
+  flex(justify = "around")
+
+server &lt;- function(input, output) {
+  observeEvent(input$showHelp, ignoreInit = TRUE, {
+    showPopover(
+      target = "textBlock1",
+      popover(title = "Hint", "I am a &lt;div&gt; element!"),
+      placement = "bottom",
+      duration = 4
+    )
+  })
+}
+
+shinyApp(ui, server)
+</pre></div>
+
+
+<h3>See Also</h3>
+
+<p>Other components: 
+<code><a href="../../yonder/help/alert.html">alert</a>()</code>,
+<code><a href="../../yonder/help/badge.html">badge</a>()</code>,
+<code><a href="../../yonder/help/blockquote.html">blockquote</a>()</code>,
+<code><a href="../../yonder/help/card.html">card</a>()</code>,
+<code><a href="../../yonder/help/collapsePane.html">collapsePane</a>()</code>,
+<code><a href="../../yonder/help/d1.html">d1</a>()</code>,
+<code><a href="../../yonder/help/dropdown.html">dropdown</a>()</code>,
+<code><a href="../../yonder/help/img.html">img</a>()</code>,
+<code><a href="../../yonder/help/jumbotron.html">jumbotron</a>()</code>,
+<code><a href="../../yonder/help/modal.html">modal</a>()</code>,
+<code><a href="../../yonder/help/navContent.html">navContent</a>()</code>,
+<code><a href="../../yonder/help/pre.html">pre</a>()</code>,
+<code><a href="../../yonder/help/toast.html">toast</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+### Examples
+
+# Please see example application above.
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

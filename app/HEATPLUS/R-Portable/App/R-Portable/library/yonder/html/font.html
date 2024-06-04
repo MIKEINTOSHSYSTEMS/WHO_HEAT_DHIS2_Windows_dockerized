@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Font color, size, weight</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for font {yonder}"><tr><td>font {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Font color, size, weight</h2>
+
+<h3>Description</h3>
+
+<p>The <code>font()</code> utility modifies the color, size, weight, case, or alignment of
+a tag element's text. All arguments default to <code>NULL</code>, in which case they are
+ignored.  For example, <code>font(.., size = "lg")</code> increases font size without
+affecting color, weight, case, or alignment.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+font(tag, color = NULL, size = NULL, weight = NULL, case = NULL, align = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>tag</code></td>
+<td>
+<p>A tag element.</p>
+</td></tr>
+<tr valign="top"><td><code>color</code></td>
+<td>
+<p>One of &quot;<code>red</code>&quot;, &quot;<code>purple</code>&quot;, &quot;<code>indigo</code>&quot;, &quot;<code>blue</code>&quot;, &quot;<code>cyan</code>&quot;, &quot;<code>teal</code>&quot;, &quot;<code>green</code>&quot;, &quot;<code>yellow</code>&quot;, &quot;<code>amber</code>&quot;, &quot;<code>orange</code>&quot;, &quot;<code>grey</code>&quot;, &quot;<code>black</code>&quot; or &quot;<code>white</code>&quot; specifying the text color of the tag element, defaults to <code>NULL</code></p>
+</td></tr>
+<tr valign="top"><td><code>size</code></td>
+<td>
+<p>One of <code>"xs"</code>, <code>"sm"</code>, <code>"base"</code>, <code>"lg"</code>, <code>"xl"</code> specifying a font
+size relative to the default base page font size, defaults to <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>weight</code></td>
+<td>
+<p>One of <code>"bold"</code>, <code>"normal"</code>, <code>"light"</code>, <code>"italic"</code>, or
+<code>"monospace"</code> specifying the font weight of the element's text, defaults to
+<code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>case</code></td>
+<td>
+<p>One of <code>"upper"</code>, <code>"lower"</code>, or <code>"title"</code> specifying a
+transformation of the tag element's text, default to <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>align</code></td>
+<td>
+<p>A <a href="../../yonder/help/responsive.html">responsive</a> argument. One of <code>"left"</code>, <code>"center"</code>, <code>"right"</code>,
+or <code>"justify"</code>, specifying the alignment of the tag element's text, defaults
+to <code>NULL</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p>Other design utilities: 
+<code><a href="../../yonder/help/active.html">active</a>()</code>,
+<code><a href="../../yonder/help/affix.html">affix</a>()</code>,
+<code><a href="../../yonder/help/background.html">background</a>()</code>,
+<code><a href="../../yonder/help/border.html">border</a>()</code>,
+<code><a href="../../yonder/help/display.html">display</a>()</code>,
+<code><a href="../../yonder/help/float.html">float</a>()</code>,
+<code><a href="../../yonder/help/height.html">height</a>()</code>,
+<code><a href="../../yonder/help/padding.html">padding</a>()</code>,
+<code><a href="../../yonder/help/scroll.html">scroll</a>()</code>,
+<code><a href="../../yonder/help/shadow.html">shadow</a>()</code>,
+<code><a href="../../yonder/help/width.html">width</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+### Changing text color
+
+card(
+  header = h3("Important!") %&gt;%
+    font(color = "amber"),
+  div(
+    "This is a reminder."
+  )
+) %&gt;%
+  border(color = "amber")
+
+### Changing font size
+
+div(
+  p("Extra small") %&gt;%
+    font(size = "xs"),
+  p("Small") %&gt;%
+    font(size = "sm"),
+  p("Medium") %&gt;%
+    font(size = "base"),
+  p("Large") %&gt;%
+    font(size = "lg"),
+  p("Extra large") %&gt;%
+    font(size = "xl")
+)
+
+### Changing font weight
+
+# Make an element's text bold, italic, light, or monospace.
+
+p("Curabitur lacinia pulvinar nibh.") %&gt;%
+  font(weight = "bold")
+
+p("Proin quam nisl, tincidunt et.") %&gt;%
+  font(weight = "light")
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

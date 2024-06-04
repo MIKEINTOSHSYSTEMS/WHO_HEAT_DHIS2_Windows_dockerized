@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Hong Ooi" />
+
+
+<title>Introduction to AzureGraph</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Introduction to AzureGraph</h1>
+<h4 class="author">Hong Ooi</h4>
+
+
+
+<p><a href="https://docs.microsoft.com/en-us/graph/overview">Microsoft Graph</a> is a comprehensive framework for accessing data in various online Microsoft services, including Azure Active Directory (AAD), Office 365, OneDrive, Teams, and more. AzureGraph is a simple R6-based interface to the Graph REST API, and is the companion package to <a href="https://github.com/Azure/AzureRMR">AzureRMR</a> and <a href="https://github.com/Azure/AzureAuth">AzureAuth</a>.</p>
+<p>Currently, AzureGraph aims to provide an R interface only to the AAD part, with a view to supporting R interoperability with Azure: registered apps and service principals, users and groups. However, it can be extended to support other services; for more information, see the “Extending AzureGraph” vignette.</p>
+<div id="authentication" class="section level2">
+<h2>Authentication</h2>
+<p>The first time you authenticate with a given Azure Active Directory tenant, you call <code>create_graph_login()</code> and supply your credentials. AzureGraph will prompt you for permission to create a special data directory in which to cache the obtained authentication token and AD Graph login. Once this information is saved on your machine, it can be retrieved in subsequent R sessions with <code>get_graph_login()</code>. Your credentials will be automatically refreshed so you don’t have to reauthenticate.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(AzureGraph)</span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># authenticate with AAD</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># - on first login, call create_graph_login()</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># - on subsequent logins, call get_graph_login()</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>gr &lt;-<span class="st"> </span><span class="kw">create_graph_login</span>()</span></code></pre></div>
+<p>See the “Authentication basics” vignette for more details on how to authenticate with AzureGraph.</p>
+</div>
+<div id="users-and-groups" class="section level2">
+<h2>Users and groups</h2>
+<p>The basic classes for interacting with user accounts and groups are <code>az_user</code> and <code>az_group</code>. To instantiate these, call the <code>get_user</code> and <code>get_group</code> methods of the login client object. You can also list the users and groups with the <code>list_users</code> and <code>list_groups</code> methods.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># account of the logged-in user (if you authenticated via the default method)</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>me &lt;-<span class="st"> </span>gr<span class="op">$</span><span class="kw">get_user</span>()</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># alternative: supply a GUID, name or email address</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>me2 &lt;-<span class="st"> </span>gr<span class="op">$</span><span class="kw">get_user</span>(<span class="dt">email=</span><span class="st">&quot;hongooi@microsoft.com&quot;</span>)</span>
+<span id="cb2-6"><a href="#cb2-6"></a></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co"># lists of users and groups (may be large!)</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>gr<span class="op">$</span><span class="kw">list_users</span>()</span>
+<span id="cb2-9"><a href="#cb2-9"></a>gr<span class="op">$</span><span class="kw">list_groups</span>()</span>
+<span id="cb2-10"><a href="#cb2-10"></a></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co"># IDs of my groups</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="kw">head</span>(me<span class="op">$</span><span class="kw">list_group_memberships</span>())</span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="co">#&gt; [1] &quot;98326d14-365a-4257-b0f1-5c3ce3104f75&quot; &quot;b21e5600-8ac5-407b-8774-396168150210&quot;</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="co">#&gt; [3] &quot;be42ef66-5c13-48cb-be5c-21e563e333ed&quot; &quot;dd58be5a-1eac-47bd-ab78-08a452a08ea0&quot;</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="co">#&gt; [5] &quot;4c2bfcfe-5012-4136-ab33-f10389f2075c&quot; &quot;a45fbdbe-c365-4478-9366-f6f517027a22&quot;</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="co"># a specific group</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a>(grp &lt;-<span class="st"> </span>gr<span class="op">$</span><span class="kw">get_group</span>(<span class="st">&quot;82d27e38-026b-4e5d-ba1a-a0f5a21a2e85&quot;</span>))</span>
+<span id="cb2-19"><a href="#cb2-19"></a><span class="co">#&gt; &lt;Graph group &#39;AIlyCATs&#39;&gt;</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="co">#&gt;   directory id: 82d27e38-026b-4e5d-ba1a-a0f5a21a2e85</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a><span class="co">#&gt;   description: ADS AP on Microsoft Teams.</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a><span class="co">#&gt; - Instant communication.</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a><span class="co">#&gt; - Share files/links/codes/...</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a><span class="co">#&gt; - Have fun. :)</span></span></code></pre></div>
+<p>The actual properties of an object are stored as a list in the <code>properties</code> field:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># properties of a user account</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">names</span>(me<span class="op">$</span>properties)</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co">#&gt;  [1] &quot;@odata.context&quot;                 &quot;id&quot;                             &quot;deletedDateTime&quot;</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&gt;  [4] &quot;accountEnabled&quot;                 &quot;ageGroup&quot;                       &quot;businessPhones&quot;</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt;  [7] &quot;city&quot;                           &quot;createdDateTime&quot;                &quot;companyName&quot;</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt; [10] &quot;consentProvidedForMinor&quot;        &quot;country&quot;                        &quot;department&quot;</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt; [13] &quot;displayName&quot;                    &quot;employeeId&quot;                     &quot;faxNumber&quot;</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt; ...</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a></span>
+<span id="cb3-10"><a href="#cb3-10"></a>me<span class="op">$</span>properties<span class="op">$</span>companyName</span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt; [1] &quot;MICROSOFT PTY LIMITED&quot;</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co"># properties of a group</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="kw">names</span>(grp<span class="op">$</span>properties)</span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt;  [1] &quot;@odata.context&quot;                &quot;id&quot;                            &quot;deletedDateTime&quot;</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt;  [4] &quot;classification&quot;                &quot;createdDateTime&quot;               &quot;description&quot;</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt;  [7] &quot;displayName&quot;                   &quot;expirationDateTime&quot;            &quot;groupTypes&quot;</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="co">#&gt; [10] &quot;mail&quot;                          &quot;mailEnabled&quot;                   &quot;mailNickname&quot;</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a><span class="co">#&gt; [13] &quot;membershipRule&quot;                &quot;membershipRuleProcessingState&quot; &quot;onPremisesLastSyncDateTime&quot;</span></span>
+<span id="cb3-20"><a href="#cb3-20"></a><span class="co">#&gt; ...</span></span></code></pre></div>
+<p>You can apply a filter to the <code>list_users</code> and <code>list_groups</code> methods, to cut down on the number of results. The filter should be a supported <a href="https://docs.microsoft.com/en-us/graph/query-parameters#filter-parameter">OData expression</a>. For example, this will filter the list of users down to your own account:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># get my own name</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>my_name &lt;-<span class="st"> </span>me<span class="op">$</span>properties<span class="op">$</span>displayName</span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a>gr<span class="op">$</span><span class="kw">list_users</span>(<span class="dt">filter=</span><span class="kw">sprintf</span>(<span class="st">&quot;displayName eq &#39;%s&#39;&quot;</span>, my_name))</span></code></pre></div>
+<p>You can also view any directory objects that you own and/or created, via the <code>list_owned_objects</code> and <code>list_registered_objects</code> methods of the user object. These accept a <code>type</code> argument to filter the list of objects by the specified type(s).</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>me<span class="op">$</span><span class="kw">list_owned_objects</span>(<span class="dt">type=</span><span class="st">&quot;application&quot;</span>)</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="co">#&gt; [[1]]</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co">#&gt; &lt;Graph registered app &#39;AzureRapp&#39;&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#&gt;   app id: 5af7bc65-8834-4ee6-90df-e7271a12cc62</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt;   directory id: 132ce21b-ebb9-4e75-aa04-ad9155bb921f</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt;   domain: microsoft.onmicrosoft.com</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a></span>
+<span id="cb5-8"><a href="#cb5-8"></a>me<span class="op">$</span><span class="kw">list_owned_objects</span>(<span class="dt">type=</span><span class="st">&quot;group&quot;</span>)</span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt; [[1]]</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt; &lt;Graph group &#39;AIlyCATs&#39;&gt;</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt;   directory id: 82d27e38-026b-4e5d-ba1a-a0f5a21a2e85</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt;   description: ADS AP on Microsoft Teams.</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt; - Instant communication.</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt; - Share files/links/codes/...</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a><span class="co">#&gt; - Have fun. :)</span></span>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="co">#&gt;</span></span>
+<span id="cb5-17"><a href="#cb5-17"></a><span class="co">#&gt; [[2]] </span></span>
+<span id="cb5-18"><a href="#cb5-18"></a><span class="co">#&gt; &lt;Graph group &#39;ANZ Data Science and AI V-Team&#39;&gt;</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a><span class="co">#&gt;   directory id: 4e237eed-5f9b-4abd-830b-9322cb472b66</span></span>
+<span id="cb5-20"><a href="#cb5-20"></a><span class="co">#&gt;   description: ANZ Data Science V-Team</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a><span class="co">#&gt;</span></span>
+<span id="cb5-22"><a href="#cb5-22"></a><span class="co">#&gt; ...</span></span></code></pre></div>
+</div>
+<div id="registered-apps-and-service-principals" class="section level2">
+<h2>Registered apps and service principals</h2>
+<p>To get the details for a registered app, use the <code>get_app</code> or <code>create_app</code> methods of the login client object. These return an object of class <code>az_app</code>. The first method retrieves an existing app, while the second creates a new app.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># an existing app</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>gr<span class="op">$</span><span class="kw">get_app</span>(<span class="st">&quot;5af7bc65-8834-4ee6-90df-e7271a12cc62&quot;</span>)</span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="co">#&gt; &lt;Graph registered app &#39;AzureRapp&#39;&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt;   app id: 5af7bc65-8834-4ee6-90df-e7271a12cc62</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt;   directory id: 132ce21b-ebb9-4e75-aa04-ad9155bb921f</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt;   domain: microsoft.onmicrosoft.com</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="co"># create a new app</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a>(appnew &lt;-<span class="st"> </span>gr<span class="op">$</span><span class="kw">create_app</span>(<span class="st">&quot;AzureRnewapp&quot;</span>))</span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt; &lt;Graph registered app &#39;AzureRnewapp&#39;&gt;</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt;   app id: 1751d755-71b1-40e7-9f81-526d636c1029</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt;   directory id: be11df41-d9f1-45a0-b460-58a30daaf8a9</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt;   domain: microsoft.onmicrosoft.com</span></span></code></pre></div>
+<p>By default, creating a new app will also generate a strong password with a duration of two years, and create a corresponding service principal in your AAD tenant. You can retrieve this with the <code>get_service_principal</code> method, which returns an object of class <code>az_service_principal</code>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>appnew<span class="op">$</span><span class="kw">get_service_principal</span>()</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="co">#&gt; &lt;Graph service principal &#39;AzureRnewapp&#39;&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="co">#&gt;   app id: 1751d755-71b1-40e7-9f81-526d636c1029</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="co">#&gt;   directory id: 7dcc9602-2325-4912-a32e-03e262ffd240</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="co">#&gt;   app tenant: 72f988bf-86f1-41af-91ab-2d7cd011db47</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="co"># or directly from the login client (supply the app ID in this case)</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a>gr<span class="op">$</span><span class="kw">get_service_principal</span>(<span class="st">&quot;1751d755-71b1-40e7-9f81-526d636c1029&quot;</span>)</span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="co">#&gt; &lt;Graph service principal &#39;AzureRnewapp&#39;&gt;</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="co">#&gt;   app id: 1751d755-71b1-40e7-9f81-526d636c1029</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a><span class="co">#&gt;   directory id: 7dcc9602-2325-4912-a32e-03e262ffd240</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a><span class="co">#&gt;   app tenant: 72f988bf-86f1-41af-91ab-2d7cd011db47</span></span></code></pre></div>
+<p>To update an app, call its <code>update</code> method. For example, use this to set a redirect URL or change its permissions. Consult the Microsoft Graph documentation for what properties you can update.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">#&#39; # set a public redirect URL</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>newapp<span class="op">$</span><span class="kw">update</span>(<span class="dt">publicClient=</span><span class="kw">list</span>(<span class="dt">redirectUris=</span><span class="kw">I</span>(<span class="st">&quot;http://localhost:1410&quot;</span>)))</span></code></pre></div>
+<p>One app property you <em>cannot</em> change with <code>update</code> is its password. As a security measure, app passwords are auto-generated on the server, rather than being specified manually. To manage an app’s password, call the <code>add_password</code> and <code>remove_password</code> methods.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">#&#39; # add a password</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>newapp<span class="op">$</span><span class="kw">add_password</span>()</span>
+<span id="cb9-3"><a href="#cb9-3"></a></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="co">#&#39; remove a password</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>pwd_id &lt;-<span class="st"> </span>newapp<span class="op">$</span>properties<span class="op">$</span>passwordCredentials[[<span class="dv">1</span>]]<span class="op">$</span>keyId</span>
+<span id="cb9-6"><a href="#cb9-6"></a>newapp<span class="op">$</span><span class="kw">remove_password</span>(pwd_id)</span></code></pre></div>
+<p>Similarly, to manage an app’s certificate for authentication, call the <code>add_certificate</code> and <code>remove_certificate</code> methods.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">#&#39; add a certificate:</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="co">#&#39; can be specified as a filename, openssl::cert object, AzureKeyVault::stored_cert object,</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="co">#&#39; or raw or character vector</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>newapp<span class="op">$</span><span class="kw">add_certificate</span>(<span class="st">&quot;cert.pem&quot;</span>)</span>
+<span id="cb10-5"><a href="#cb10-5"></a></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="co">#&#39; remove a certificate</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a>cert_id &lt;-<span class="st"> </span>newapp<span class="op">$</span>properties<span class="op">$</span>keyCredentials[[<span class="dv">1</span>]]<span class="op">$</span>keyId</span>
+<span id="cb10-8"><a href="#cb10-8"></a>newapp<span class="op">$</span><span class="kw">remove_certificate</span>(cert_id)</span></code></pre></div>
+</div>
+<div id="common-methods" class="section level2">
+<h2>Common methods</h2>
+<p>The classes described above inherit from the <code>az_object</code> class, which represents an arbitrary object in Azure Active Directory. This has the following methods:</p>
+<ul>
+<li><code>list_group_memberships()</code>: Return the IDs of all groups this object is a member of.</li>
+<li><code>list_object_memberships()</code>: Return the IDs of all groups, administrative units and directory roles this object is a member of.</li>
+</ul>
+<p>In turn, the <code>az_object</code> class inherits from <code>ms_object</code>, which is a base class to represent any object (not just an AAD object) in Microsoft Graph. This has the following methods:</p>
+<ul>
+<li><code>delete(confirm=TRUE)</code>: Delete an object. By default, ask for confirmation first.</li>
+<li><code>update(...)</code>: Update the object information in Azure Active Directory (mentioned above when updating an app).</li>
+<li><code>do_operation(...)</code>: Carry out an arbitrary operation on the object.</li>
+<li><code>sync_fields()</code>: Synchronise the R object with the data in Azure Active Directory.</li>
+<li><code>get_list_pager()</code>: Returns a pager object for iterating through the items in a list of results. See the “Batching and paging” vignette for more information on this topic.</li>
+</ul>
+<p>In particular, the <code>do_operation</code> method allows you to call the Graph REST endpoint directly. This means that even if AzureGraph doesn’t support the operation you want to perform, you can do it manually. For example, if you want to retrieve information on your OneDrive:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># get my OneDrive</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>me<span class="op">$</span><span class="kw">do_operation</span>(<span class="st">&quot;drive&quot;</span>)</span>
+<span id="cb11-3"><a href="#cb11-3"></a></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="co"># list the files in my OneDrive root folder</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a>me<span class="op">$</span><span class="kw">do_operation</span>(<span class="st">&quot;drive/root/children&quot;</span>)</span></code></pre></div>
+</div>
+<div id="see-also" class="section level2">
+<h2>See also</h2>
+<p>See the following links on Microsoft Docs for more information.</p>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/graph/overview">Microsoft Graph</a></li>
+<li><a href="https://docs.microsoft.com/en-us/graph/api/overview?view=graph-rest-beta">Graph REST API (beta)</a></li>
+</ul>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

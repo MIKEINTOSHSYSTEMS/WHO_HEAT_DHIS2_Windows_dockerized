@@ -1,0 +1,38 @@
+Type: Package
+Package: heatdata
+Title: HEAT Data application
+Version: 0.0.1
+Authors@R: 
+    c(person(family = "ZevRoss Spatial Anaylsis",
+             role = "cre",
+             email = "info@zevross.com"),
+      person(given = "Zev",
+             family = "Ross",
+             role = "ctb"))
+Description: An R package to generate data for the Health Equity Assessment Toolkit.
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.0
+VignetteBuilder: knitr
+Imports: dplyr, purrr, tictoc, arrow
+Suggests: readr, fs, purrr, dplyr, heatmeasures
+Remotes: whoequity/heat-measures
+License: GPL-3
+Depends: R (>= 2.10)
+RemoteType: github
+RemoteHost: api.github.com
+RemoteRepo: heat-data-development
+RemoteUsername: whoequity
+RemoteRef: zr/git905-determinants-newmeasures
+RemoteSha: 4030442b09ebd2ba943896799a72ef67d42e37db
+GithubRepo: heat-data-development
+GithubUsername: whoequity
+GithubRef: zr/git905-determinants-newmeasures
+GithubSHA1: 4030442b09ebd2ba943896799a72ef67d42e37db
+NeedsCompilation: no
+Packaged: 2024-04-24 16:37:32 UTC; zev
+Author: ZevRoss Spatial Anaylsis [cre],
+  Zev Ross [ctb]
+Maintainer: ZevRoss Spatial Anaylsis <info@zevross.com>
+Built: R 4.1.2; ; 2024-04-24 16:39:07 UTC; windows

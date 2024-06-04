@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on the Effectiveness of CBT for Reducing Recidivism</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.landenberger2005 {metadat}"><tr><td>dat.landenberger2005 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on the Effectiveness of CBT for Reducing Recidivism</h2>
+
+<h3>Description</h3>
+
+<p>Results from 58 studies on the effectiveness of cognitive-behavioral therapy (CBT) for reducing recidivism in juvenile and adult offenders.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.landenberger2005
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>study</b>            </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> (first) author and year </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>pubtype</b>          </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> publication type (book chapter, journal article, report, or thesis) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>country</b>          </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> country where study was carried out (Canada, New Zealand, UK, or USA) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>design</b>           </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> study design (matched groups, nonequivalent groups, or randomized trial) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>program</b>          </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> purpose of setting up the CBT program (for demonstration, practice, or research purposes) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>setting</b>          </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> treatment setting (community or prison) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>designprob</b>       </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> indication of study design problems (no, favors the control group, or favors the treatment group) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n.ctrl.rec</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of recidivists in the control group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n.ctrl.non</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of non-recidivists in the control group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n.cbt.rec</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of recidivists in the CBT group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n.cbt.non</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of non-recidivists in the CBT group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>interval</b>         </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> recidivism interval (in months) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>group</b>            </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> study group (adults or juveniles) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>age</b>              </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> mean age of the study group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>male</b>             </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> percentage of males in the study group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>minority</b>         </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> percentage of minorities in the study group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>length</b>           </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> treatment length (in weeks) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>sessions</b>         </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of CBT sessions per week </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>hrs_week</b>         </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> treatment hours per week </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>hrs_total</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> total hours of treatment </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>cbt.cogskills</b>    </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> CBT component: cognitive skills (yes, no) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>cbt.cogrestruct</b>  </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> CBT component: cognitive restructuring (yes, no) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>cbt.intpprbsolv</b>  </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> CBT component: interpersonal problem solving (yes, no) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>cbt.socskills</b>    </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> CBT component: social skills (yes, no) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>cbt.angerctrl</b>    </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> CBT component: anger control (yes, no) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>cbt.victimimpact</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> CBT component: victim impact (yes, no) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>cbt.subabuse</b>     </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> CBT component: substance abuse (yes, no) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>cbt.behavmod</b>     </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> CBT component: behavior modification (yes, no) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>cbt.relapseprev</b>  </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> CBT component: relapse prevention (yes, no) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>cbt.moralrsng</b>    </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> CBT component: moral reasoning (yes, no) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>cbt.roletaking</b>   </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> CBT component: role taking (yes, no) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>cbt.other</b>        </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> CBT component: other (yes, no)
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>Landenberger and Lipsey (2005) conducted a meta-analysis of 58 experimental and quasi-experimental studies of the effects of cognitive-behavioral therapy (CBT) on the recidivism rates of adult and juvenile offenders (see also Lipsey et al., 2007). The present dataset includes the results of these studies and a range of potential moderator variables to identify factors associated with variation in treatment effects.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>psychology, criminology, odds ratios, meta-regression
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Personal communication.
+</p>
+
+
+<h3>References</h3>
+
+<p>Landenberger, N. A., &amp; Lipsey, M. W. (2005). The positive effects of cognitive-behavioral programs for offenders: A meta-analysis of factors associated with effective treatment. <em>Journal of Experimental Criminology</em>, <b>1</b>, 451&ndash;476. <code style="white-space: pre;">https://doi.org/10.1007/s11292-005-3541-7</code>
+</p>
+<p>Lipsey, M. W., Landenberger, N. A., &amp; Wilson, S. J. (2007). Effects of cognitive-behavioral programs for criminal offenders. <em>Campbell Systematic Reviews</em>, <b>3</b>(1), 1&ndash;27. <code style="white-space: pre;">https://doi.org/10.4073/csr.2007.6</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.landenberger2005
+head(dat)
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### calculate log odds ratios (for non-recidivism in CBT vs. control groups) and sampling variances
+dat &lt;- escalc(measure="OR", ai=n.cbt.non, bi=n.cbt.rec, ci=n.ctrl.non, di=n.ctrl.rec, data=dat)
+
+### fit random-effects model
+res &lt;- rma(yi, vi, data=dat)
+res
+
+### estimated average OR and corresponding 95% CI/PI
+predict(res, transf=exp, digits=2)
+
+### examine if number of treatment sessions per week is a potential moderator
+res &lt;- rma(yi, vi, mods = ~ sessions, data=dat)
+res
+
+### predicted ORs for 1, 2, 5, or 10 sessions per week
+predict(res, newmods=c(1,2,5,10), transf=exp, digits=2)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Position</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for affix {yonder}"><tr><td>affix {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Position</h2>
+
+<h3>Description</h3>
+
+<p>The <code>affix</code> utility function applies Bootstrap classes to fix elements to the
+top or bottom of a page. Use <code>"sticky"</code> to cause an element to fix to the top
+of a page after the element is scrolled past. <em>Important</em>, the IE11 and
+Edge browsers do not support the sticky behavior.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+affix(tag, position)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>tag</code></td>
+<td>
+<p>A tag element.</p>
+</td></tr>
+<tr valign="top"><td><code>position</code></td>
+<td>
+<p>One of <code>"top"</code>, <code>"bottom"</code>, or <code>"sticky"</code> specifying the
+fixed behavior of an element.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p>Other design utilities: 
+<code><a href="../../yonder/help/active.html">active</a>()</code>,
+<code><a href="../../yonder/help/background.html">background</a>()</code>,
+<code><a href="../../yonder/help/border.html">border</a>()</code>,
+<code><a href="../../yonder/help/display.html">display</a>()</code>,
+<code><a href="../../yonder/help/float.html">float</a>()</code>,
+<code><a href="../../yonder/help/font.html">font</a>()</code>,
+<code><a href="../../yonder/help/height.html">height</a>()</code>,
+<code><a href="../../yonder/help/padding.html">padding</a>()</code>,
+<code><a href="../../yonder/help/scroll.html">scroll</a>()</code>,
+<code><a href="../../yonder/help/shadow.html">shadow</a>()</code>,
+<code><a href="../../yonder/help/width.html">width</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+### Affix an element
+
+div(
+  span("I'm up here!") %&gt;%
+    padding(left = 3, right = 3) %&gt;%
+    background("teal")
+) %&gt;%
+  display("flex") %&gt;%
+  flex(justify = "center") %&gt;%
+  affix("top")
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

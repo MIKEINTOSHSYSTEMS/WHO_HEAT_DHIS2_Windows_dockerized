@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on the Risk of Lung Cancer in Women Exposed to...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.hackshaw1998 {metadat}"><tr><td>dat.hackshaw1998 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on the Risk of Lung Cancer in Women Exposed to Environmental Tobacco Smoke</h2>
+
+<h3>Description</h3>
+
+<p>Results from 37 studies on the risk of lung cancer in women exposed to environmental tobacco smoke (ETS) from their smoking spouse.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.hackshaw1998
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>study</b>      </td><td style="text-align: left;"> <code>numeric</code>    </td><td style="text-align: left;"> study number </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>author</b>     </td><td style="text-align: left;"> <code>character</code>  </td><td style="text-align: left;"> first author of study </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>year</b>       </td><td style="text-align: left;"> <code>numeric</code>    </td><td style="text-align: left;"> publication year </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>country</b>    </td><td style="text-align: left;"> <code>character</code>  </td><td style="text-align: left;"> country where study was conducted </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>design</b>     </td><td style="text-align: left;"> <code>character</code>  </td><td style="text-align: left;"> study design (either cohort or case-control) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>cases</b>      </td><td style="text-align: left;"> <code>numeric</code>    </td><td style="text-align: left;"> number of lung cancer cases </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>or</b>         </td><td style="text-align: left;"> <code>numeric</code>    </td><td style="text-align: left;"> odds ratio </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>or.lb</b>      </td><td style="text-align: left;"> <code>numeric</code>    </td><td style="text-align: left;"> lower bound of 95% CI for the odds ratio </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>or.ub</b>      </td><td style="text-align: left;"> <code>numeric</code>    </td><td style="text-align: left;"> upper bound of 95% CI for the odds ratio </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>yi</b>         </td><td style="text-align: left;"> <code>numeric</code>    </td><td style="text-align: left;"> log odds ratio </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>vi</b>         </td><td style="text-align: left;"> <code>numeric</code>    </td><td style="text-align: left;"> corresponding sampling variance
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>The dataset includes the results from 37 studies (4 cohort, 33 case-control) examining if women (who are lifelong nonsmokers) have an elevated risk for lung cancer due to exposure to environmental tobacco smoke (ETS) from their smoking spouse. Values of the log odds ratio greater than 0 indicate an increased risk of cancer in exposed women compared to women not exposed to ETS from their spouse.
+</p>
+<p>Note that the log odds ratios and corresponding sampling variances were back-calculated from the reported odds ratios and confidence interval (CI) bounds (see &lsquo;Examples&rsquo;). Since the reported values were rounded to some extent, this introduces some minor inaccuracies into the back-calculations. The overall estimate reported in Hackshaw et al. (1997) and Hackshaw (1998) can be fully reproduced though.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>medicine, oncology, epidemiology, smoking, odds ratios
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Hackshaw, A. K., Law, M. R., &amp; Wald, N. J. (1997). The accumulated evidence on lung cancer and environmental tobacco smoke. <em>British Medical Journal</em>, <b>315</b>(7114), 980&ndash;988. <code style="white-space: pre;">https://doi.org/10.1136/bmj.315.7114.980</code>
+</p>
+<p>Hackshaw, A. K. (1998). Lung cancer and passive smoking. <em>Statistical Methods in Medical Research</em>, <b>7</b>(2), 119&ndash;136. <code style="white-space: pre;">https://doi.org/10.1177/096228029800700203</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.hackshaw1998
+head(dat, 10)
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### random-effects model using the log odds ratios
+res &lt;- rma(yi, vi, data=dat, method="DL")
+res
+
+### estimated average odds ratio with CI (and prediction interval)
+predict(res, transf=exp, digits=2)
+
+### illustrate how the log odds ratios and corresponding sampling variances
+### were back-calculated based on the reported odds ratios and CI bounds
+dat$yi &lt;- log(dat$or)
+dat$vi &lt;- ((log(dat$or.ub) - log(dat$or.lb)) / (2*qnorm(.975)))^2
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

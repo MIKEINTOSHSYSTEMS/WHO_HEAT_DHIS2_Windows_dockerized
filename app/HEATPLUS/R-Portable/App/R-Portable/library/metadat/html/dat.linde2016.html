@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on Antidepressants for the Primary Care Setting</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.linde2016 {metadat}"><tr><td>dat.linde2016 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on Antidepressants for the Primary Care Setting</h2>
+
+<h3>Description</h3>
+
+<p>Results from 93 trials examining 22 interventions (including placebo and usual care) for the primary care of depression.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.linde2016
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>id</b>     </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> study ID </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>lnOR</b>   </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> response after treatment (log odds ratio) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>selnOR</b> </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> standard error of log odds ratio </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>treat1</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> first treatment </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>treat2</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> second treatment
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>This data set comes from a network meta-analysis of 22 treatments of depression in primary care (Linde et al., 2016), based on 93 trials (79 two-arm trials, 13 three-arm trials, and one four-arm trial). The primary outcome was response after treatment (yes/no), defined as a reduction from baseline by at least 50% on a depression scale. The data set contains log odds ratios with standard errors for all pairwise comparisons.
+</p>
+<p>The interventions comprised both medical and psychological treatments, also in combination, including placebo and usual care (UC) (Linde et al., 2016). Pharmacological interventions were tricyclic antidepressants (TCA), selective serotonin reuptake inhibitors (SSRI), serotonin-noradrenaline reuptake inhibitors (SNRI), noradrenaline reuptake inhibitors (NRI), low- dose serotonin (5-HT2) antagonists and reuptake inhibitors (low-dose SARI), noradrenergic and specific serotonergic agents (NaSSa), reversible inhibitors of monoaminoxidase A (rMAO-A), hypericum extracts, and an individualized drug. Psychological interventions were cognitive behavioral therapy (CBT; four forms: face-to-face CBT, remote therapist-led CBT, guided self-help CBT, and no or minimal contact CBT), face-to-face problem-solving therapy (PST), face-to-face interpersonal psychotherapy, face-to-face psychodynamic therapy, and &ldquo;other face-to-face therapy&rdquo;. Combination therapies were face-to-face CBT + SSRI, face-to-face PST + SSRI, and face-to-face interpersonal psychotherapy + SSRI.
+</p>
+<p>The data set was used as an example in Rücker et al. (2020) to illustrate component network meta-analysis using frequentist methods.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>medicine, psychiatry, odds ratios, network meta-analysis, component network meta-analysis
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Guido Schwarzer, <a href="mailto:sc@imbi.uni-freiburg.de">sc@imbi.uni-freiburg.de</a>, <a href="https://github.com/guido-s/">https://github.com/guido-s/</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Linde, K., Rücker, G., Schneider, A., &amp; Kriston, L. (2016). Questionable assumptions hampered interpretation of a network meta-analysis of primary care depression treatments. <em>Journal of Clinical Epidemiology</em>, <b>71</b>, 86&ndash;96. <code style="white-space: pre;">https://doi.org/10.1016/j.jclinepi.2015.10.010</code>
+</p>
+
+
+<h3>References</h3>
+
+<p>Rücker, G., Petropoulou, M., &amp; Schwarzer, G. (2020). Network meta-analysis of multicomponent interventions. <em>Biometrical Journal</em>, <b>62</b>(3), 808&ndash;821. <code style="white-space: pre;">https://doi.org/10.1002/bimj.201800167</code>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../netmeta/help/netmeta.html">netmeta</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### Show results of first three studies (first study has three treatment
+### arms)
+head(dat.linde2016, 5)
+
+## Not run: 
+
+### Load netmeta package
+suppressPackageStartupMessages(library(netmeta))
+
+### Print odds ratios and confidence limits with two digits
+settings.meta(digits = 2)
+
+### Define order of treatments in printouts and forest plots
+trts &lt;- c("SSRI",
+  "Face-to-face CBT", "Face-to-face interpsy", "Face-to-face PST",
+  "Face-to-face CBT + SSRI", "Face-to-face interpsy + SSRI",
+  "Face-to-face PST + SSRI",
+  "Face-to-face psychodyn", "Other face-to-face",
+  "TCA", "SNRI", "NRI", "Low-dose SARI", "NaSSa", "rMAO-A", "Ind drug",
+  "Hypericum",
+  "Remote CBT", "Self-help CBT", "No contact CBT",
+  "UC", "Placebo")
+
+### Conduct random effects network meta-analysis
+net &lt;- netmeta(lnOR, selnOR, treat1, treat2, id,
+  data = dat.linde2016, reference.group = "placebo",
+  seq = trts, sm = "OR", fixed = FALSE)
+
+### Network graph
+netgraph(net, seq = "o", number = TRUE)
+
+### Show results
+net
+forest(net, xlim = c(0.2, 50))
+
+### Additive component network meta-analysis with placebo as inactive
+### treatment
+nc &lt;- netcomb(net, inactive = "placebo")
+nc
+forest(nc, xlim = c(0.2, 50))
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

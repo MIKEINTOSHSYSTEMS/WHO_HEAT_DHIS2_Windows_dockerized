@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Understanding responsive arguments</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for responsive {yonder}"><tr><td>responsive {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Understanding responsive arguments</h2>
+
+<h3>Description</h3>
+
+<p>A responsive argument may be a single value or a named list. Possible names
+includes <code>default</code> or <code>xs</code>, <code>sm</code>, <code>md</code>, <code>lg</code>, and <code>xl</code>. Specifying a single
+unnamed value is equivalent to specifying <code>default</code> or <code>xs</code>. The possible
+values will be described in the specific help page. Most responsive arguments
+will default to <code>NULL</code> in which case no corresponding style is applied.
+</p>
+<p>Responsive arguments allow you to apply styles to tag elements based on the
+size of the viewport. This is important when developing applications for both
+web and mobile.  Specifying a single unnamed value the style will be applied
+for all viewport sizes. Use the names above to apply a style for viewports of
+that size and larger. For example, specifying <code>list(default = x, md = y)</code>
+will apply <code>x</code> on extra small and small viewports, but for medium, large, and
+extra large viewports <code>y</code> is applied.
+</p>
+<p>Styles for larger viewports take precedence. See below for details about each
+breakpoint.
+</p>
+<p><strong>extra small</strong>
+</p>
+<p>How: pass a single value, use name <code>xs</code>, or use name <code>default</code>.
+</p>
+<p>When: the style is always applied, unless supplanted by a style for any other
+viewport size.
+</p>
+<p><strong>small</strong>
+</p>
+<p>How: use name <code>sm</code>.
+</p>
+<p>When: the style is applied when the viewport is at least 576px wide, think
+landscape phones.
+</p>
+<p><strong>medium</strong>
+</p>
+<p>How: use name <code>md</code>.
+</p>
+<p>When: the style is applied when the viewport is at least 768px wide, think
+tablets.
+</p>
+<p><strong>large</strong>
+</p>
+<p>How: use name <code>lg</code>.
+</p>
+<p>When: the style is applied when the viewport is at least 992px wide, think
+laptop or smaller desktops.
+</p>
+<p><strong>extra large</strong>
+</p>
+<p>How: use name <code>xl</code>.
+</p>
+<p>When: the style is applied when the viewport is at least 1200px wide, think
+large desktops.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other layout functions: 
+<code><a href="../../yonder/help/column.html">column</a>()</code>,
+<code><a href="../../yonder/help/fieldset.html">fieldset</a>()</code>,
+<code><a href="../../yonder/help/flex.html">flex</a>()</code>,
+<code><a href="../../yonder/help/navbar.html">navbar</a>()</code>,
+<code><a href="../../yonder/help/webpage.html">webpage</a>()</code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

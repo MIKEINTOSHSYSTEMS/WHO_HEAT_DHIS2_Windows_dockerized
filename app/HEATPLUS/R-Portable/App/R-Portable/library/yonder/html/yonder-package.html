@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: An opinionated shiny framework</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for yonder-package {yonder}"><tr><td>yonder-package {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>An opinionated shiny framework</h2>
+
+<h3>Description</h3>
+
+<p>Yonder is a set of tools for flexible and creative shiny application
+construction and design.
+</p>
+
+
+<h3>Inputs</h3>
+
+<p>Yonder provides many familiar inputs like <code><a href="../../yonder/help/selectInput.html">selectInput()</a></code> or <code><a href="../../yonder/help/radioInput.html">radioInput()</a></code>.
+There are also new inputs like <code><a href="../../yonder/help/groupTextInput.html">groupTextInput()</a></code> or <code><a href="../../yonder/help/formInput.html">formInput()</a></code>.
+</p>
+<p><strong>Changes to be mindful of</strong>
+</p>
+
+<ul>
+<li><p> Input functions have an <code>id</code> argument instead of <code>inputId</code>.
+</p>
+</li>
+<li><p> Input functions do not include a <code>label</code> argument for the purpose of adding
+a label above the input. Button and menu inputs do include a <code>label</code>
+argument, but these arguments refer to button labels. If you would like to
+add a label above an input please use <code><a href="../../yonder/help/formGroup.html">formGroup()</a></code>.
+</p>
+</li></ul>
+
+<p><strong>Familiar variants</strong>
+</p>
+<p>Looking for ... ?
+</p>
+
+<ul>
+<li> <p><code>actionButton()</code> or <code>actionLink()</code> use <code><a href="../../yonder/help/buttonInput.html">buttonInput()</a></code> or <code><a href="../../yonder/help/linkInput.html">linkInput()</a></code>
+</p>
+</li>
+<li> <p><code>radioButtons()</code> use <code><a href="../../yonder/help/radioInput.html">radioInput()</a></code>
+</p>
+</li>
+<li> <p><code>checkboxGroupInput()</code> use <code><a href="../../yonder/help/checkbarInput.html">checkbarInput()</a></code> or <code><a href="../../yonder/help/checkboxInput.html">checkboxInput()</a></code>
+</p>
+</li>
+<li> <p><code>numericInput()</code> use <code><a href="../../yonder/help/numberInput.html">numberInput()</a></code>
+</p>
+</li>
+<li> <p><code>selectizeInput()</code> use <code><a href="../../yonder/help/selectInput.html">selectInput()</a></code> or <code><a href="../../yonder/help/chipInput.html">chipInput()</a></code>
+</p>
+</li>
+<li> <p><code>submitButton()</code> use <code><a href="../../yonder/help/formInput.html">formInput()</a></code> and <code><a href="../../yonder/help/formSubmit.html">formSubmit()</a></code>
+</p>
+</li></ul>
+
+
+
+<h3>Layout and content</h3>
+
+<p>Included are a handful of utilities for building applications suited for
+devices and screens of varying sizes. For real control over spacing elements
+be sure to check out <code><a href="../../yonder/help/flex.html">flex()</a></code>, which gives you the power of flexbox layout.
+</p>
+<p><strong>Familiar variants</strong>
+</p>
+<p>Looking for ... ?
+</p>
+
+<ul>
+<li> <p><code>fluidRow()</code> or <code>fixedRow()</code> use <code><a href="../../yonder/help/columns.html">columns()</a></code>
+</p>
+</li>
+<li> <p><code>fixedPage()</code>, <code>fluidPage()</code>, or <code>sidebarLayout()</code> use <code><a href="../../yonder/help/container.html">container()</a></code>,
+<code><a href="../../yonder/help/columns.html">columns()</a></code>, and <code><a href="../../yonder/help/column.html">column()</a></code>
+</p>
+</li>
+<li> <p><code>navbarPage()</code> use <code><a href="../../yonder/help/navbar.html">navbar()</a></code>
+</p>
+</li>
+<li> <p><code>tabPanel()</code> use <code><a href="../../yonder/help/navContent.html">navContent()</a></code> and <code><a href="../../yonder/help/navPane.html">navPane()</a></code>
+</p>
+</li>
+<li> <p><code>modalDialog()</code> use <code><a href="../../yonder/help/modal.html">modal()</a></code>
+</p>
+</li></ul>
+
+
+
+<h3>Author(s)</h3>
+
+<p><strong>Maintainer</strong>: Nathan Teetor <a href="mailto:nathanteetor@gmail.com">nathanteetor@gmail.com</a>
+</p>
+<p>Other contributors:
+</p>
+
+<ul>
+<li><p>  The Bootstrap Authors (Bootstrap library) [copyright holder]
+</p>
+</li>
+<li><p>  Twitter, Inc (Bootstrap library) [copyright holder]
+</p>
+</li>
+<li><p>  JS Foundation (jQuery library) [copyright holder]
+</p>
+</li>
+<li><p> Federico Zivolo (popper.js library) [contributor, copyright holder]
+</p>
+</li>
+<li><p> Johann Servoire (bs-custom-file-input library) [contributor, copyright holder]
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p>Useful links:
+</p>
+
+<ul>
+<li> <p><a href="https://nteetor.github.io/yonder">https://nteetor.github.io/yonder</a>
+</p>
+</li>
+<li><p> Report bugs at <a href="https://github.com/nteetor/yonder/issues">https://github.com/nteetor/yonder/issues</a>
+</p>
+</li></ul>
+
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

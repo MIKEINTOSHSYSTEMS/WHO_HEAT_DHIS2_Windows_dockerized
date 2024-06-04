@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on the Effectiveness of Nicotine Replacement Therapy...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.hartmannboyce2018 {metadat}"><tr><td>dat.hartmannboyce2018 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on the Effectiveness of Nicotine Replacement Therapy for Smoking Cessation</h2>
+
+<h3>Description</h3>
+
+<p>Results from 133 studies examining the effectiveness of nicotine replacement therapy (NRT) for smoking cessation at 6+ months of follow-up.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.hartmannboyce2018
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>study</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> study identifier </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>x.nrt</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of participants in the NRT group who were abstinent at the follow-up </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n.nrt</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of participants in the NRT group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>x.ctrl</b>    </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of participants in the control group who were abstinent at the follow-up </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n.ctrl</b>    </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of participants in the control group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>treatment</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> type of NRT provided in the treatment group
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>The dataset includes the results from 133 studies examining the effectiveness of nicotine replacement therapy (NRT) for smoking cessation. The results given in this dataset pertain to abstinence at 6+ months of follow-up. NRT was provided to participants in the treatment groups in various forms as indicated by the <code>treatment</code> variable (e.g., gum, patch, inhalator). Note that the dataset includes 136 rows, since a few studies included multiple treatments.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>medicine, smoking, risk ratios, Mantel-Haenszel method
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Hartmann‐Boyce, J., Chepkin, S. C., Ye, W., Bullen, C. &amp; Lancaster, T. (2018). Nicotine replacement therapy versus control for smoking cessation. <em>Cochrane Database of Systematic Reviews</em>, <b>5</b>, CD000146. <code style="white-space: pre;">https://doi.org//10.1002/14651858.CD000146.pub5</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.hartmannboyce2018
+head(dat, 10)
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### turn treatment into a factor with the desired ordering
+dat$treatment &lt;- factor(dat$treatment, levels=unique(dat$treatment))
+
+### meta-analysis per treatment using the M-H method
+lapply(split(dat, dat$treatment), function(x)
+       rma.mh(measure="RR", ai=x.nrt,  n1i=n.nrt,
+                            ci=x.ctrl, n2i=n.ctrl, data=x, digits=2))
+
+### all combined
+rma.mh(measure="RR", ai=x.nrt,  n1i=n.nrt,
+                     ci=x.ctrl, n2i=n.ctrl, data=dat, digits=2)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

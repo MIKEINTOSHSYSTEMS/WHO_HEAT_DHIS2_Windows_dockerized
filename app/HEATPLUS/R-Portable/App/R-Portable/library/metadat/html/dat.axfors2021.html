@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Mortality Outcomes with Hydroxychloroquine and Chloroquine in...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.axfors2021 {metadat}"><tr><td>dat.axfors2021 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Mortality Outcomes with Hydroxychloroquine and Chloroquine in COVID-19 from an International Collaborative Meta-Analysis of Randomized Trials</h2>
+
+<h3>Description</h3>
+
+<p>Results from 33 trials examining the effectiveness of hydroxychloroquine or chloroquine in patients with COVID-19.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.axfors2021
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>id</b>                </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> registry number </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>acronym</b>           </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> shortened registry number </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>patient_setting</b>   </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> patient setting </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>blinding_exact</b>    </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> study blinding </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>high_dose</b>         </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> high or low dose of medication </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>Published</b>         </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> publication status </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>hcq_cq</b>            </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> medication type (hcq = hydroxychloroquine or cq = chloroquine) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>hcq_arm_event</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of deaths in the treatment group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>hcq_arm_total</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of patients in the treatment group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>control_arm_event</b> </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of deaths in the control group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>control_arm_total</b> </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of patients in the control group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>Control</b>           </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> control group type (Standard of Care or Placebo)
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>The dataset includes the results from 33 published and unpublished randomized clinical trials that examined the effectiveness of hydroxychloroquine or chloroquine in patients with COVID-19. The results given here are focused on the total mortality in the treatment versus control groups.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>medicine, covid-19, odds ratios
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>W. Kyle Hamilton <a href="mailto:whamilton@ucmerced.edu">whamilton@ucmerced.edu</a> <a href="https://kylehamilton.com">https://kylehamilton.com</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Axfors, C., Schmitt, A., Janiaud, P., van ’t Hooft, J., Moher, D., Goodman, S., … Hemkens, L. G. (2021, March 9). Hydroxychloroquine and chloroquine for survival in COVID-19: An international collaborative meta-analysis of randomized trials. <code style="white-space: pre;">https://doi.org/10.17605/OSF.IO/QESV4</code>
+</p>
+
+
+<h3>References</h3>
+
+<p>Axfors, C., Schmitt, A. M., Janiaud, P., van’t Hooft, J., Abd-Elsalam, S., Abdo, E. F., Abella, B. S., Akram, J., Amaravadi, R. K., Angus, D. C., Arabi, Y. M., Azhar, S., Baden, L. R., Baker, A. W., Belkhir, L., Benfield, T., Berrevoets, M. A. H., Chen, C.-P., Chen, T.-C., … Hemkens, L. G. (2021). Mortality outcomes with hydroxychloroquine and chloroquine in COVID-19 from an international collaborative meta-analysis of randomized trials. Nature Communications, 12(1), 2349. <code style="white-space: pre;">https://doi.org/10.1038/s41467-021-22446-z</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# copy data into 'dat' and examine data
+dat &lt;- dat.axfors2021
+dat
+
+## Not run: 
+
+# load metafor package
+library(metafor)
+
+# calculate log odds ratios and corresponding sampling variances
+dat &lt;- escalc(measure="OR", ai=hcq_arm_event, n1i=hcq_arm_total,
+                            ci=control_arm_event, n2i=control_arm_total, data=dat)
+
+# meta-analysis Hydroxychloroquine
+res_hcq &lt;- rma(yi, vi, subset=(hcq_cq=="hcq"), slab = id, data=dat)
+print(res_hcq, digits=2)
+
+# meta-analysis Chloroquine
+res_cq &lt;- rma(yi, vi, subset=(hcq_cq=="cq"), slab = id, data=dat)
+print(res_cq, digits=2)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

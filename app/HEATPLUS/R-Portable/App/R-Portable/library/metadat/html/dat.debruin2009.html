@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on Standard Care Quality and HAART-Adherence</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.debruin2009 {metadat}"><tr><td>dat.debruin2009 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on Standard Care Quality and HAART-Adherence</h2>
+
+<h3>Description</h3>
+
+<p>Results from 13 trials providing information about standard care quality and HAART-adherence in control groups.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.debruin2009
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>author</b>      </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> (first) author of study </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>year</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> publication year </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>scq</b>         </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> standard care quality </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ni</b>          </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of patients in the standard care group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>xi</b>          </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of patients with an undetectable viral load in standard care group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>mi</b>          </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of patients with a detectable viral load in standard care group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ethnicity</b>   </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> dominant ethnicity of the patients in the standard care group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>patients</b>    </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> inclusion of patients continuing or starting (a new) treatment </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>select</b>      </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> baseline selection of patients with adherence problems or no selection </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>sens</b>        </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> sensitivity of viral load assessments (&lt;400 vs. &gt;=400 copies/ml)
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>Highly active antiretroviral therapy (HAART) refers to a combination of multiple antiretroviral drugs that can effectively suppress the HIV virus. However, achieving viral suppression (to the point that the virus becomes essentially undetectable in a blood sample) requires high levels of adherence to an often complicated medication regimen. A number of trials have examined various interventions that aim to increase adherence levels. In each trial, patients receiving the intervention are compared to patients in a control group receiving standard care (often referred to as &lsquo;care as usual&rsquo;). However, the quality of standard care can vary substantially between these studies. de Bruin et al. (2009) assessed the quality of standard care provided (based on a quantification of the number of behavior change techniques applied) and examined to what extent the quality of standard care was related to the proportion of patients achieving effective viral suppression in the control groups.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>psychology, medicine, proportions, single-arm studies, meta-regression
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>de Bruin, M., Viechtbauer, W., Hospers, H. J., Schaalma, H. P., &amp; Kok, G. (2009). Standard care quality determines treatment outcomes in control groups of HAART-adherence intervention studies: Implications for the interpretation and comparison of intervention effects. <em>Health Psychology</em>, <b>28</b>(6), 668&ndash;674. <code style="white-space: pre;">https://doi.org/10.1037/a0015989</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.debruin2009
+dat
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### calculate proportions and corresponding sampling variances
+dat &lt;- escalc(measure="PR", xi=xi, ni=ni, data=dat)
+dat
+
+### random-effects model
+res &lt;- rma(yi, vi, data=dat)
+print(res, digits=2)
+
+### mixed-effects meta-regression model with all predictors/covariates
+res &lt;- rma(yi, vi, mods = ~ scq + ethnicity + patients + select + sens, data=dat)
+print(res, digits=3)
+
+### mixed-effects meta-regression model with scq and ethnicity as predictors/covariates
+res &lt;- rma(yi, vi, mods = ~ scq + ethnicity, data=dat)
+print(res, digits=3)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

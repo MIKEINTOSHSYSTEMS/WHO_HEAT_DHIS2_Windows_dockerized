@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on the Association between Recidivism and Mental...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.assink2016 {metadat}"><tr><td>dat.assink2016 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on the Association between Recidivism and Mental Health</h2>
+
+<h3>Description</h3>
+
+<p>Results from 17 studies on the association between recidivism and mental health in delinquent juveniles.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.assink2016
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>study</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> study id number </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>esid</b>      </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> effect size within study id number </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>id</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> row id number </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>yi</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> standardized mean difference </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>vi</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> corresponding sampling variance </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>pubstatus</b> </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> published study (0 = no; 1 = yes) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>year</b>      </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> publication year of the study (approximately mean centered) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>deltype</b>   </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> type of delinquent behavior in which juveniles could have recidivated (either general, overt, or covert)
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>The studies included in this dataset (which is a subset of the data used in Assink et al., 2015) compared the difference in recidivism between delinquent juveniles with a mental health disorder and a comparison group of juveniles without a mental health disorder. Since studies differed in the way recidivism was defined and assessed, results are given in terms of standardized mean differences, with positive values indicating a higher prevalence of recidivism in the group of juveniles with a mental health disorder.
+</p>
+<p>Multiple effect size estimates could be extracted from most studies (e.g., for different delinquent behaviors in which juveniles could have recidivated), necessitating the use of appropriate models/methods for the analysis. Assink and Wibbelink (2016) illustrate the use of multilevel meta-analysis models for this purpose.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>psychology, criminology, standardized mean differences, multilevel models, cluster-robust inference
+</p>
+
+
+<h3>Note</h3>
+
+<p>The <code>year</code> variable is not constant within study 3, as this study refers to two different publications using the same data.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Assink, M., &amp; Wibbelink, C. J. M. (2016). Fitting three-level meta-analytic models in R: A step-by-step tutorial. <em>The Quantitative Methods for Psychology</em>, <b>12</b>(3), 154&ndash;174. <code style="white-space: pre;">https://doi.org/10.20982/tqmp.12.3.p154</code>
+</p>
+
+
+<h3>References</h3>
+
+<p>Assink, M., van der Put, C. E., Hoeve, M., de Vries, S. L. A., Stams, G. J. J. M., &amp; Oort, F. J. (2015). Risk factors for persistent delinquent behavior among juveniles: A meta-analytic review. <em>Clinical Psychology Review</em>, <b>42</b>, 47&ndash;61. <code style="white-space: pre;">https://doi.org/10.1016/j.cpr.2015.08.002</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.assink2016
+head(dat, 9)
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### fit multilevel model
+res &lt;- rma.mv(yi, vi, random = ~ 1 | study/esid, data=dat)
+res
+
+### use cluster-robust inference methods
+robust(res, cluster=study)
+
+### LRTs for the variance components
+res0 &lt;- rma.mv(yi, vi, random = ~ 1 | study/esid, data=dat, sigma2=c(0,NA))
+anova(res0, res)
+res0 &lt;- rma.mv(yi, vi, random = ~ 1 | study/esid, data=dat, sigma2=c(NA,0))
+anova(res0, res)
+
+### examine some potential moderators via meta-regression
+rma.mv(yi, vi, mods = ~ pubstatus, random = ~ 1 | study/esid, data=dat)
+rma.mv(yi, vi, mods = ~ year, random = ~ 1 | study/esid, data=dat)
+dat$deltype &lt;- relevel(factor(dat$deltype), ref="general")
+rma.mv(yi, vi, mods = ~ deltype, random = ~ 1 | study/esid, data=dat)
+rma.mv(yi, vi, mods = ~ year + deltype, random = ~ 1 | study/esid, data=dat)
+
+### assume that the effect sizes within studies are correlated with rho=0.6
+V &lt;- vcalc(vi, cluster=study, obs=esid, data=dat, rho=0.6)
+round(V[dat$study %in% c(1,2), dat$study %in% c(1,2)], 4)
+
+### fit multilevel model using this approximate V matrix
+res &lt;- rma.mv(yi, V, random = ~ 1 | study/esid, data=dat)
+res
+
+### use cluster-robust inference methods
+robust(res, cluster=study)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

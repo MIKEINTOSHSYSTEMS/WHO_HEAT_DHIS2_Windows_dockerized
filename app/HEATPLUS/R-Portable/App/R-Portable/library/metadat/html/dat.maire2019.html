@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on Temporal Trends in Fish Community Structures in...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.maire2019 {metadat}"><tr><td>dat.maire2019 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on Temporal Trends in Fish Community Structures in French Rivers</h2>
+
+<h3>Description</h3>
+
+<p>Results from studies examining changes in the abundance of fish species in French rivers.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.maire2019
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The object is a list containing a data frame called <code>dat</code> that contains the following columns and distance matrix called <code>dmat</code>:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>site</b>         </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> study site </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>station</b>      </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> sampling station at site </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>site_station</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> site and station combined </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>s1</b>           </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> Mann-Kendal trend statistic for relative abundance of non-local species </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>vars1</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> corresponding sampling variance (corrected for temporal autocorrelation) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>s2</b>           </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> Mann-Kendal trend statistic for relative abundance of northern species </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>vars2</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> corresponding sampling variance (corrected for temporal autocorrelation) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>s3</b>           </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> Mann-Kendal trend statistic for relative abundance of non-native species </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>vars3</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> corresponding sampling variance (corrected for temporal autocorrelation) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>const</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> constant value of 1
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>The dataset includes the results from 35 sampling stations (at 11 sites along various French rivers) examining the abundance of various fish species over time (i.e., over 19-37 years, all until 2015). The temporal trend in these abundance data was quantified in terms of Mann-Kendal trend statistics, with positive values indicating monotonically increasing trends. The corresponding sampling variances were corrected for the temporal autocorrelation in the data (Hamed &amp; Rao, 1998).
+</p>
+<p>The distance matrix <code>dmat</code> indicates the distance of the sampling stations (1-423 river-km). For stations not connected through the river network, a high distance value of 10,000 river-km was set (effectively forcing the spatial correlation to be 0 for such stations).
+</p>
+<p>The dataset can be used to illustrate a meta-analysis allowing for spatial correlation in the outcomes.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>ecology, climate change, spatial correlation
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Maire, A., Thierry, E., Viechtbauer, W., &amp; Daufresne, M. (2019). Poleward shift in large-river fish communities detected with a novel meta-analysis framework. <em>Freshwater Biology</em>, <b>64</b>(6), 1143&ndash;1156. <code style="white-space: pre;">https://doi.org/10.1111/fwb.13291</code>
+</p>
+
+
+<h3>References</h3>
+
+<p>Hamed, K. H., &amp; Rao, A. R. (1998). A modified Mann-Kendall trend test for autocorrelated data. <em>Journal of Hydrology</em>, <b>204</b>(1-4), 182&ndash;196. <code style="white-space: pre;">https://doi.org/10.1016/S0022-1694(97)00125-X</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.maire2019$dat
+dat[-10]
+
+### copy distance matrix into 'dmat' and examine first 5 rows/columns
+dmat &lt;- dat.maire2019$dmat
+dmat[1:5,1:5]
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### fit a standard random-effects model ignoring spatial correlation
+res1 &lt;- rma.mv(s1, vars1, random = ~ 1 | site_station, data=dat)
+res1
+
+### fit model allowing for spatial correlation
+res2 &lt;- rma.mv(s1, vars1, random = ~ site_station | const, struct="SPGAU",
+               data=dat, dist=list(dmat), control=list(rho.init=10))
+res2
+
+### add random effects for sites and stations within sites
+res3 &lt;- rma.mv(s1, vars1, random = list(~ 1 | site/station, ~ site_station | const), struct="SPGAU",
+               data=dat, dist=list(dmat), control=list(rho.init=10))
+res3
+
+### likelihood ratio tests comparing the models
+anova(res1, res2)
+anova(res2, res3)
+
+### profile likelihood plots for model res2
+profile(res2, cline=TRUE)
+
+### effective range (river-km for which the spatial correlation is &gt;= .05)
+sqrt(3) * res2$rho
+
+### note: it was necessary to adjust the starting value for rho in models
+### res2 and res3 so that the optimizer does not get stuck in a local maximum
+profile(res2, rho=1, xlim=c(0,200), steps=100)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

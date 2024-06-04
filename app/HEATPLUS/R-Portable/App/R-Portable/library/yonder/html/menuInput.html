@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Menu inputs</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for menuInput {yonder}"><tr><td>menuInput {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Menu inputs</h2>
+
+<h3>Description</h3>
+
+<p>A toggleable dropdown menu input. Menu inputs may be used as standalone
+reactive inputs or within a <code><a href="../../yonder/help/navInput.html">navInput()</a></code>. For building custom, more complex
+dropdown elements please see <code><a href="../../yonder/help/dropdown.html">dropdown()</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+menuInput(
+  id,
+  label,
+  choices = NULL,
+  values = choices,
+  selected = NULL,
+  ...,
+  direction = "down",
+  align = "left"
+)
+
+updateMenuInput(
+  id,
+  label = NULL,
+  choices = NULL,
+  values = choices,
+  selected = NULL,
+  enable = NULL,
+  disable = NULL,
+  session = getDefaultReactiveDomain()
+)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>id</code></td>
+<td>
+<p>A character string specifying the id of the reactive input.</p>
+</td></tr>
+<tr valign="top"><td><code>label</code></td>
+<td>
+<p>A character string or tag element specifying the label of the
+menu's toggle button.</p>
+</td></tr>
+<tr valign="top"><td><code>choices</code></td>
+<td>
+<p>A character vector specifying the choice text of the menu's
+items.</p>
+</td></tr>
+<tr valign="top"><td><code>values</code></td>
+<td>
+<p>A character vector specifying the values of the menu's items,
+defaults to <code>choices</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>selected</code></td>
+<td>
+<p>One or more of <code>values</code> specifying which choices are
+selected by default, defaults to <code>NULL</code>, in which case no choices are
+initially selected.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional named arguments passed as HTML attributes to the
+parent element or tag elements passed as child elements to the parent
+element.</p>
+</td></tr>
+<tr valign="top"><td><code>direction</code></td>
+<td>
+<p>One of <code>"up"</code>, <code>"right"</code>, <code>"down"</code>, or <code>"left"</code> specifying
+which direction the menu opens, defaults to <code>"down"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>align</code></td>
+<td>
+<p>One or <code>"right"</code> or <code>"left"</code> specifying which side of the
+toggle button the menu aligns to, defaults to <code>"left"</code>.'</p>
+</td></tr>
+<tr valign="top"><td><code>enable</code></td>
+<td>
+<p>One of <code>values</code> specifying particular choices to enable or
+<code>TRUE</code> specifying the entire input is enabled, defaults to <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>disable</code></td>
+<td>
+<p>One of <code>values</code> specifying particular choices to disable or
+<code>TRUE</code> specifying the entire input is disabled, defaults to <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>session</code></td>
+<td>
+<p>A reactive context, defaults to <code><a href="../../crosstalk/html/getDefaultReactiveDomain.html">getDefaultReactiveDomain()</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p>Other inputs: 
+<code><a href="../../yonder/help/buttonGroupInput.html">buttonGroupInput</a>()</code>,
+<code><a href="../../yonder/help/buttonInput.html">buttonInput</a>()</code>,
+<code><a href="../../yonder/help/checkbarInput.html">checkbarInput</a>()</code>,
+<code><a href="../../yonder/help/checkboxInput.html">checkboxInput</a>()</code>,
+<code><a href="../../yonder/help/chipInput.html">chipInput</a>()</code>,
+<code><a href="../../yonder/help/fileInput.html">fileInput</a>()</code>,
+<code><a href="../../yonder/help/formInput.html">formInput</a>()</code>,
+<code><a href="../../yonder/help/listGroupInput.html">listGroupInput</a>()</code>,
+<code><a href="../../yonder/help/navInput.html">navInput</a>()</code>,
+<code><a href="../../yonder/help/radioInput.html">radioInput</a>()</code>,
+<code><a href="../../yonder/help/radiobarInput.html">radiobarInput</a>()</code>,
+<code><a href="../../yonder/help/rangeInput.html">rangeInput</a>()</code>,
+<code><a href="../../yonder/help/selectInput.html">selectInput</a>()</code>,
+<code><a href="../../yonder/help/textInput.html">textInput</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+### A simple menu
+
+menuInput(
+  id = "menu1",
+  label = "Menu",
+  choices = c(
+    "Choice 1",
+    "Choice 2",
+    "Choice 3"
+  )
+)
+
+### Use in navigation
+
+navInput(
+  id = "nav1",
+  choices = list(
+    "Tab 1",
+    menuInput(
+      id = "navOptions",
+      label = "Tab 2",
+      choices = c(
+        "Option 1",
+        "Option 2",
+        "Option 3"
+      )
+    ),
+    "Tab 3",
+    "Tab 4"
+  ),
+  values = paste0("tab", 1:4)
+)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Assessing the Function of House Sparrows' Bib Size Using a...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.nakagawa2007 {metadat}"><tr><td>dat.nakagawa2007 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Assessing the Function of House Sparrows' Bib Size Using a Flexible Meta-Analysis Method</h2>
+
+<h3>Description</h3>
+
+<p>A meta-analysis on the association between the size of a male's bib and their social status in house sparrows (<em>Passer domesticus</em>).</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.nakagawa2007
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>StudyID</b>     </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> identity of primary study </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>Place</b>       </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> location of study population </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>Correlation</b> </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> correlation coefficient </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>SampleSize</b>  </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> sample size of population </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>Each study measures the association between a sparrows bib size and its social status. Effects are quantified as correlation coefficients.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>ecology, correlation coefficients
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Daniel Noble, <a href="mailto:daniel.noble@anu.edu.au">daniel.noble@anu.edu.au</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Nakagawa, S., Ockendon, N., Gillespie, D. O. S, Hatchwell, B. J., &amp; Burke, T. (2007). Assessing the function of house sparrows' bib size using a flexible meta-analysis method. <em>Behavioral Ecology</em>, <b>18</b>(5), 831&ndash;840. <code style="white-space: pre;">https://doi.org/10.1093/beheco/arm050</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.nakagawa2007
+dat
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### calculate Zr
+dat &lt;- escalc(measure="ZCOR", ri=Correlation, ni=SampleSize, data=dat)
+
+### fit meta-analytic model
+res &lt;- rma.mv(yi, vi, random = list(~ 1 | StudyID), data=dat)
+res
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

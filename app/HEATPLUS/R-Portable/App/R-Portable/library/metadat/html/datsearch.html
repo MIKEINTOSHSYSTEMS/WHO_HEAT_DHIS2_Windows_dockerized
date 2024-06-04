@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Search Function for the Datasets</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for datsearch {metadat}"><tr><td>datsearch {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Search Function for the Datasets</h2>
+
+<h3>Description</h3>
+
+<p>Function to search among the existing datasets.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+datsearch(pattern, concept=TRUE, matchall=TRUE, fixed=TRUE, pkgdown=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>pattern</code></td>
+<td>
+<p>character string or vector of strings specifying the terms to search for within the datasets. Can also be left unspecified to start the function in an interactive mode.</p>
+</td></tr>
+<tr valign="top"><td><code>concept</code></td>
+<td>
+<p>logical indicating whether the search should be confined to the concept terms (<code>TRUE</code> by default) or whether a full-text search should be conducted.</p>
+</td></tr>
+<tr valign="top"><td><code>matchall</code></td>
+<td>
+<p>logical indicating whether only the datasets matching all terms (if multiple are specified) are returned (<code>TRUE</code> by default) or whether datasets matching any one of the terms are returned.</p>
+</td></tr>
+<tr valign="top"><td><code>fixed</code></td>
+<td>
+<p>logical indicating whether a term is a string to be matched as is (<code>TRUE</code> by default). If <code>FALSE</code>, a search term is a regular expression that <code><a href="../../base/html/grep.html">grep</a></code> will search for. Only relevant when <code>concept=FALSE</code> (i.e., when doing a full-text search).</p>
+</td></tr>
+<tr valign="top"><td><code>pkgdown</code></td>
+<td>
+<p>logical indicating whether the standard help file or the pkgdown docs (at <a href="https://wviechtb.github.io/metadat/">https://wviechtb.github.io/metadat/</a>) should be shown for a chosen dataset (<code>FALSE</code> by default).</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function can be used to search all existing datasets in the <span class="pkg">metadat</span> package based on their concept terms (see below) or based on a full-text search of their corresponding help files.
+</p>
+<p>When running <code>datsearch()</code> without the <code>pattern</code> argument specified, the function starts in an interactive mode and prompts for one or multiple search terms.
+</p>
+<p>Alternatively, one can specify a single search term via the <code>pattern</code> argument or multiple search terms by using a string vector as the <code>pattern</code> or by separating multiple search terms in a single string with &lsquo;,&rsquo;, &lsquo;;&rsquo;, or &lsquo;and&rsquo;.
+</p>
+<p>If <code>matchall=TRUE</code> (the default), only datasets matching all search terms (if multiple are specified) are returned. If <code>matchall=FALSE</code>, datasets matching any one of the search terms are returned.
+</p>
+<p>If a single match is found, the corresponding help file is directly shown. If multiple matches are found, the user is prompted to choose one of the matching datasets of interest.
+</p>
+<p><b>Concept Terms</b>
+</p>
+<p>Each dataset is tagged with one or multiple concept terms that refer to various aspects of a dataset, such as the field/topic of research, the outcome measure used for the analysis, the model(s) used for analyzing the data, and the methods/concepts that can be illustrated with the dataset.
+</p>
+
+<ul>
+<li><p> In terms of &lsquo;fields/topics&rsquo;, the following terms have been used at least once: alternative medicine, attraction, cardiology, climate change, covid-19, criminology, dentistry, ecology, education, engineering, epidemiology, evolution, genetics, human factors, medicine, memory, obstetrics, oncology, persuasion, primary care, psychiatry, psychology, smoking, social work, sociology.
+</p>
+</li>
+<li><p> In terms of &lsquo;outcome measures&rsquo;, the following terms have been used at least once: correlation coefficients, Cronbach's alpha, hazard ratios, incidence rates, raw mean differences, odds ratios, proportions, ratios of means, raw means, risk differences, risk ratios, (semi-)partial correlations, standardized mean changes, standardized mean differences.
+</p>
+</li>
+<li><p> In terms of &lsquo;models/methods/concepts&rsquo;, the following terms have been used at least once: cluster-robust inference, component network meta-analysis, cumulative meta-analysis, diagnostic accuracy studies, dose response models, generalized linear models, longitudinal models, Mantel-Haenszel method, meta-regression, model checks, multilevel models, multivariate models, network meta-analysis, outliers, Peto's method, phylogeny, publication bias, reliability generalization, single-arm studies, spatial correlation.
+</p>
+</li></ul>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Daniel Noble, <a href="mailto:daniel.noble@anu.edu.au">daniel.noble@anu.edu.au</a> <br />
+Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# note: the examples below are not run since they require interactivity
+
+if (FALSE) {
+
+   # start the function in the interactive mode
+   datsearch()
+
+   # find all datasets tagged with the concept term 'standardized mean differences'
+   datsearch("standardized mean differences")
+
+   # find all datasets tagged with the concept terms 'odds ratio' and 'multilevel'
+   datsearch("odds ratio, multilevel")
+
+   # do a full-text search for the term 'infarct'
+   datsearch("infarct", concept=FALSE)
+
+   # do a full-text search for 'rma.mv(' (essentially finds all datasets where
+   # the rma.mv() function was used in the examples section of a help file)
+   datsearch("rma.mv(", concept=FALSE)
+
+}
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

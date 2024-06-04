@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on the Association between Handedness and...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.bourassa1996 {metadat}"><tr><td>dat.bourassa1996 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on the Association between Handedness and Eye-Dominance</h2>
+
+<h3>Description</h3>
+
+<p>Results from 47 studies on the association between handedness and eye-dominance. <script id="MathJax-script" async src="../../mathjaxr/doc/mathjax/es5/tex-chtml-full.js"></script></p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.bourassa1996
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>study</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> study number </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>sample</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> sample number </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>author</b>       </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> (first) author </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>year</b>         </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> publication year </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>selection</b>    </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> selection of subjects on the basis of eyedness or handedness </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>investigator</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> investigator (psychologist, educationalist, or other) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>hand_assess</b>  </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> method to assess handedness (questionnaire or performance based) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>eye_assess</b>   </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> method to assess eyedness (see &lsquo;Details&rsquo;) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>mage</b>         </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> mean age of sample </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>lh.le</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of left-handed left-eyed individuals </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>lh.re</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of left-handed right-eyed individuals </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>rh.le</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of right-handed left-eyed individuals </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>rh.re</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of right-handed right-eyed individuals </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>sex</b>          </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> sex of the sample (combined, male, or female)
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>The 47 studies included in this meta-analysis examined the association between handedness and eye-dominance (ocular dominance or eyedness). Results are given in terms of \(2 \times 2\) tables, indicating the number of left-handed left-eyed, left-handed right-eyed, right-handed left-eyed, and right-handed right-eyed individuals. Note that some studies included multiple (independent) samples, so that the meta-analysis included 54 samples in total. Also, for some studies, the combined data of the males and females are further broken down into the two subgroups.
+</p>
+<p>In some studies, there was indication that the selection of subjects was not random with respect to handedness and/or eyedness. While this should not influence the size of the association as measured with the odds ratio, this invalidates those studies for assessing the overall percentage of left-eyed and left-handed individuals.
+</p>
+<p>Handedness was assessed in the individual studies either based on a questionnaire or inventory or based on task performance. Eyedness was assessed based on various methods: <code>E.1</code> methods are based on task performance, while <code>E.2.a</code> denotes assessment based on a questionnaire. The performance based methods could be further broken down into: <code>E.1.a.i</code> (monocular procedure with object/instrument held in one hand), <code>E.1.a.ii</code> (monocular procedure with object/instrument held in both hands), <code>E.1.b</code> (binocular procedure), <code>E.1.c</code> (a combination of the previous methods), and <code>E.1.d</code> (some other method).
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>psychology, odds ratios
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Bourassa, D. C., McManus, I. C., &amp; Bryden, M. P. (1996). Handedness and eye-dominance: A meta-analysis of their relationship. <em>Laterality</em>, <b>1</b>(1), 5&ndash;34. <code style="white-space: pre;">https://doi.org/10.1080/713754206</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.bourassa1996
+head(dat, 10)
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### calculate log(OR) and corresponding sampling variance with 1/2 correction
+dat &lt;- escalc(measure="OR", ai=lh.le, bi=lh.re, ci=rh.le, di=rh.re, data=dat, add=1/2, to="all")
+head(dat, 10)
+
+### overall association between handedness and eyedness
+res &lt;- rma(yi, vi, data=dat, subset=sex=="combined")
+res
+predict(res, transf=exp, digits=2)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

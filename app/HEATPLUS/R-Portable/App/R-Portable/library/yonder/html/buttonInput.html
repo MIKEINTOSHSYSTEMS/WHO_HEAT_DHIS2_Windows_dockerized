@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Button and link inputs</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for buttonInput {yonder}"><tr><td>buttonInput {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Button and link inputs</h2>
+
+<h3>Description</h3>
+
+<p>Button inputs are useful as triggers for reactive or observer expressions.
+The reactive value of a button input begins as <code>NULL</code>, but subsequently is
+the number of clicks.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+buttonInput(id, label, ..., stretch = FALSE, download = FALSE, tooltip = NULL)
+
+updateButtonInput(
+  id,
+  label = NULL,
+  value = NULL,
+  disable = NULL,
+  enable = NULL,
+  tooltip = NULL,
+  session = getDefaultReactiveDomain()
+)
+
+linkInput(id, label, ..., stretch = FALSE, download = FALSE, tooltip = NULL)
+
+updateLinkInput(
+  id,
+  label = NULL,
+  value = NULL,
+  enable = NULL,
+  disable = NULL,
+  tooltip = NULL,
+  session = getDefaultReactiveDomain()
+)
+
+tooltip(..., placement = "top", fade = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>id</code></td>
+<td>
+<p>A character string specifying the id of the reactive input.</p>
+</td></tr>
+<tr valign="top"><td><code>label</code></td>
+<td>
+<p>A character string specifying the label text on the button or
+link input.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional named arguments passed as HTML attributes to the parent
+element.</p>
+</td></tr>
+<tr valign="top"><td><code>stretch</code></td>
+<td>
+<p>One of <code>TRUE</code> or <code>FALSE</code> specifying stretched behaviour for
+the button or link input, defaults to <code>FALSE</code>. If <code>TRUE</code>, the button or
+link will receive clicks from its containing block element. For example, a
+stretched button or link inside a <code><a href="../../yonder/help/card.html">card()</a></code> would update whenever the user
+clicked on the card.</p>
+</td></tr>
+<tr valign="top"><td><code>download</code></td>
+<td>
+<p>One of <code>TRUE</code> or <code>FALSE</code> specifying if the button or link
+input is used to trigger a download, defaults to <code>FALSE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>tooltip</code></td>
+<td>
+<p>A call to <code><a href="../../yonder/help/tooltip.html">tooltip()</a></code> specifying a tooltip for the button or
+link input, defaults to <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+<p>A number specifying a new value for the button, defaults to
+<code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>disable</code></td>
+<td>
+<p>if <code>TRUE</code> the button is disabled and will not react to clicks
+from the user, default to <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>enable</code></td>
+<td>
+<p>If <code>TRUE</code> the button is enabled and will react to clicks from
+the user,  defaults to <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>session</code></td>
+<td>
+<p>A reactive context, defaults to <code><a href="../../crosstalk/html/getDefaultReactiveDomain.html">getDefaultReactiveDomain()</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>placement</code></td>
+<td>
+<p>One of <code>"top"</code>, <code>"right"</code>, <code>"bottom"</code>, or <code>"left"</code>
+specifying what side of the tag element the tooltip appears on.</p>
+</td></tr>
+<tr valign="top"><td><code>fade</code></td>
+<td>
+<p>One of <code>TRUE</code> or <code>FALSE</code> specifying if the tooltip fades in when
+shown and fades out when hidden, defaults to <code>TRUE</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><strong>Tooltips</strong>
+</p>
+<p>To remove a button or link input's tooltip pass an empty tooltip,
+<code>tooltip()</code>, to <code>updateButtonInput()</code> or <code>updateLinkInput()</code>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other inputs: 
+<code><a href="../../yonder/help/buttonGroupInput.html">buttonGroupInput</a>()</code>,
+<code><a href="../../yonder/help/checkbarInput.html">checkbarInput</a>()</code>,
+<code><a href="../../yonder/help/checkboxInput.html">checkboxInput</a>()</code>,
+<code><a href="../../yonder/help/chipInput.html">chipInput</a>()</code>,
+<code><a href="../../yonder/help/fileInput.html">fileInput</a>()</code>,
+<code><a href="../../yonder/help/formInput.html">formInput</a>()</code>,
+<code><a href="../../yonder/help/listGroupInput.html">listGroupInput</a>()</code>,
+<code><a href="../../yonder/help/menuInput.html">menuInput</a>()</code>,
+<code><a href="../../yonder/help/navInput.html">navInput</a>()</code>,
+<code><a href="../../yonder/help/radioInput.html">radioInput</a>()</code>,
+<code><a href="../../yonder/help/radiobarInput.html">radiobarInput</a>()</code>,
+<code><a href="../../yonder/help/rangeInput.html">rangeInput</a>()</code>,
+<code><a href="../../yonder/help/selectInput.html">selectInput</a>()</code>,
+<code><a href="../../yonder/help/textInput.html">textInput</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+### A simple button
+
+buttonInput(
+  id = "button1",
+  label = "Simple"
+)
+
+# Alternatively, a button can fill the width of its parent element.
+
+buttonInput(
+  id = "button2",
+  label = "Full-width",
+  fill = TRUE  # &lt;-
+) %&gt;%
+  background("red")
+
+# Use design utilities to further adjust the width of a button.
+
+buttonInput(
+  id = "button3",
+  label = "Full and back again",
+  fill = TRUE  # &lt;-
+) %&gt;%
+  background("red") %&gt;%
+  width("3/4")  # &lt;-
+
+### Possible colors
+
+colors &lt;- c(
+  "red", "purple", "indigo", "blue", "cyan", "teal", "green",
+  "yellow", "amber", "orange", "grey"
+)
+
+lapply(
+  colors,
+  function(color) {
+    buttonInput(
+      id = color,
+      label = color
+    ) %&gt;%
+      background(color) %&gt;%
+      margin(2)
+  }
+) %&gt;%
+  div() %&gt;%
+  display("flex") %&gt;%
+  flex(wrap = TRUE)
+
+### Reactive links
+
+div("Curabitur ", linkInput("link1", "vulputate"), " vestibulum lorem.")
+
+### Stretched buttons and links
+
+card(
+  header = "Card with stretched button",
+  p("Notice when you hover over the card, the button also detects ",
+    "the hover."),
+  buttonInput(
+    id = "go",
+    label = "Go go go",
+    stretch = TRUE
+  ) %&gt;%
+    background("blue")
+) %&gt;%
+  width(20)
+
+### Download button
+
+buttonInput(
+  download = TRUE,
+  id = "download1",
+  label = "Download",
+  icon("download")
+)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on Classes of Antidepressants for the Primary Care...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.linde2015 {metadat}"><tr><td>dat.linde2015 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on Classes of Antidepressants for the Primary Care Setting</h2>
+
+<h3>Description</h3>
+
+<p>Results from 66 trials examining eight classes of antidepressants and placebo for the primary care setting.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.linde2015
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>id</b>         </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> study ID </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>author</b>     </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> first author </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>year</b>       </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> year of publication </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>treatment1</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> treatment 1 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>treatment2</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> treatment 2 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>treatment3</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> treatment 3 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n1</b>         </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> number of patients (arm 1) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>resp1</b>      </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> number of early responder (arm 1) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>remi1</b>      </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> number of early remissions (arm 1) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>loss1</b>      </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> number of patients loss to follow-up (arm 1) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>loss.ae1</b>   </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> number of patients loss to follow-up due to adverse events (arm 1) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ae1</b>        </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> number of patients with adverse events (arm 1) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n2</b>         </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> number of patients (arm 2) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>resp2</b>      </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> number of early responder (arm 2) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>remi2</b>      </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> number of early remissions (arm 2) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>loss2</b>      </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> number of patients loss to follow-up (arm 2) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>loss.ae2</b>   </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> number of patients loss to follow-up due to adverse events (arm 2) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ae2</b>        </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> number of patients with adverse events (arm 2) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n3</b>         </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> number of patients (arm 3) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>resp3</b>      </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> number of early responder (arm 3) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>remi3</b>      </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> number of early remissions (arm 3) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>loss3</b>      </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> number of patients loss to follow-up (arm 3) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>loss.ae3</b>   </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> number of patients loss to follow-up due to adverse events (arm 3) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ae3</b>        </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> number of patients with adverse events (arm 3)
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>This data set comes from a systematic review of 8 pharmacological treatments of depression and placebo in primary care with 66 studies (8 of which were 3-arm studies) including 14,785 patients.
+</p>
+<p>The primary outcome is early response, defined as at least a 50% score reduction on a depression scale after completion of treatment. Secondary outcomes (also measured as dichotomous) were early remission (defined as having a symptom score below a fixed threshold after completion of treatment), lost to follow-up, lost to follow-up due to adverse events, and any adverse event. The odds ratio was used as effect measure.
+</p>
+<p>This data set was used as an example in Rücker and Schwarzer (2017) who introduced methods to resolve conflicting rankings of outcomes in network meta-analysis.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>medicine, psychiatry, odds ratios, network meta-analysis
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Guido Schwarzer, <a href="mailto:sc@imbi.uni-freiburg.de">sc@imbi.uni-freiburg.de</a>, <a href="https://github.com/guido-s/">https://github.com/guido-s/</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Linde, K., Kriston, L., Rücker, G., Jamil, S., Schumann, I., Meissner, K., Sigterman, K., &amp; Schneider, A. (2015). Efficacy and acceptability of pharmacological treatments for depressive disorders in primary care: Systematic review and network meta-analysis. <em>Annals of Family Medicine</em>, <b>13</b>(1), 69&ndash;79. <code style="white-space: pre;">https://doi.org/10.1370/afm.1687</code>
+</p>
+
+
+<h3>References</h3>
+
+<p>Rücker, G., &amp; Schwarzer, G. (2017). Resolve conflicting rankings of outcomes in network meta-analysis: Partial ordering of treatments. <em>Research Synthesis Methods</em>, <b>8</b>(4), 526&ndash;536. <code style="white-space: pre;">https://doi.org/10.1002/jrsm.1270</code>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../netmeta/help/pairwise.html">pairwise</a></code>, <code><a href="../../meta/help/metabin.html">metabin</a></code>, <code><a href="../../netmeta/help/netmeta.html">netmeta</a></code>, <code><a href="../../netmeta/help/netrank.html">netrank</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### Show results from first three studies (including three-arm study
+### Lecrubier 1997)
+head(dat.linde2015, 3)
+
+## Not run: 
+
+### Load netmeta package
+suppressPackageStartupMessages(library(netmeta))
+
+### Print odds ratios and confidence limits with two digits
+settings.meta(digits = 2)
+
+### Change appearance of confidence intervals
+cilayout("(", "-")
+
+### Define order of treatments in printouts
+trts &lt;- c("TCA", "SSRI", "SNRI", "NRI", "Low-dose SARI",
+ "NaSSa", "rMAO-A", "Hypericum", "Placebo")
+
+### Transform data from wide arm-based format to contrast-based format
+### (outcome: early response). Argument 'sm' has to be used for odds
+### ratio as summary measure; by default the risk ratio is used in the
+### metabin function called internally.
+pw1 &lt;- pairwise(list(treatment1, treatment2, treatment3),
+  event = list(resp1, resp2, resp3),
+  n = list(n1, n2, n3),
+  studlab = id, data = dat.linde2015, sm = "OR")
+
+### Conduct random effects network meta-analysis for primary outcome
+### (early response); small number of early responses is bad (argument
+### small.values)
+net1 &lt;- netmeta(pw1, fixed = FALSE, reference = "Placebo", seq = trts,
+  small.values = "bad")
+net1
+
+### Random effects NMA for early remission
+pw2 &lt;- pairwise(treat = list(treatment1, treatment2, treatment3),
+  event = list(remi1, remi2, remi3),
+  n = list(n1, n2, n3),
+  studlab = id, data = dat.linde2015, sm = "OR")
+net2 &lt;- netmeta(pw2, fixed = FALSE,
+   seq = trts, ref = "Placebo", small.values = "bad")
+net2
+
+### Ranking of treatments
+nr1 &lt;- netrank(net1)
+nr2 &lt;- netrank(net2)
+nr1
+nr2
+
+### Partial order of treatment rankings (two outcomes)
+outcomes &lt;- c("Early response", "Early remission")
+po12 &lt;- netposet(nr1, nr2, outcomes = outcomes)
+plot(po12)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

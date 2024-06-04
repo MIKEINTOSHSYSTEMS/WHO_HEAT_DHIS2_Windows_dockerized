@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Add new record in DHS survey geo dataset that is a duplicate...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for multi_use_survey_geo {heatdata}"><tr><td>multi_use_survey_geo {heatdata}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Add new record in DHS survey geo dataset that is a duplicate of an existing year except includes a new year.</h2>
+
+<h3>Description</h3>
+
+<p>Add new record in DHS survey geo dataset that is a duplicate of an existing year except includes a new year.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+multi_use_survey_geo(
+  .data,
+  setting_iso3,
+  existing_year,
+  new_years,
+  keep_existing = TRUE
+)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>setting_iso3</code></td>
+<td>
+<p>ISO3 of focus country</p>
+</td></tr>
+<tr valign="top"><td><code>existing_year</code></td>
+<td>
+<p>the year with real data from the DHS survey</p>
+</td></tr>
+<tr valign="top"><td><code>new_years</code></td>
+<td>
+<p>the years you want to get the same data as the existing year</p>
+</td></tr>
+<tr valign="top"><td><code>keep_existing</code></td>
+<td>
+<p>should the record for the existing year stay in the dataset</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>as an example, the DHS survey might include Peru 2007 but the WHO HEAT data includes Peru 2008 and 2008
+is not available in the DHS data. Use this function to add a new recode with year 2008 that is identical
+to 2007 except the year is changed to 2008. The default is to keep the existing record so in this case you
+end up with two records with the same geography but one has year = 2007 and one is year = 2008.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>heatdata</em> version 0.0.1 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

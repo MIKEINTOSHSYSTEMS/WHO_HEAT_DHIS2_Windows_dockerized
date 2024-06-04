@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on the Association between Circumcision and HIV...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.vanhowe1999 {metadat}"><tr><td>dat.vanhowe1999 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on the Association between Circumcision and HIV Infection</h2>
+
+<h3>Description</h3>
+
+<p>Results from 33 studies examining the association between male circumcision and HIV infection. <script id="MathJax-script" async src="../../mathjaxr/doc/mathjax/es5/tex-chtml-full.js"></script></p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.vanhowe1999
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>study</b>    </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> study author </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>category</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> study type (high-risk group, partner study, or population survey) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>non.pos</b>  </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of non-circumcised HIV positive cases </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>non.neg</b>  </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of non-circumcised HIV negative cases </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>cir.pos</b>  </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of circumcised HIV positive cases </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>cir.neg</b>  </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of circumcised HIV negative cases
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>The 33 studies provide data in terms of \(2 \times 2\) tables in the form:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+                   </td><td style="text-align: center;"> HIV positive   </td><td style="text-align: center;"> HIV negative </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   non-circumcised </td><td style="text-align: center;"> <code>non.pos</code> </td><td style="text-align: center;"> <code>non.neg</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   circumcised     </td><td style="text-align: center;"> <code>cir.pos</code> </td><td style="text-align: center;"> <code>cir.neg</code>
+   </td>
+</tr>
+
+</table>
+<p> The goal of the meta-analysis was to examine if the risk of an HIV infection differs between non-circumcised versus circumcised men.
+</p>
+<p>The dataset is interesting because it can be used to illustrate the difference between naively pooling results by summing up the counts across studies and then computing the odds ratio based on the aggregated table (as was done by Van Howe, 1999) and conducting a proper meta-analysis (as illustrated by O'Farrell &amp; Egger, 2000). In fact, a proper meta-analysis shows that the HIV infection risk is on average higher in non-circumcised men, which is the opposite of what the naive pooling approach yields (which makes this an illustration of Simpson's paradox).
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>medicine, epidemiology, odds ratios
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Van Howe, R. S. (1999). Circumcision and HIV infection: Review of the literature and meta-analysis. <em>International Journal of STD &amp; AIDS</em>, <b>10</b>(1), 8&ndash;16. <code style="white-space: pre;">https://doi.org/10.1258/0956462991913015</code>
+</p>
+
+
+<h3>References</h3>
+
+<p>O'Farrell, N., &amp; Egger, M. (2000). Circumcision in men and the prevention of HIV infection: A 'meta-analysis' revisited. <em>International Journal of STD &amp; AIDS</em>, <b>11</b>(3), 137&ndash;142. <code style="white-space: pre;">https://doi.org/10.1258/0956462001915480</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.vanhowe1999
+dat
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### naive pooling by summing up the counts within categories and then
+### computing the odds ratios and corresponding confidence intervals
+cat1 &lt;- with(dat[dat$category=="high-risk group",],
+   escalc(measure="OR", ai=sum(non.pos), bi=sum(non.neg), ci=sum(cir.pos), di=sum(cir.neg)))
+cat2 &lt;- with(dat[dat$category=="partner study",],
+   escalc(measure="OR", ai=sum(non.pos), bi=sum(non.neg), ci=sum(cir.pos), di=sum(cir.neg)))
+cat3 &lt;- with(dat[dat$category=="population survey",],
+   escalc(measure="OR", ai=sum(non.pos), bi=sum(non.neg), ci=sum(cir.pos), di=sum(cir.neg)))
+summary(cat1, transf=exp, digits=2)
+summary(cat2, transf=exp, digits=2)
+summary(cat3, transf=exp, digits=2)
+
+### naive pooling across all studies
+all &lt;- escalc(measure="OR", ai=sum(dat$non.pos), bi=sum(dat$non.neg),
+                            ci=sum(dat$cir.pos), di=sum(dat$cir.neg))
+summary(all, transf=exp, digits=2)
+
+### calculate log odds ratios and corresponding sampling variances
+dat &lt;- escalc(measure="OR", ai=non.pos, bi=non.neg, ci=cir.pos, di=cir.neg, data=dat)
+dat
+
+### random-effects model
+res &lt;- rma(yi, vi, data=dat, method="DL")
+res
+predict(res, transf=exp, digits=2)
+
+### random-effects model within subgroups
+res &lt;- rma(yi, vi, data=dat, method="DL", subset=category=="high-risk group")
+predict(res, transf=exp, digits=2)
+res &lt;- rma(yi, vi, data=dat, method="DL", subset=category=="partner study")
+predict(res, transf=exp, digits=2)
+res &lt;- rma(yi, vi, data=dat, method="DL", subset=category=="population survey")
+predict(res, transf=exp, digits=2)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on the Association Between Supervision Quality and...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.aloe2013 {metadat}"><tr><td>dat.aloe2013 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on the Association Between Supervision Quality and Various Outcomes in Social, Mental Health, and Child Welfare Workers</h2>
+
+<h3>Description</h3>
+
+<p>Results from 5 studies examining the association between various measures of supervision quality and various work-related outcomes in social, mental health, and child welfare workers.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.aloe2013
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>study</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> study author(s) and year </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n</b>     </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> sample size </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>tval</b>  </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> t-statistic for the test of the association/predictor </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>preds</b> </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> number of predictors included in the regression model </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>R2</b>    </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> the coefficient of determination (i.e., R-squared value) of the regression model </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+</td>
+</tr>
+
+</table>
+  
+
+
+<h3>Details</h3>
+
+<p>The dataset is based on studies that used regression models to examine the association between some measure of perceived supervision quality (e.g., the quality of the relationship with one's supervisor) and some work-related outcome (e.g., job satisfaction) in social, mental health, and child welfare workers. The dataset was extracted from Aloe and Thompson (2013), which in turn is a subset of the studies included in the meta-analysis by Mor Barak et al. (2009).
+</p>
+<p>The dataset can be used to illustrate the meta-analysis of regression models, using measures such as the (semi-)partial correlation coefficient. For this, the t-statistic from the regression model for the association (i.e., predictor) of interest was extracted from each regression model (<code>tval</code>), as well as the sample size (<code>n</code>), the number of predictors included in the regression model (<code>preds</code>), and the coefficient of determination (i.e., R-squared value) of the regression model (<code>R2</code>). Based on this information, the (semi-)partial correlation coefficient can be computed for each study, as well as its corresponding sampling variance. These values can then be meta-analyzed using standard methods.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>social work, (semi-)partial correlations, meta-regression
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Aloe, A. M., &amp; Thompson, C. G. (2013). The synthesis of partial effect sizes. <em>Journal of the Society for Social Work and Research</em>, <b>4</b>(4), 390&ndash;405. <code style="white-space: pre;">https://doi.org/10.5243/jsswr.2013.24</code>
+</p>
+
+
+<h3>References</h3>
+
+<p>Mor Barak, M. E., Travis, D. J., Pyun, H., &amp; Xie, B. (2009). The impact of supervision on worker outcomes: A meta-analysis. <em>Social Service Review</em>, <b>83</b>(1), 3&ndash;32. <code style="white-space: pre;">https://doi.org/10.1086/599028</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.aloe2013
+dat
+
+## Not run: 
+
+### load metafor package
+suppressPackageStartupMessages(library(metafor))
+
+### compute the partial correlation coefficients and corresponding sampling variances
+dat &lt;- escalc(measure="PCOR", ti=tval, ni=n, mi=preds, data=dat)
+dat
+
+### random-effects model
+res &lt;- rma(yi, vi, data=dat)
+res
+
+### mixed-effects meta-regression model examining the relationship between the partial
+### correlation coefficients and the number of predictors included in the models
+res &lt;- rma(yi, vi, mods = ~ preds, data=dat)
+res
+
+### compute the r-to-z transformed partial correlation coefficients and their variances
+dat &lt;- escalc(measure="ZPCOR", ti=tval, ni=n, mi=preds, data=dat)
+dat
+
+### random-effects model
+res &lt;- rma(yi, vi, data=dat)
+res
+
+### back-transformation to the partial correlation scale
+predict(res, transf=transf.ztor)
+
+### compute the semi-partial correlation coefficients and their variances
+dat &lt;- escalc(measure="SPCOR", ti=tval, ni=n, mi=preds, r2i=R2, data=dat)
+dat
+
+### random-effects model
+res &lt;- rma(yi, vi, data=dat)
+res
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

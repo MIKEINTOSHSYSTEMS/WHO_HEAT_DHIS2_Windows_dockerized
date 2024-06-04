@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Height</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for height {yonder}"><tr><td>height {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Height</h2>
+
+<h3>Description</h3>
+
+<p>Utility function to change a tag element's height. Height is specified
+relative to the font size of page (browser default is 16px), relative to
+their parent element, or relative to the element's content.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+height(tag, size)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>tag</code></td>
+<td>
+<p>A tag element.</p>
+</td></tr>
+<tr valign="top"><td><code>size</code></td>
+<td>
+<p>A character string or number specifying the height of the tag
+element. Possible values:
+</p>
+<p>An integer between 1 and 20, in which case the height of the element is
+relative to the font size of the page.
+</p>
+<p><code>"full"</code>, in which case the element's height is a percentage of its
+parent's height. The height of the parent element must also be specified.
+Percentages do not account for margins or padding and may cause an element
+to extend beyond its parent.
+</p>
+<p><code>"auto"</code>, in which case the element's height is determined by the browser.
+The browser will take into account the height, padding, margins, and border
+of the tag element's parent to keep the element from extending beyond its
+parent.
+</p>
+<p><code>"screen"</code>, in which case the element's height is determined by the height of
+the viewport.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p>Other design utilities: 
+<code><a href="../../yonder/help/active.html">active</a>()</code>,
+<code><a href="../../yonder/help/affix.html">affix</a>()</code>,
+<code><a href="../../yonder/help/background.html">background</a>()</code>,
+<code><a href="../../yonder/help/border.html">border</a>()</code>,
+<code><a href="../../yonder/help/display.html">display</a>()</code>,
+<code><a href="../../yonder/help/float.html">float</a>()</code>,
+<code><a href="../../yonder/help/font.html">font</a>()</code>,
+<code><a href="../../yonder/help/padding.html">padding</a>()</code>,
+<code><a href="../../yonder/help/scroll.html">scroll</a>()</code>,
+<code><a href="../../yonder/help/shadow.html">shadow</a>()</code>,
+<code><a href="../../yonder/help/width.html">width</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+### Numeric values
+
+div(
+  lapply(
+    seq(2, 20, by = 2),
+    function(h) {
+      div(h) %&gt;%
+        width(2) %&gt;%
+        height(h) %&gt;%  # &lt;-
+        padding(l = 1) %&gt;%
+        border("black")
+    }
+  )
+) %&gt;%
+  display("flex") %&gt;%
+  flex(justify = "between")
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

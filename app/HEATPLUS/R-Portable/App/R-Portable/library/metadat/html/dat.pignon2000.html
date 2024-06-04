@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on the Effectiveness of Locoregional Treatment plus...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.pignon2000 {metadat}"><tr><td>dat.pignon2000 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on the Effectiveness of Locoregional Treatment plus Chemotherapy for Head and Neck Squamous-Cell Carcinoma</h2>
+
+<h3>Description</h3>
+
+<p>Results from studies examining mortality risk in patients with nonmetastatic head and neck squamous-cell carcinoma receiving either locoregional treatment plus chemotherapy versus locoregional treatment alone.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.pignon2000
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>id</b>         </td><td style="text-align: left;"> <code>numeric</code>    </td><td style="text-align: left;"> study id number </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>trial</b>      </td><td style="text-align: left;"> <code>character</code>  </td><td style="text-align: left;"> trial abbreviation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>OmE</b>        </td><td style="text-align: left;"> <code>numeric</code>    </td><td style="text-align: left;"> observed minus expected number of deaths in the locoregional treatment plus chemotherapy group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>V</b>          </td><td style="text-align: left;"> <code>numeric</code>    </td><td style="text-align: left;"> corresponding variance </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>grp</b>        </td><td style="text-align: left;"> <code>numeric</code>    </td><td style="text-align: left;"> timing of chemotherapy: 1 = adjuvant, 2 = neoadjuvant, 3 = concomitant
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>The purpose of this meta-analysis was to examine the mortality risk in patients with nonmetastatic head and neck squamous-cell carcinoma receiving either locoregional treatment plus chemotherapy versus locoregional treatment alone. For 65 trials, the dataset provides the observed minus expected number of deaths and corresponding variances in the locoregional treatment plus chemotherapy group. Based on these values, we can estimate the log hazard ratios with <code>OmE/V</code> and the corresponding sampling variance with <code>1/V</code>.
+</p>
+<p>The trials were also divided according to the timing of the chomotherapy: (1) adjuvant, after the locoregional treatment, (2) neoadjuvant, before the locoregional treatment, and (3) concomitant, chemotherapy given concomitantly or alternating with radiotherapy.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>medicine, oncology, hazard ratios
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Pignon, J. P., Bourhis, J., Domenge, C., &amp; Designe, L. (2000). Chemotherapy added to locoregional treatment for head and neck squamous-cell carcinoma: Three meta-analyses of updated individual data. <em>Lancet</em>, <b>355</b>(9208), 949&ndash;955. <code style="white-space: pre;">https://doi.org/10.1016/S0140-6736(00)90011-4</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.pignon2000
+head(dat)
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### calculate log hazard ratios and sampling variances
+dat$yi &lt;- with(dat, OmE/V)
+dat$vi &lt;- with(dat, 1/V)
+head(dat)
+
+### meta-analysis based on all 65 trials
+res &lt;- rma(yi, vi, data=dat, method="EE", digits=2)
+res
+predict(res, transf=exp)
+
+### only adjuvant trials
+res &lt;- rma(yi, vi, data=dat, method="EE", subset=grp==1, digits=2)
+res
+predict(res, transf=exp)
+
+### only neoadjuvant trials
+res &lt;- rma(yi, vi, data=dat, method="EE", subset=grp==2, digits=2)
+res
+predict(res, transf=exp)
+
+### only concomitant trials
+res &lt;- rma(yi, vi, data=dat, method="EE", subset=grp==3, digits=2)
+res
+predict(res, transf=exp)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

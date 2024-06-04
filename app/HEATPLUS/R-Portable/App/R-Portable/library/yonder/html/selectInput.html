@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Select inputs</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for selectInput {yonder}"><tr><td>selectInput {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Select inputs</h2>
+
+<h3>Description</h3>
+
+<p>Create a select input. Select elements typically appear as a simple menu of
+choices and may have one selected choice. A group select input is a select
+input with one or two additional components. These addon components are used
+to change the reactivity or value of the input, see Details for more
+information.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+selectInput(
+  id,
+  choices = NULL,
+  values = choices,
+  selected = values[[1]],
+  ...,
+  placeholder = NULL
+)
+
+updateSelectInput(
+  id,
+  choices = NULL,
+  values = choices,
+  selected = choices[[1]],
+  enable = NULL,
+  disable = NULL,
+  valid = NULL,
+  invalid = NULL,
+  session = getDefaultReactiveDomain()
+)
+
+groupSelectInput(
+  id,
+  choices,
+  values = choices,
+  selected = values[[1]],
+  ...,
+  left = NULL,
+  right = NULL
+)
+
+updateGroupSelectInput(
+  id,
+  choices = NULL,
+  values = choices,
+  selected = NULL,
+  enable = NULL,
+  disable = NULL,
+  valid = NULL,
+  invalid = NULL,
+  session = getDefaultReactiveDomain()
+)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>id</code></td>
+<td>
+<p>A character string specifying the id of the reactive input.</p>
+</td></tr>
+<tr valign="top"><td><code>choices</code></td>
+<td>
+<p>A character vector specifying the input's choices.</p>
+</td></tr>
+<tr valign="top"><td><code>values</code></td>
+<td>
+<p>A character vector specifying the values of the input's
+choices, defaults to <code>choices</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>selected</code></td>
+<td>
+<p>One of <code>values</code> indicating the default value of the input,
+defaults to <code>values[[1]]</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional named arguments passed as HTML attributes to the
+parent element or tag elements passed as child elements to the parent
+element.</p>
+</td></tr>
+<tr valign="top"><td><code>placeholder</code></td>
+<td>
+<p>A character string specifying the placeholder text of
+the select input, defaults to <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>enable</code></td>
+<td>
+<p>One of <code>values</code> specifying particular choices to enable or
+<code>TRUE</code> specifying the entire input is enabled, defaults to <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>disable</code></td>
+<td>
+<p>One of <code>values</code> specifying particular choices to disable or
+<code>TRUE</code> specifying the entire input is disabled, defaults to <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>valid</code></td>
+<td>
+<p>A character string specifying a message to the user indicating
+how the input's value is valid, defaults to <code>NULL.</code></p>
+</td></tr>
+<tr valign="top"><td><code>invalid</code></td>
+<td>
+<p>A character string specifying a message to the user
+indicating how the input's value is invalid, defaults to <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>session</code></td>
+<td>
+<p>A reactive context, defaults to <code><a href="../../crosstalk/html/getDefaultReactiveDomain.html">getDefaultReactiveDomain()</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>left, right</code></td>
+<td>
+<p>A character vector specifying static addons or
+<code><a href="../../yonder/help/buttonInput.html">buttonInput()</a></code> or <code><a href="../../yonder/help/dropdown.html">dropdown()</a></code> elements specifying dynamic addons. Addons
+affect the reactive value of the group input, see the Details section below
+for more information.
+</p>
+<p><strong><code>left</code> is character or <code>right</code> is character</strong>
+</p>
+<p>If <code>left</code> or <code>right</code> are character vectors, then the group input functions
+like a text input. The value will update and trigger a reactive event when
+the text box is modified. The group input's reactive value is the
+concatenation of the static addons specified by <code>left</code> or <code>right</code> and the
+value of the text input.
+</p>
+<p><strong><code>left</code> is button or <code>right</code> is button</strong>
+</p>
+<p>The button does not change the value of the group input. However, the input
+no longer triggers event when the text box is updated. Instead the value is
+updated when a button is clicked. Static addons are still applied to the
+group input value.
+</p>
+<p><strong><code>left</code> is a dropdown or <code>right</code> is a dropdown</strong>
+</p>
+<p>The value of the group input does chance depending on the clicked dropdown
+menu item. The value of the input group is the concatenation of the
+dropdown input value, the value of the text input, and any static addons.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p>Other inputs: 
+<code><a href="../../yonder/help/buttonGroupInput.html">buttonGroupInput</a>()</code>,
+<code><a href="../../yonder/help/buttonInput.html">buttonInput</a>()</code>,
+<code><a href="../../yonder/help/checkbarInput.html">checkbarInput</a>()</code>,
+<code><a href="../../yonder/help/checkboxInput.html">checkboxInput</a>()</code>,
+<code><a href="../../yonder/help/chipInput.html">chipInput</a>()</code>,
+<code><a href="../../yonder/help/fileInput.html">fileInput</a>()</code>,
+<code><a href="../../yonder/help/formInput.html">formInput</a>()</code>,
+<code><a href="../../yonder/help/listGroupInput.html">listGroupInput</a>()</code>,
+<code><a href="../../yonder/help/menuInput.html">menuInput</a>()</code>,
+<code><a href="../../yonder/help/navInput.html">navInput</a>()</code>,
+<code><a href="../../yonder/help/radioInput.html">radioInput</a>()</code>,
+<code><a href="../../yonder/help/radiobarInput.html">radiobarInput</a>()</code>,
+<code><a href="../../yonder/help/rangeInput.html">rangeInput</a>()</code>,
+<code><a href="../../yonder/help/textInput.html">textInput</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+### Simple select input
+
+selectInput(
+  id = "select1",
+  choices = c(
+    "Choice 1",
+    "Choice 2",
+    "Choice 3"
+  ),
+  values = list(1, 2, 3)
+)
+
+### Group select input
+
+groupSelectInput(
+  id = "select2",
+  choices = 1:5,
+  left = "$",
+  right = ".00"
+) %&gt;%
+  width(10)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

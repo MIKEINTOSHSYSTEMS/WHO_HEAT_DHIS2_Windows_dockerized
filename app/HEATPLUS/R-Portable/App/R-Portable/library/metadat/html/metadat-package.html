@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Meta-Analysis Datasets for R</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for metadat-package {metadat}"><tr><td>metadat-package {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Meta-Analysis Datasets for R</h2>
+
+<h3>Description</h3>
+
+<p>The <span class="pkg">metadat</span> package contains a large collection of meta-analysis datasets. These datasets are useful for teaching purposes, illustrating/testing meta-analytic methods, and validating published analyses.
+</p>
+
+
+<h3>Browsing and Searching for Datasets</h3>
+
+<p>A listing of all datasets in the package can be obtained with <code>help(package=metadat)</code>. Each datasets is also tagged with one or multiple concept terms. These concept terms refer to various aspects of a dataset, such as the field/topic of research, the outcome measure used for the analysis, the model(s) used for analyzing the data, and the methods/concepts that can be illustrated with the dataset. The <code><a href="../../metadat/help/datsearch.html">datsearch</a></code> function can be used to search among the existing datasets in the package based on their concept terms or based on a full-text search of their corresponding help files.
+</p>
+<p>You can also read the documentation online at <a href="https://wviechtb.github.io/metadat/">https://wviechtb.github.io/metadat/</a> (where the output from the example analyses corresponding to each dataset is provided).
+</p>
+
+
+<h3>Contributing New Datasets</h3>
+
+<p>We welcome contributions of new datasets to the package. For each dataset, there must be a citable reference, ideally in a peer-reviewed journal or publication. The general workflow for contributing a new dataset is as follows:
+</p>
+
+<ul>
+<li><p> Install the <code>metadat</code> package in R in the usual manner (i.e., <code>install.packages("metadat")</code>).
+</p>
+</li>
+<li><p> If you are familiar with Git/GitHub and making pull requests, fork the <a href="https://github.com/wviechtb/metadat">package repository</a>. Otherwise, <a href="https://github.com/wviechtb/metadat/archive/master.zip">download</a> the source version of the package from GitHub and unzip the file to some directory on your computer.
+</p>
+</li>
+<li><p> Place the raw data (in a non-binary format) in the <code>data-raw</code> directory. The file should be named <code>dat.&lt;author&gt;&lt;year&gt;.&lt;ext&gt;</code>, where <code>&lt;author&gt;</code> is the last name of the first author of the publication from which the data come, <code>&lt;year&gt;</code> is the publication year, and <code>&lt;ext&gt;</code> is the file extension (e.g., <code>.txt</code>, <code>.csv</code>).
+</p>
+</li>
+<li><p> Place a corresponding R script in the <code>data-raw</code> directory named <code>dat.&lt;author&gt;&lt;year&gt;.r</code> that reads in the data, possibly does some data cleaning/processing, and then saves the dataset to the <code>data</code> directory (using <code><a href="../../base/html/save.html">save</a></code>), with name <code>dat.&lt;author&gt;&lt;year&gt;.rda</code>.
+</p>
+</li>
+<li><p> Start R, load the <code>metadat</code> package (i.e., <code>library(metadat)</code>), and then run the <code><a href="../../metadat/help/prep_dat.html">prep_dat</a></code> function (either set the working directory to the location of the source package beforehand or use the <code>pkgdir</code> argument of the <code><a href="../../metadat/help/prep_dat.html">prep_dat</a></code> function to specify the source package location).
+</p>
+</li>
+<li><p> For a new dataset, this should create a boilerplate template for a corresponding help file in the <code>man</code> directory, named <code>dat.&lt;author&gt;&lt;year&gt;.Rd</code>. Edit the help file, adding the title and a short description of the dataset in general, a description of each variable in the dataset, further details on the dataset (e.g., the field of research, how the data was collected, the purpose of the dataset / what it was used for, the effect size or outcome measure used in the analysis, the types of analyses/models that can be illustrated with the dataset), a reference for the source of the dataset, one or multiple concept terms, the name and email address of the contributor of the dataset, and (optionally) example code to illustrate the analysis of the dataset.
+</p>
+</li>
+<li><p> Either make a pull request (if you are familiar with this workflow) or zip up the <code>dat.&lt;author&gt;&lt;year&gt;.&lt;ext&gt;</code>, <code>dat.&lt;author&gt;&lt;year&gt;.r</code>, <code>dat.&lt;author&gt;&lt;year&gt;.rda</code>, and <code>dat.&lt;author&gt;&lt;year&gt;.Rd</code> files and open up a new <a href="https://github.com/wviechtb/metadat/issues">issue at GitHub</a>, attaching the zip file.
+</p>
+</li>
+<li><p> If the above makes no sense to you, you can also email one of the package authors with a cleaned, raw data file in <code>.txt</code> or <code>.csv</code> format, along with a meta-data file (format doesn't matter) that includes the information described above.
+</p>
+</li></ul>
+
+
+
+<h3>Citing the Package</h3>
+
+<p>If you use these data, please cite both the <span class="pkg">metadat</span> package (see <code>citation("metadat")</code> for the reference) and the original source of the data as given under the help file of a dataset.
+</p>
+
+
+<h3>Bug/Error Reports</h3>
+
+<p>If you think you have found an error in an existing dataset or a bug in the package in general, please go to <a href="https://github.com/wviechtb/metadat/issues">https://github.com/wviechtb/metadat/issues</a> and open up a new issue.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Thomas White, <a href="mailto:thomas.white@sydney.edu.au">thomas.white@sydney.edu.au</a> <br />
+Daniel Noble, <a href="mailto:daniel.noble@anu.edu.au">daniel.noble@anu.edu.au</a> <br />
+Alistair Senior, <a href="mailto:alistair.senior@sydney.edu.au">alistair.senior@sydney.edu.au</a> <br />
+W. Kyle Hamilton, <a href="mailto:whamilton@ucmerced.edu">whamilton@ucmerced.edu</a> <br />
+Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

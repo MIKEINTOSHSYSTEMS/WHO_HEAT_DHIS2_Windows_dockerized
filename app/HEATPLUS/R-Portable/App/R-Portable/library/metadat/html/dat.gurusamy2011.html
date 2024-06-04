@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on Interventions to Reduce Mortality after Liver...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.gurusamy2011 {metadat}"><tr><td>dat.gurusamy2011 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on Interventions to Reduce Mortality after Liver Transplantation</h2>
+
+<h3>Description</h3>
+
+<p>Results from 14 trials examining the mortality risk of interventions for decreasing blood loss and blood transfusion requirements during liver transplantation.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.gurusamy2011
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>study</b>     </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> study information </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>treatment</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> treatment </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>death</b>     </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> mortality at 60 days post-transplantation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n</b>         </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> number of individuals
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>This network meta-analysis compared the effectiveness of seven interventions for decreasing blood loss and blood transfusion requirements during liver transplantation (Gurusamy et al., 2011).
+</p>
+<p>Fourteen studies reported mortality at 60 days, in 1,002 patients. Forty-five deaths were reported across all studies (4.5%). Six studies observed deaths in all treatment arms while three studies did not observe any deaths.
+</p>
+<p>This data set was used in Efthimiou et al. (2019) to introduce the Mantel-Haenszel method for network meta-analysis.
+</p>
+<p>One of the treatments (solvent detergent plasma) was only included in one study with zero events in both treatment arms; this study was excluded from all network meta-analyses. In addition, no death was observed in the antithrombin III arm of the only study evaluating this treatment which was excluded from the Mantel-Haenszel network meta-analysis.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>medicine, odds ratios, network meta-analysis, Mantel-Haenszel method
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Guido Schwarzer, <a href="mailto:sc@imbi.uni-freiburg.de">sc@imbi.uni-freiburg.de</a>, <a href="https://github.com/guido-s/">https://github.com/guido-s/</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Gurusamy, K. S., Pissanou, T., Pikhart, H., Vaughan, J., Burroughs, A. K., &amp; Davidson, B. R. (2011). Methods to decrease blood loss and transfusion requirements for liver transplantation. <em>Cochrane Database of Systematic Reviews</em>, <b>12</b>, CD009052. <code style="white-space: pre;">https://doi.org/10.1002/14651858.CD009052.pub2</code>
+</p>
+
+
+<h3>References</h3>
+
+<p>Efthimiou, O., Rücker, G., Schwarzer, G., Higgins, J., Egger, M., &amp; Salanti, G. (2019). A Mantel-Haenszel model for network meta-analysis of rare events. <em>Statistics in Medicine</em>, <b>38</b>(16), 2992&ndash;3012. <code style="white-space: pre;">https://doi.org/10.1002/sim.8158</code>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../netmeta/help/pairwise.html">pairwise</a></code>, <code><a href="../../meta/help/metabin.html">metabin</a></code>, <code><a href="../../netmeta/help/netmetabin.html">netmetabin</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### Show first 6 rows of the dataset
+head(dat.gurusamy2011)
+
+### Only study evaluating solvent detergent plasma
+subset(dat.gurusamy2011, study == "Williamson 1999")
+
+### Only study evaluating antithrombin III
+subset(dat.gurusamy2011, study == "Baudo 1992")
+
+## Not run: 
+
+### Load netmeta package
+suppressPackageStartupMessages(library(netmeta))
+
+### Print odds ratios and confidence limits with two digits
+settings.meta(digits = 2)
+
+### Change appearance of confidence intervals
+cilayout("(", "-")
+
+### Transform data from long arm-based format to contrast-based
+### format. Argument 'sm' has to be used for odds ratio as summary
+### measure; by default the risk ratio is used in the metabin function
+### called internally.
+pw &lt;- pairwise(treatment, death, n, studlab = study,
+  data = dat.gurusamy2011, sm = "OR")
+
+### Conduct Mantel-Haenszel network meta-analysis (NMA)
+net.MH &lt;- netmetabin(pw, ref = "cont")
+
+### Conduct inverse variance (IV) network meta-analysis
+net.IV &lt;- netmeta(pw, ref = "cont")
+
+### Network graph (Mantel-Haenszel NMA)
+netgraph(net.MH, seq = "optimal", col = "black", plastic = FALSE,
+  points = TRUE, pch = 21, cex.points = 3, col.points = "black",
+  bg.points = "gray", thickness = "se.fixed",
+  number.of.studies = TRUE)
+
+### Full network graph (based on inverse variance method, including
+### study comparing Antithrombin III with Control/Placebo)
+netgraph(net.IV,
+  seq = "optimal", col = "black", plastic = FALSE,
+  points = TRUE, pch = 21, cex.points = 3, col.points = "black",
+  bg.points = "gray", thickness = "se.fixed",
+  number.of.studies = TRUE)
+
+### Compare results for Mantel-Haenszel and IV NMA
+forest(netbind(net.MH, net.IV,
+  random = FALSE, name = c("MH NMA", "IV NMA")))
+
+### Show results for Mantel-Haenszel NMA
+net.MH
+forest(net.MH)
+
+### League table with network estimates in lower triangle and direct
+### estimates in upper triangle
+netleague(net.MH)
+
+### Assess inconsistency
+print(netsplit(net.MH), show = "both", ci = TRUE, overall = FALSE,
+  nchar.trts = 6)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

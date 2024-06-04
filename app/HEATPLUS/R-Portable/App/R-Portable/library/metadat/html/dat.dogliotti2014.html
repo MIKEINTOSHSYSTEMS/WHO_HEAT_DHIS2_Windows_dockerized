@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on Antithrombotic Treatments to Prevent Strokes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.dogliotti2014 {metadat}"><tr><td>dat.dogliotti2014 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on Antithrombotic Treatments to Prevent Strokes</h2>
+
+<h3>Description</h3>
+
+<p>Results from 20 trials examining the effectiveness of antithrombotic treatments to prevent strokes in patients with non-valvular atrial fibrillation.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.dogliotti2014
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>study</b>     </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> study label </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>id</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> study ID </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>treatment</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> treatment </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>stroke</b>    </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of strokes </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>total</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of individuals
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>This data set comes from a systematic review aiming to estimate the effects of eight antithrombotic treatments including placebo in reducing the incidence of major thrombotic events in patients with non-valvular atrial fibrillation (Dogliotti et al., 2014).
+</p>
+<p>The review included 20 studies with 79,808 participants, four studies are three-arm studies. The primary outcome is stroke reduction (yes / no).
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>medicine, odds ratios, network meta-analysis, Mantel-Haenszel method
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Guido Schwarzer, <a href="mailto:sc@imbi.uni-freiburg.de">sc@imbi.uni-freiburg.de</a>, <a href="https://github.com/guido-s/">https://github.com/guido-s/</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Dogliotti, A., Paolasso, E., &amp; Giugliano, R. P. (2014). Current and new oral antithrombotics in non-valvular atrial fibrillation: A network meta-analysis of 79808 patients. <em>Heart</em>, <b>100</b>(5), 396&ndash;405. <code style="white-space: pre;">https://doi.org/10.1136/heartjnl-2013-304347</code>
+</p>
+
+
+<h3>See Also</h3>
+
+  
+<p><code><a href="../../netmeta/help/pairwise.html">pairwise</a></code>, <code><a href="../../meta/help/metabin.html">metabin</a></code>, <code><a href="../../netmeta/help/netmeta.html">netmeta</a></code>, <code><a href="../../netmeta/help/netmetabin.html">netmetabin</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### Show first 7 rows / 3 studies of the dataset
+head(dat.dogliotti2014, 7)
+
+## Not run: 
+
+### Load netmeta package
+suppressPackageStartupMessages(library(netmeta))
+
+### Print odds ratios and confidence limits with two digits
+settings.meta(digits = 2)
+
+### Change appearance of confidence intervals
+cilayout("(", "-")
+
+### Transform data from long arm-based format to contrast-based
+### format. Argument 'sm' has to be used for odds ratio as summary
+### measure; by default the risk ratio is used in the metabin function
+### called internally.
+pw &lt;- pairwise(treat = treatment, n = total, event = stroke,
+  studlab = study, data = dat.dogliotti2014, sm = "OR")
+
+### Print log odds ratios (TE) and standard errors (seTE)
+head(pw, 5)[, 1:5]
+
+### Conduct network meta-analysis (NMA) with placebo as reference
+net &lt;- netmeta(pw, ref = "plac")
+
+### Details on excluded study
+selvars &lt;- c("studlab", "event1", "n1", "event2", "n2")
+subset(pw, studlab == "WASPO, 2007")[, selvars]
+
+### Show network graph
+netgraph(net, seq = "optimal", number = TRUE)
+
+### Conduct Mantel-Haenszel NMA
+net.mh &lt;- netmetabin(pw, ref = "plac")
+
+### Compare results of inverse variance and Mantel-Haenszel NMA
+nb &lt;- netbind(net, net.mh, random = FALSE,
+  name = c("Inverse variance", "Mantel-Haenszel"))
+forest(nb, xlim = c(0.15, 2), at = c(0.2, 0.5, 1, 2))
+
+### Print and plot results for inverse variance NMA
+net
+forest(net)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

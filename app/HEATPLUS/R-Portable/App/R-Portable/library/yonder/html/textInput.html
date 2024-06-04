@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Text inputs</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for textInput {yonder}"><tr><td>textInput {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Text inputs</h2>
+
+<h3>Description</h3>
+
+<p>A text input. A group text input is an alternative text input. The group text
+input allows you to include static prefixes or buttons with a standard text
+input.
+</p>
+<p><code>numberInput()</code> is a simple wrapper around <code>textInput()</code> with <code>type</code> set to
+<code>"number"</code> and explicit arguments for specifying a min value, max value, and
+the step amount. Use <code>updateTextInput()</code> to update a number input.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+textInput(id, value = NULL, placeholder = NULL, ..., type = "text")
+
+numberInput(
+  id,
+  value = NULL,
+  placeholder = NULL,
+  ...,
+  min = NULL,
+  max = NULL,
+  step = 1
+)
+
+updateTextInput(
+  id,
+  value = NULL,
+  enable = NULL,
+  disable = NULL,
+  valid = NULL,
+  invalid = NULL,
+  session = getDefaultReactiveDomain()
+)
+
+groupTextInput(
+  id,
+  value = NULL,
+  placeholder = NULL,
+  ...,
+  type = "text",
+  left = NULL,
+  right = NULL
+)
+
+updateGroupTextInput(
+  id,
+  value = NULL,
+  enable = NULL,
+  disable = NULL,
+  valid = NULL,
+  invalid = NULL,
+  session = getDefaultReactiveDomain()
+)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>id</code></td>
+<td>
+<p>A character string specifying the id of the reactive input.</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+<p>A character string or a value coerced to a character string
+specifying the default value of the textual input.</p>
+</td></tr>
+<tr valign="top"><td><code>placeholder</code></td>
+<td>
+<p>A character string specifying placeholder text for the
+input, defaults to <code>NULL</code>, in which case there is no placeholder text.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional named arguments passed as HTML attributes to the
+parent element or tag elements passed as child elements to the parent
+element.</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>One of &quot;<code>color</code>&quot;, &quot;<code>date</code>&quot;, &quot;<code>datetime-local</code>&quot;, &quot;<code>email</code>&quot;, &quot;<code>month</code>&quot;, &quot;<code>number</code>&quot;, &quot;<code>password</code>&quot;, &quot;<code>search</code>&quot;, &quot;<code>tel</code>&quot;, &quot;<code>text</code>&quot;, &quot;<code>time</code>&quot;, &quot;<code>url</code>&quot; or &quot;<code>week</code>&quot; specifying the type of text input, defaults to <code>"text"</code>.
+</p>
+<p>For details on a particular type please see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input</a>.</p>
+</td></tr>
+<tr valign="top"><td><code>min</code></td>
+<td>
+<p>A number specifying the minimum allowed value of the number input,
+defaults to <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>max</code></td>
+<td>
+<p>A number specifying the maximum allowed value of the number input,
+defaults to <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>step</code></td>
+<td>
+<p>A number specifying the increment step of the number input,
+defaults to 1.</p>
+</td></tr>
+<tr valign="top"><td><code>enable</code></td>
+<td>
+<p>One of <code>values</code> specifying particular choices to enable or
+<code>TRUE</code> specifying the entire input is enabled, defaults to <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>disable</code></td>
+<td>
+<p>One of <code>values</code> specifying particular choices to disable or
+<code>TRUE</code> specifying the entire input is disabled, defaults to <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>valid</code></td>
+<td>
+<p>A character string specifying a message to the user indicating
+how the input's value is valid, defaults to <code>NULL.</code></p>
+</td></tr>
+<tr valign="top"><td><code>invalid</code></td>
+<td>
+<p>A character string specifying a message to the user
+indicating how the input's value is invalid, defaults to <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>session</code></td>
+<td>
+<p>A reactive context, defaults to <code><a href="../../crosstalk/html/getDefaultReactiveDomain.html">getDefaultReactiveDomain()</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>left</code></td>
+<td>
+<p>A character vector specifying static addons or
+<code><a href="../../yonder/help/buttonInput.html">buttonInput()</a></code> or <code><a href="../../yonder/help/dropdown.html">dropdown()</a></code> elements specifying dynamic addons. Addons
+affect the reactive value of the group input, see the Details section below
+for more information.
+</p>
+<p><strong><code>left</code> is character or <code>right</code> is character</strong>
+</p>
+<p>If <code>left</code> or <code>right</code> are character vectors, then the group input functions
+like a text input. The value will update and trigger a reactive event when
+the text box is modified. The group input's reactive value is the
+concatenation of the static addons specified by <code>left</code> or <code>right</code> and the
+value of the text input.
+</p>
+<p><strong><code>left</code> is button or <code>right</code> is button</strong>
+</p>
+<p>The button does not change the value of the group input. However, the input
+no longer triggers event when the text box is updated. Instead the value is
+updated when a button is clicked. Static addons are still applied to the
+group input value.
+</p>
+<p><strong><code>left</code> is a dropdown or <code>right</code> is a dropdown</strong>
+</p>
+<p>The value of the group input does chance depending on the clicked dropdown
+menu item. The value of the input group is the concatenation of the
+dropdown input value, the value of the text input, and any static addons.</p>
+</td></tr>
+<tr valign="top"><td><code>right</code></td>
+<td>
+<p>A character vector specifying static addons or
+<code><a href="../../yonder/help/buttonInput.html">buttonInput()</a></code> or <code><a href="../../yonder/help/dropdown.html">dropdown()</a></code> elements specifying dynamic addons. Addons
+affect the reactive value of the group input, see the Details section below
+for more information.
+</p>
+<p><strong><code>left</code> is character or <code>right</code> is character</strong>
+</p>
+<p>If <code>left</code> or <code>right</code> are character vectors, then the group input functions
+like a text input. The value will update and trigger a reactive event when
+the text box is modified. The group input's reactive value is the
+concatenation of the static addons specified by <code>left</code> or <code>right</code> and the
+value of the text input.
+</p>
+<p><strong><code>left</code> is button or <code>right</code> is button</strong>
+</p>
+<p>The button does not change the value of the group input. However, the input
+no longer triggers event when the text box is updated. Instead the value is
+updated when a button is clicked. Static addons are still applied to the
+group input value.
+</p>
+<p><strong><code>left</code> is a dropdown or <code>right</code> is a dropdown</strong>
+</p>
+<p>The value of the group input does chance depending on the clicked dropdown
+menu item. The value of the input group is the concatenation of the
+dropdown input value, the value of the text input, and any static addons.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p>Other inputs: 
+<code><a href="../../yonder/help/buttonGroupInput.html">buttonGroupInput</a>()</code>,
+<code><a href="../../yonder/help/buttonInput.html">buttonInput</a>()</code>,
+<code><a href="../../yonder/help/checkbarInput.html">checkbarInput</a>()</code>,
+<code><a href="../../yonder/help/checkboxInput.html">checkboxInput</a>()</code>,
+<code><a href="../../yonder/help/chipInput.html">chipInput</a>()</code>,
+<code><a href="../../yonder/help/fileInput.html">fileInput</a>()</code>,
+<code><a href="../../yonder/help/formInput.html">formInput</a>()</code>,
+<code><a href="../../yonder/help/listGroupInput.html">listGroupInput</a>()</code>,
+<code><a href="../../yonder/help/menuInput.html">menuInput</a>()</code>,
+<code><a href="../../yonder/help/navInput.html">navInput</a>()</code>,
+<code><a href="../../yonder/help/radioInput.html">radioInput</a>()</code>,
+<code><a href="../../yonder/help/radiobarInput.html">radiobarInput</a>()</code>,
+<code><a href="../../yonder/help/rangeInput.html">rangeInput</a>()</code>,
+<code><a href="../../yonder/help/selectInput.html">selectInput</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+### Default text input
+
+textInput(id = "text")
+
+### Default number input
+
+numberInput(id = "num1")
+
+### Specify `min`, `max`, and `step`
+
+numberInput(
+  id = "num2",
+  min = 1,
+  max = 10,
+  step = 2
+)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

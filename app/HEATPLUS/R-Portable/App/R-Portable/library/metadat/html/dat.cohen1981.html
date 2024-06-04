@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on the Relationship between Course Instructor Ratings...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.cohen1981 {metadat}"><tr><td>dat.cohen1981 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on the Relationship between Course Instructor Ratings and Student Achievement</h2>
+
+<h3>Description</h3>
+
+<p>Results from 20 studies on the correlation between course instructor ratings and student achievement.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.cohen1981
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>study</b>     </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> study author(s) and year </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>sample</b>    </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> course type </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>control</b>   </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> ability control </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ni</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> sample size of the study (number of sections) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ri</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> observed correlation
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>The studies included in this dataset examined to what extent students' ratings of a course instructor correlated with their achievement in the course. Instead of correlating individual ratings and achievement scores, the studies were carried out in multisection courses, in which the sections had different instructors but all sections used a common achievement measure (e.g., a final exam). The correlation coefficients reflect the correlation between the mean instructor rating and the mean achievement score of each section. Hence, the unit of analysis are the sections, not the individuals.
+</p>
+<p>Note that this dataset (extracted from Table A.3 in Cooper &amp; Hedges, 1994) only contains studies with at least 10 sections.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>education, correlation coefficients
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Cooper, H., &amp; Hedges, L. V. (1994). Appendix A: Data Sets. In H. Cooper &amp; L. V. Hedges (Eds.), <em>The handbook of research synthesis</em> (pp. 543-547). New York: Russell Sage Foundation.
+</p>
+
+
+<h3>References</h3>
+
+<p>Cohen, P. A. (1981). Student ratings of instruction and student achievement: A meta-analysis of multisection validity studies. <em>Review of Educational Research</em>, <b>51</b>(3), 281&ndash;309. <code style="white-space: pre;">https://doi.org/10.3102/00346543051003281</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.cohen1981
+dat[c(1,4,5)]
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### calculate r-to-z transformed correlations and corresponding sampling variances
+dat &lt;- escalc(measure="ZCOR", ri=ri, ni=ni, data=dat[c(1,4,5)])
+dat
+
+### meta-analysis of the transformed correlations using a random-effects model
+res &lt;- rma(yi, vi, data=dat, digits=2)
+res
+
+### predicted average correlation with 95% CI
+predict(res, transf=transf.ztor)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Dynamic content</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for replaceContent {yonder}"><tr><td>replaceContent {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Dynamic content</h2>
+
+<h3>Description</h3>
+
+<p>An application may require dynamic content. This content may be quite simple.
+The content could also be quite variable. These tools are an alternative to
+the standard <code>output</code> related <code style="white-space: pre;">render*()</code> functions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+replaceContent(id, ..., session = getDefaultReactiveDomain())
+
+removeContent(id, session = getDefaultReactiveDomain())
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>id</code></td>
+<td>
+<p>A character string specifying a reactive id.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional named arguments passed as HTML attributes to the parent
+element or unnamed arguments passed as the new contents of the output
+element.</p>
+</td></tr>
+<tr valign="top"><td><code>session</code></td>
+<td>
+<p>A reactive context, defaults to <code><a href="../../crosstalk/html/getDefaultReactiveDomain.html">getDefaultReactiveDomain()</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions are experimental and are subject to change. Additionally,
+they may be moved from this package entirely.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Margin and padding</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for padding {yonder}"><tr><td>padding {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Margin and padding</h2>
+
+<h3>Description</h3>
+
+<p>Use the <code>margin()</code> and <code>padding()</code> utilities to change the margin or padding
+of a tag element.  The margin of a tag element is the space outside and
+around the tag element, its border, and its content.  The padding of a tag
+element is the space between the tag element's border and its content or
+child elements. All arguments default to <code>NULL</code>, in which case they are
+ignored.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+padding(tag, all = NULL, top = NULL, right = NULL, bottom = NULL, left = NULL)
+
+margin(tag, all = NULL, top = NULL, right = NULL, bottom = NULL, left = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>tag</code></td>
+<td>
+<p>A tag element.</p>
+</td></tr>
+<tr valign="top"><td><code>all, top, right, bottom, left</code></td>
+<td>
+<p>A <a href="../../yonder/help/responsive.html">responsive</a> argument.
+</p>
+<p>For <strong>padding()</strong>, one of <code>0:5</code> or <code>"auto"</code> specifying padding for one or
+more sides of the tag element. 0 removes all inner space and 5 adds the
+most space.
+</p>
+<p>For <strong>margin()</strong>, one of <code>-5:5</code> or <code>"auto"</code> specifying a margin for one or
+more sides of the tag element. 0 removes all outer space, 5 adds the
+most space, and negative values will consume space pulling the element in
+that direction.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p>Other design utilities: 
+<code><a href="../../yonder/help/active.html">active</a>()</code>,
+<code><a href="../../yonder/help/affix.html">affix</a>()</code>,
+<code><a href="../../yonder/help/background.html">background</a>()</code>,
+<code><a href="../../yonder/help/border.html">border</a>()</code>,
+<code><a href="../../yonder/help/display.html">display</a>()</code>,
+<code><a href="../../yonder/help/float.html">float</a>()</code>,
+<code><a href="../../yonder/help/font.html">font</a>()</code>,
+<code><a href="../../yonder/help/height.html">height</a>()</code>,
+<code><a href="../../yonder/help/scroll.html">scroll</a>()</code>,
+<code><a href="../../yonder/help/shadow.html">shadow</a>()</code>,
+<code><a href="../../yonder/help/width.html">width</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+### Centering an element
+
+# In most modern browsers you want to horizontally center a tag element using
+# the flex layout. Alternatively, you can horizontally center an element
+# using `margin(.., right = "auto", left = "auto")`.
+
+div(
+  "Nam a sapien. Integer placerat tristique nisl.",
+  style = "height: 100px; width: 200px;"
+) %&gt;%
+  margin(top = 2, r = "auto", b = 2, l = "auto") %&gt;%  # &lt;-
+  padding(3) %&gt;%
+  background("indigo")
+
+### Building an inline form
+
+# Inline form elements automatically use the flex layout providing you a
+# means of creating condensed sets of inputs. However, you may need to adjust
+# the spacing of the form's child elements.
+
+# Here is an inline form without any additional spacing applied.
+
+formInput(
+  id = "form1",
+  inline = TRUE,
+  textInput(
+    id = "name",
+    placeholder = "Full name"
+  ),
+  groupTextInput(
+    id = "username",
+    left = "@",
+    placeholder = "Username"
+  ),
+  checkboxInput(
+    id = "remember",
+    choice = "Remember me"
+  ),
+  formSubmit("Login", "login")
+)
+
+# Without any adjustments the layout is not great. But, with some styling we
+# can make this form sparkle. Notice we are also adjusting the default submit
+# button added to the form input.
+
+formInput(
+  id = "form2",
+  inline = TRUE,
+  textInput(
+    id = "name",
+    placeholder = "Full name"
+  ) %&gt;%
+    margin(r = c(sm = 2), b = 2),  # &lt;-
+  groupTextInput(
+    id = "username",
+    left = "@",
+    placeholder = "Username"
+  ) %&gt;%
+    margin(r = c(sm = 2), b = 2),  # &lt;-
+  checkboxInput(
+    id = "remember",
+    choice = "Remember me"
+  ) %&gt;%
+    margin(r = c(sm = 2), b = 2),  # &lt;-
+  formSubmit(
+    label = "Login",
+    value = "login"
+  ) %&gt;%
+    margin(b = 2)  # &lt;-
+)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

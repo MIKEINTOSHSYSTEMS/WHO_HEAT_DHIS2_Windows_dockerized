@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Navigation bar</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for navbar {yonder}"><tr><td>navbar {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Navigation bar</h2>
+
+<h3>Description</h3>
+
+<p>Add a navigation bar to your application with <code>navbar()</code>. Navigation bars may
+include a tab toggle (useful for multi-page applications), inline forms
+(perhaps a search feature or login item), or character strings to add simple
+text. Navbars are responsive and will collapse on small screens, think mobile
+device. A button is automatically added to toggle between the collapsed and
+expanded states.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+navbar(..., brand = NULL, collapse = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>A tab toggle, inline forms, or text to add to include as part of
+the navigation bar.</p>
+</td></tr>
+<tr valign="top"><td><code>brand</code></td>
+<td>
+<p>A tag element or text placed on the left end of the navbar,
+defaults to <code>NULL</code>, in which case nothing is added.</p>
+</td></tr>
+<tr valign="top"><td><code>collapse</code></td>
+<td>
+<p>One of <code>"sm"</code>, <code>"md"</code>, <code>"lg"</code>, <code>"xl"</code>, or <code>NULL</code> specifying
+the breakpoint at which the navbar collaspes, defaults to <code>NULL</code>, in which
+case the navbar is always expanded.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p>Other layout functions: 
+<code><a href="../../yonder/help/column.html">column</a>()</code>,
+<code><a href="../../yonder/help/fieldset.html">fieldset</a>()</code>,
+<code><a href="../../yonder/help/flex.html">flex</a>()</code>,
+<code><a href="../../yonder/help/responsive.html">responsive</a></code>,
+<code><a href="../../yonder/help/webpage.html">webpage</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+### Navbar with tabs
+
+div(
+  navbar(
+    brand = "Navbar",
+    navInput(
+      id = "tabs",
+      choices = c("Home", "About", "Our process")
+    ) %&gt;%
+      margin(right = "auto"),
+    formInput(
+      inline = TRUE,
+      id = "navForm",
+      textInput(
+        type = "search",
+        id = "site_search",
+        placeholder = "Search"
+      ) %&gt;%
+        margin(right = c(sm = 2)),
+      formSubmit(
+        label = "Search",
+        value = "search"
+      ) %&gt;%
+        background("amber")
+    )
+  ) %&gt;%
+    background("teal"),
+  container(
+    navContent(
+      navPane(
+        h3("Home")
+      ),
+      navPane(
+        h3("About")
+      ),
+      navPane(
+        h3("The process")
+      )
+    )
+  )
+)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

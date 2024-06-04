@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on the Effectiveness of St. John's Wort for Treating...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.linde2005 {metadat}"><tr><td>dat.linde2005 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on the Effectiveness of St. John's Wort for Treating Depression</h2>
+
+<h3>Description</h3>
+
+<p>Results from 26 studies on the effectiveness of Hypericum perforatum extracts (St. John's wort) for treating depression.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.linde2005
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>id</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> study number </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>study</b>    </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> study author(s) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>year</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> publication year </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>country</b>  </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> study location </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ni</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> total sample size </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>major</b>    </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> sample restricted to patients who met criteria for major depression </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>baseline</b> </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> HRSD baseline score </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>version</b>  </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> HRSD version (17 or 21 items) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>duration</b> </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> study duration (in weeks) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>prep</b>     </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> Hypericum extract preparation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>dosage</b>   </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> dosage (in mg) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>response</b> </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> definition of response (see &lsquo;Details&rsquo;) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ai</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of responses in treatment group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n1i</b>      </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of patients in treatment group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ci</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of responses in placebo group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n2i</b>      </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of patients in placebo group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>group</b>    </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> stratification variable used by the authors (see &lsquo;Details&rsquo;)
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>The dataset includes the results from 26 double-blind placebo-controlled trials on the effectiveness of Hypericum perforatum extracts (St. John's wort) for treating depression (note that 2 studies did not provide sufficient response information).
+</p>
+<p>Data were extracted from Table 1 and Figure 3 from Linde et al. (2005). For study duration, the assessment week (instead of the total study duration) was coded for Philipp et al. (1999) and Montgomery et al. (2000). For dosage, the midpoint was coded when a range of values was given.
+</p>
+<p>The definition of what constitutes a <code>response</code> differed across studies and is coded as follows:
+</p>
+
+<ol>
+<li><p> HRSD score reduction of at least 50% or HRSD score after therapy &lt;10,
+</p>
+</li>
+<li><p> HRSD reduction of at least 50%,
+</p>
+</li>
+<li><p> based on HRSD scale but exact definition not reported,
+</p>
+</li>
+<li><p> global patient assessment of efficacy,
+</p>
+</li>
+<li><p> at least &lsquo;much improved&rsquo; on the Clinical Global Impression sub-scale for global improvement.
+</p>
+</li></ol>
+
+<p>The <code>group</code> variable corresponds to the variable used by Linde et al. (2005) to stratify their analyses and is coded as follows:
+</p>
+
+<ol>
+<li><p> smaller trials restricted to major depression,
+</p>
+</li>
+<li><p> larger trials restricted to major depression,
+</p>
+</li>
+<li><p> smaller trials not restricted to major depression,
+</p>
+</li>
+<li><p> larger trials not restricted to major depression.
+</p>
+</li></ol>
+
+
+
+<h3>Concepts</h3>
+
+<p>medicine, psychiatry, risk ratios
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Linde, K., Berner, M., Egger, M., &amp; Mulrow, C. (2005). St John's wort for depression: Meta-analysis of randomised controlled trials. <em>British Journal of Psychiatry</em>, <b>186</b>(2), 99&ndash;107. <code style="white-space: pre;">https://doi.org/10.1192/bjp.186.2.99</code>
+</p>
+
+
+<h3>References</h3>
+
+<p>Viechtbauer, W. (2007). Accounting for heterogeneity via random-effects models and moderator analyses in meta-analysis. <em>Zeitschrift für Psychologie / Journal of Psychology</em>, <b>215</b>(2), 104&ndash;121. <code style="white-space: pre;">https://doi.org/10.1027/0044-3409.215.2.104</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.linde2005
+head(dat)
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### remove studies with no response information and study with no responses in either group
+dat &lt;- dat[-c(5,6,26),]
+
+### calculate log risk ratios and corresponding sampling variances
+dat &lt;- escalc(measure="RR", ai=ai, ci=ci, n1i=n1i, n2i=n2i, data=dat)
+head(dat)
+
+### meta-analysis of the log risk ratios using a random-effects model
+res &lt;- rma(yi, vi, data=dat, method="DL")
+res
+
+### mixed-effects meta-regression model with stratification variable
+res &lt;- rma(yi, vi, mods = ~ factor(group) - 1, data=dat, method="DL")
+res
+
+### predicted average risk ratio for each level of the stratification variable
+predict(res, newmods=diag(4), transf=exp, digits=2)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

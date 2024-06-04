@@ -1,0 +1,54 @@
+HEAT_choose_measures_dataset
+                        A function to identify which inequality
+                        measures to use for a full dataset based on
+                        dimensions
+HEAT_choose_measures_strata
+                        A function to identify which inequality
+                        measures to use for a strata
+HEAT_create_input_list
+                        Create list of inputs
+HEAT_measures_full_process
+                        Apply validation tests and compute inequality
+                        measures in one step
+HEAT_measures_map       Title
+HEAT_measures_outlier2NA
+                        Set outlying inequality measures to NA
+HEAT_measures_validation_map
+                        Applies validation tests to a set of strata
+HEAT_measures_validation_tests
+                        Map the validation tests for inequality
+                        measures to a strata
+add_strata_id           Add a new column called 'strata_id' that will
+                        be unique for each strata. The default fields
+                        used to determine unique strata are created in
+                        the data-raw/strata-variables.R file and are a
+                        variable called HEAT_strata_variables
+calc_aci                Calculate ACI measure
+calc_bgsd               Caculate BGSD
+calc_bgv                Calculate between-groups variance
+calc_cov                Title
+calc_d                  Caculate D
+calc_idisu              Title
+calc_idisw              Title
+calc_mdbu               Title
+calc_mdbw               Title
+calc_mdmu               Title
+calc_mdmw               Title
+calc_mdru               Title
+calc_mdrw               Title
+calc_mld                Title
+calc_paf                Title
+calc_par                Title
+calc_r                  Title
+calc_rci                Title
+calc_rii                Slope Index of Inequality (SII) relative,
+                        complex, ordered, weighted, greater than two
+                        (wealth, educ)
+calc_sii                Slope Index of Inequality (SII) relative,
+                        complex, ordered, weighted, greater than two
+                        (wealth, educ)
+calc_ti                 Title
+get_weighted_mean       See github 903
+heatmeasures-package    HEAT Measures
+midPointProp            Returns the cumulative mid point proportion of
+                        each group

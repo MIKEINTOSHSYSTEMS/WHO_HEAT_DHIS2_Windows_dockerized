@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on Differences in Planning Performance in...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.knapp2017 {metadat}"><tr><td>dat.knapp2017 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on Differences in Planning Performance in Schizophrenia Patients versus Healthy Controls</h2>
+
+<h3>Description</h3>
+
+<p>Results from 31 studies examining differences in planning performance in schizophrenia patients versus healthy controls.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.knapp2017
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>author</b>     </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> study author(s) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>year</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> publication year </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>study</b>      </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> study id number </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>task</b>       </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> type of task </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>difficulty</b> </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> task difficulty </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>group1</b>     </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> identifier for patient group within studies </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>group2</b>     </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> identifier for control group within studies </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>comp</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> identifier for comparisons within studies </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>yi</b>         </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> standardized mean difference for planning performance </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>vi</b>         </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> corresponding sampling variance </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n_sz</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of schizophrenic patients </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n_hc</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of healthy controls </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>yi</b>         </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> standardized mean difference for IQ </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>vi</b>         </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> corresponding sampling variance
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>The studies included in this dataset examined differences between schizophrenia patients and healthy controls with respect to their performance on the tower of London test (<a href="https://en.wikipedia.org/wiki/Tower_of_London_test">https://en.wikipedia.org/wiki/Tower_of_London_test</a>) or a similar cognitive tasks measuring planning ability. The outcome measure for this meta-analysis was the standardized mean difference (with positive values indicating better performance in the healthy controls compared to the schizophrenia patients).
+</p>
+<p>The dataset has a more complex structure for several reasons:
+</p>
+
+<ol>
+<li><p> Studies 2, 3, 9, and 20 included more than one schizophrenia patient group and the standardized mean differences were computed by comparing these groups against a single healthy control group.
+</p>
+</li>
+<li><p> Studies 6, 12, 14, 15, 18, 19, 22, and 26 had the patients and controls complete different tasks of varying complexity (essentially the average number of moves required to complete a task). Study 6 also included two different task types.
+</p>
+</li>
+<li><p> Study 24 provides two standardized mean differences, one for men and the other for women.
+</p>
+</li>
+<li><p> Study 29 provides three standardized mean differences, corresponding to the three different COMT Val158Met genotypes (val/val, val/met, and met/met).
+</p>
+</li></ol>
+
+<p>All 4 issues described above lead to a multilevel structure in the dataset, with multiple standardized mean differences nested within some of the studies. Issues 1. and 2. also lead to correlated sampling errors.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>psychology, standardized mean differences, multilevel models, multivariate models, cluster-robust inference, meta-regression
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Knapp, F., Viechtbauer, W., Leonhart, R., Nitschke, K., &amp; Kaller, C. P. (2017). Planning performance in schizophrenia patients: A meta-analysis of the influence of task difficulty and clinical and sociodemographic variables. <em>Psychological Medicine</em>, <b>47</b>(11), 2002&ndash;2016. <code style="white-space: pre;">https://doi.org/10.1017/S0033291717000459</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.knapp2017
+dat[-c(1:2)]
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### fit a standard random-effects model ignoring the issues described above
+res &lt;- rma(yi, vi, data=dat)
+res
+
+### fit a multilevel model with random effects for studies and comparisons within studies
+### (but this ignored the correlation in the sampling errors)
+res &lt;- rma.mv(yi, vi, random = ~ 1 | study/comp, data=dat)
+res
+
+### create variable that indicates the task and difficulty combination as increasing integers
+dat$task.diff &lt;- unlist(lapply(split(dat, dat$study), function(x) {
+   task.int &lt;- as.integer(factor(x$task))
+   diff.int &lt;- as.integer(factor(x$difficulty))
+   diff.int[is.na(diff.int)] &lt;- 1
+   paste0(task.int, ".", diff.int)}))
+
+### construct correlation matrix for two tasks with four different difficulties where the
+### correlation is 0.4 for different difficulties of the same task, 0.7 for the same
+### difficulty of different tasks, and 0.28 for different difficulties of different tasks
+R &lt;- matrix(0.4, nrow=8, ncol=8)
+R[5:8,1:4] &lt;- R[1:4,5:8] &lt;- 0.28
+diag(R[1:4,5:8]) &lt;- 0.7
+diag(R[5:8,1:4]) &lt;- 0.7
+diag(R) &lt;- 1
+rownames(R) &lt;- colnames(R) &lt;- paste0(rep(1:2, each=4), ".", 1:4)
+R
+
+### construct an approximate V matrix accounting for the use of shared groups and
+### for correlations among tasks/difficulties as specified in the R matrix above
+V &lt;- vcalc(vi, cluster=study, grp1=group1, grp2=group2, w1=n_sz, w2=n_hc,
+           obs=task.diff, rho=R, data=dat)
+
+### correlation matrix for study 3 with four patient groups and a single control group
+round(cov2cor(V[dat$study == 3, dat$study == 3]), 2)
+
+### correlation matrix for study 6 with two tasks with four difficulties
+cov2cor(V[dat$study == 6, dat$study == 6])
+
+### correlation matrix for study 24 with two independent groups
+cov2cor(V[dat$study == 24, dat$study == 24])
+
+### correlation matrix for study 29 with three independent groups
+cov2cor(V[dat$study == 29, dat$study == 29])
+
+### fit multilevel model as above, but now use this V matrix in the model
+res &lt;- rma.mv(yi, V, random = ~ 1 | study/comp, data=dat)
+res
+predict(res, digits=2)
+
+### use cluster-robust inference methods based on this model
+robust(res, cluster=study)
+
+### use methods from clubSandwich package
+robust(res, cluster=study, clubSandwich=TRUE)
+
+### examine if task difficulty is a potential moderator of the effect
+res &lt;- rma.mv(yi, V, mods = ~ difficulty, random = ~ 1 | study/comp, data=dat)
+res
+sav &lt;- robust(res, cluster=study)
+sav
+sav &lt;- robust(res, cluster=study, clubSandwich=TRUE)
+sav
+
+### draw bubble plot
+regplot(sav, xlab="Task Difficulty", ylab="Standardized Mean Difference", las=1, digits=1, bty="l")
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

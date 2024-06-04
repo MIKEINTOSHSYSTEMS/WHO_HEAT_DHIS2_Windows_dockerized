@@ -1,0 +1,51 @@
+Package: yonder
+Type: Package
+Title: A Reactive Web Framework Built on 'shiny'
+Version: 0.2.0
+Authors@R: c(
+    person("Nathan", "Teetor", role = c("aut", "cre"),
+      email = "nathanteetor@gmail.com"),
+    person(family = "The Bootstrap Authors", role = "cph",
+      comment = "Bootstrap library"),
+    person(family = "Twitter, Inc", role = "cph",
+      comment = "Bootstrap library"),
+    person(family = "JS Foundation", role = "cph",
+      comment = "jQuery library"),
+    person("Federico", "Zivolo", role = c("ctb", "cph"),
+      comment = "popper.js library"),
+    person("Johann", "Servoire", role = c("ctb", "cph"),
+      comment = "bs-custom-file-input library")
+    )
+Description: Build 'shiny' applications with the latest Bootstrap components
+    and design utilities. Includes refreshed reactive inputs and outputs.
+    Use responsive layouts to design and construct applications for devices
+    of all sizes.
+License: GPL-3
+URL: https://nteetor.github.io/yonder
+BugReports: https://github.com/nteetor/yonder/issues
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.2
+Depends: R (>= 3.2), shiny (>= 1.6.0)
+Imports: htmltools (>= 0.4.0), magrittr, utils
+Suggests: testthat (>= 2.1.0)
+RemoteType: github
+RemoteHost: api.github.com
+RemoteRepo: yonder
+RemoteUsername: zevross-spatial
+RemoteRef: v0.2.0HEAT
+RemoteSha: a255858be44c9162fef86eb41d68dd5a53d2f91a
+GithubRepo: yonder
+GithubUsername: zevross-spatial
+GithubRef: v0.2.0HEAT
+GithubSHA1: a255858be44c9162fef86eb41d68dd5a53d2f91a
+NeedsCompilation: no
+Packaged: 2022-06-28 17:19:41 UTC; zev
+Author: Nathan Teetor [aut, cre],
+  The Bootstrap Authors [cph] (Bootstrap library),
+  Twitter, Inc [cph] (Bootstrap library),
+  JS Foundation [cph] (jQuery library),
+  Federico Zivolo [ctb, cph] (popper.js library),
+  Johann Servoire [ctb, cph] (bs-custom-file-input library)
+Maintainer: Nathan Teetor <nathanteetor@gmail.com>
+Built: R 4.1.2; ; 2022-06-28 17:19:43 UTC; windows

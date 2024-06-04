@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on the Relationship between Conscientiousness and...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.molloy2014 {metadat}"><tr><td>dat.molloy2014 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on the Relationship between Conscientiousness and Medication Adherence</h2>
+
+<h3>Description</h3>
+
+<p>Results from 16 studies on the correlation between conscientiousness and medication adherence.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.molloy2014
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>authors</b>   </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> study authors </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>year</b>      </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> publication year </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ni</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> sample size of the study </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ri</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> observed correlation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>controls</b>  </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> number of variables controlled for </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>design</b>    </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> whether a cross-sectional or prospective design was used </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>a_measure</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> type of adherence measure (self-report or other) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>c_measure</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> type of conscientiousness measure (NEO or other) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>meanage</b>   </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> mean age of the sample </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>quality</b>   </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> methodological quality
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>Conscientiousness, one of the big-5 personality traits, can be defined as &ldquo;socially prescribed impulse control that facilitates task- and goal-directed behaviour, such as thinking before acting, delaying gratification, following norms and rules and planning, organising and prioritising tasks&rdquo; (John &amp; Srivastava, 1999). Conscientiousness has been shown to be related to a number of health-related behaviors (e.g., tobacco/alcohol/drug use, diet and activity patterns, risky behaviors). A recent meta-analysis by Molloy et al. (2014) examined to what extent conscientiousness is related to medication adherence, that is, the extent to which (typically chronically ill) patients follow a prescribed medication regimen (e.g., taking a daily dose of a cholesterol lowering drug in patients with high LDL serum cholesterol levels). The results from the 16 studies included in this meta-analysis are provided in this dataset.
+</p>
+<p>Variable <code>a_measure</code> indicates whether adherence was measured based on self-reports or a more &lsquo;objective&rsquo; measure (e.g., electronic monitoring of pill bottle openings, pill counts). Variable <code>c_measure</code> indicates whether conscientiousness was measured with some version of the NEO personality inventory or some other scale. Methodological quality was scored by the authors on a 1 to 4 scale with higher scores indicating higher quality (see article for details on how this score was derived).
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>psychology, medicine, correlation coefficients
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Molloy, G. J., O'Carroll, R. E., &amp; Ferguson, E. (2014). Conscientiousness and medication adherence: A meta-analysis. <em>Annals of Behavioral Medicine</em>, <b>47</b>(1), 92&ndash;101. <code style="white-space: pre;">https://doi.org/10.1007/s12160-013-9524-4</code>
+</p>
+
+
+<h3>References</h3>
+
+<p>John, O. P., &amp; Srivastava, S. (1999). The Big Five Trait taxonomy: History, measurement, and theoretical perspectives. In L. A. Pervin &amp; O. P. John (Eds.), <em>Handbook of personality: Theory and research</em> (2nd ed., pp. 102-138). New York: Guilford Press.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.molloy2014
+dat[-c(5:6)]
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### calculate r-to-z transformed correlations and corresponding sampling variances
+dat &lt;- escalc(measure="ZCOR", ri=ri, ni=ni, data=dat, slab=paste(authors, year, sep=", "))
+dat[-c(5:6)]
+
+### meta-analysis of the transformed correlations using a random-effects model
+res &lt;- rma(yi, vi, data=dat)
+res
+
+### average correlation with 95% CI
+predict(res, digits=3, transf=transf.ztor)
+
+### forest plot
+forest(res, addpred=TRUE, xlim=c(-1.6,1.6), atransf=transf.ztor,
+       at=transf.rtoz(c(-.4,-.2,0,.2,.4,.6)), digits=c(2,1), cex=.8,
+       header="Author(s), Year")
+
+### funnel plot
+funnel(res)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

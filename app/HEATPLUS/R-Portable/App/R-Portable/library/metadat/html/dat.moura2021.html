@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on Assortative Mating</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.moura2021 {metadat}"><tr><td>dat.moura2021 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on Assortative Mating</h2>
+
+<h3>Description</h3>
+
+<p>Results from 457 studies on assortative mating in various species.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.moura2021
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The object is a list containing a data frame called <code>dat</code> that contains the following columns and a phylogenetic tree called <code>tree</code>:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>study.id</b>          </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> study id </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>effect.size.id</b>    </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> effect size id </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>species</b>           </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> species </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>species.id</b>        </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> species id (as in the Open Tree of Life reference taxonomy) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>subphylum</b>         </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> the subphyla of the species </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>phylum</b>            </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> the phyla of the species </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>assortment.trait</b>  </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> the measure of body size </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>trait.dimensions</b>  </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> dimensionality of the measure </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>field.collection</b>  </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> whether data were collected in the field </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>publication.year</b>  </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> publication year of the study </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>pooled.data</b>       </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> whether data were pooled either spatially and/or temporally </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>spatially.pooled</b>  </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> whether data were pooled spatially </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>temporally.pooled</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> whether data were pooled temporally </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ri</b>                </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> correlation coefficient </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ni</b>                </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> sample size
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>The 457 studies included in this dataset provide 1828 correlation coefficients describing the similarity in some measure of body size in mating couples in 341 different species.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>ecology, evolution, correlation coefficients, multivariate models, phylogeny, meta-regression
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Rios Moura, R., Oliveira Gonzaga, M., Silva Pinto, N., Vasconcellos-Neto, J., &amp; Requena, G. S. (2021). Assortative mating in space and time: Patterns and biases. <em>Ecology Letters</em>, <b>24</b>(5), 1089&ndash;1102. <code style="white-space: pre;">https://doi.org/10.1111/ele.13690</code>
+</p>
+
+
+<h3>References</h3>
+
+<p>Cinar, O., Nakagawa, S., &amp; Viechtbauer, W. (in press). Phylogenetic multilevel meta-analysis: A simulation study on the importance of modelling the phylogeny. <em>Methods in Ecology and Evolution</em>. <code style="white-space: pre;">https://doi.org/10.1111/2041-210X.13760</code>
+</p>
+<p>Hadfield, J. D., &amp; Nakagawa, S. (2010). General quantitative genetic methods for comparative biology: Phylogenies, taxonomies and multi-trait models for continuous and categorical characters. <em>Journal of Evolutionary Biology</em>, <b>23</b>(3), 494&ndash;508. <code style="white-space: pre;">https://doi.org/10.1111/j.1420-9101.2009.01915.x</code>
+</p>
+<p>Nakagawa, S., &amp; Santos, E. S. A. (2012). Methodological issues and advances in biological meta-analysis. <em>Evolutionary Ecology</em>, <b>26</b>(5), 1253&ndash;1274. <code style="white-space: pre;">https://doi.org/10.1007/s10682-012-9555-5</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.moura2021$dat
+head(dat)
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### load ape package
+library(ape, warn.conflicts=FALSE)
+
+### calculate r-to-z transformed correlations and corresponding sampling variances
+dat &lt;- escalc(measure="ZCOR", ri=ri, ni=ni, data=dat)
+
+### copy tree to 'tree'
+tree &lt;- dat.moura2021$tree
+
+### turn tree into an ultrametric one
+tree &lt;- compute.brlen(tree)
+
+### compute phylogenetic correlation matrix
+A &lt;- vcv(tree, corr=TRUE)
+
+### make copy of the species.id variable
+dat$species.id.phy &lt;- dat$species.id
+
+### fit multilevel phylogenetic meta-analytic model
+res &lt;- rma.mv(yi, vi,
+   random = list(~ 1 | study.id, ~ 1 | effect.size.id, ~ 1 | species.id, ~ 1 | species.id.phy),
+   R=list(species.id.phy=A), data=dat)
+res
+
+### examine if spatial and/or temporal pooling of data tends to yield larger correlations
+res &lt;- rma.mv(yi, vi,
+   mods = ~ spatially.pooled * temporally.pooled,
+   random = list(~ 1 | study.id, ~ 1 | effect.size.id, ~ 1 | species.id, ~ 1 | species.id.phy),
+   R=list(species.id.phy=A), data=dat)
+res
+
+### estimated average correlation without pooling, when pooling spatially,
+### when pooling temporally, and when pooling spatially and temporally
+predict(res, newmods = rbind(c(0,0,0),c(1,0,0),c(0,1,0),c(1,1,1)), transf=transf.ztor, digits=2)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

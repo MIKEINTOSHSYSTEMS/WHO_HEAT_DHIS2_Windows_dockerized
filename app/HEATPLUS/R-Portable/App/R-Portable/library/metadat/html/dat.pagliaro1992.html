@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on the Effectiveness of Nonsurgical Treatments in...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.pagliaro1992 {metadat}"><tr><td>dat.pagliaro1992 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on the Effectiveness of Nonsurgical Treatments in Cirrhosis</h2>
+
+<h3>Description</h3>
+
+<p>Results from 26 trials examining the effectiveness of beta-blockers and sclerotherapy for the prevention of first bleeding in patients with cirrhosis</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.pagliaro1992
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>study</b>    </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> study id </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>trt</b>      </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> either beta-blockers, sclerotherapy, or control </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>xi</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of patients with first bleeding </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ni</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of patients treated
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>The dataset includes the results from 26 randomized controlled trials examining the effectiveness of nonsurgical treatments for the prevention of first bleeding in patients with cirrhosis. Patients were either treated with beta-blockers, endoscopic sclerotherapy, or with a nonactive treatment (control). Two trials included all three treatment conditions, 7 trials compared beta-blockers against control, and 17 trials compared sclerotherapy against control. The dataset has been used in various papers to illustrate methods for conducting a network meta-analysis / mixed treatment comparison.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>medicine, odds ratios, Mantel-Haenszel method, network meta-analysis
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Pagliaro, L., D'Amico, G., Sörensen, T. I. A., Lebrec, D., Burroughs, A. K., Morabito, A., Tiné, F., Politi, F., &amp; Traina, M. (1992). Prevention of first bleeding in cirrhosis: A meta-analysis of randomized trials of nonsurgical treatment. <em>Annals of Internal Medicine</em>, <b>117</b>(1), 59&ndash;70. <code style="white-space: pre;">https://doi.org/10.7326/0003-4819-117-1-59</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.pagliaro1992
+dat
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### restructure dataset to a contrast-based format
+dat.c &lt;- to.wide(dat, study="study", grp="trt", grpvars=3:4)
+dat.c
+
+### Mantel-Haenszel results for beta-blockers and sclerotherapy versus control, respectively
+rma.mh(measure="OR", ai=xi.1, n1i=ni.1, ci=xi.2, n2i=ni.2,
+       data=dat.c, subset=(trt.1=="beta-blockers"), digits=2)
+rma.mh(measure="OR", ai=xi.1, n1i=ni.1, ci=xi.2, n2i=ni.2,
+       data=dat.c, subset=(trt.1=="sclerotherapy"), digits=2)
+
+### calculate log odds for each study arm
+dat &lt;- escalc(measure="PLO", xi=xi, ni=ni, data=dat)
+dat
+
+### turn treatment variable into factor and set reference level
+dat$trt &lt;- relevel(factor(dat$trt), ref="control")
+
+### add a space before each level (this makes the output a bit more legible)
+levels(dat$trt) &lt;- paste0(" ", levels(dat$trt))
+
+### network meta-analysis using an arm-based random-effects model with fixed study effects
+### (by setting rho=1/2, tau^2 reflects the amount of heterogeneity for all treatment comparisons)
+res &lt;- rma.mv(yi, vi, mods = ~ factor(study) + trt - 1, random = ~ trt | study, rho=1/2, data=dat)
+res
+
+### average odds ratio comparing beta-blockers and sclerotherapy versus control, respectively
+predict(res, newmods=c(rep(0,26), 1, 0), transf=exp, digits=2)
+predict(res, newmods=c(rep(0,26), 0, 1), transf=exp, digits=2)
+
+### average odds ratio comparing beta-blockers versus sclerotherapy
+predict(res, newmods=c(rep(0,26), 1, -1), transf=exp, digits=2)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

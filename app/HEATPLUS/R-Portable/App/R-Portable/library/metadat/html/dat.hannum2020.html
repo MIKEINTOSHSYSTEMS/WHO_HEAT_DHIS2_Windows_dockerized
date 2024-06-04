@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies Comparing Objective and Subjective Olfactory Loss in...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.hannum2020 {metadat}"><tr><td>dat.hannum2020 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies Comparing Objective and Subjective Olfactory Loss in COVID-19 Patients</h2>
+
+<h3>Description</h3>
+
+<p>Results from 35 studies measuring olfactory loss in COVID-19 patients using either objective or subjective measures.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.hannum2020
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>authorName</b>           </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> (first) author of study </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>DOI</b>                  </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> article DOI number </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ni</b>                   </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of Covid-19 positive patients in the study </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>xi</b>                   </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of Covid-19 positive patients in the study with olfactory loss </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>percentOlfactoryLoss</b> </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> percent of the sample with olfactory loss </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>objectivity</b>          </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> objective or subjective measure used </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>measured</b>             </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> outcome measure </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>testType</b>             </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> type of test used </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>country</b>              </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> country where patients were treated </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>patientType</b>          </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> type of patient information and location where being treated
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>One of the symptoms of COVID-19 infection is olfactory loss (loss of smell) either recently acquired anosmia (complete loss of smell) or hyposmia (partial loss of smell). One challenge to reaching this symptom is the wide range of reported prevalence for this symptom ranging from 5 percent to 98 percent. In this dataset studies were grouped into one of two groups based on the type of method used to measure smell loss (either subjective measures, such as self-reported smell loss, or objective measures using rated stimuli).
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>medicine, covid-19, proportions
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>W. Kyle Hamilton <a href="mailto:whamilton@ucmerced.edu">whamilton@ucmerced.edu</a> <a href="https://kylehamilton.com">https://kylehamilton.com</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Ramirez VA , Hannum ME, Lipson SJ, Herriman RD, Toskala AK, Lin C, Joseph PV, Reed DR. 2020. COVID-19 Smell Loss Prevalence Tracker. Available from: <code style="white-space: pre;">https://vicente-ramirez.shinyapps.io/COVID19_Olfactory_Dashboard/</code> and <code style="white-space: pre;">https://github.com/vramirez4/OlfactoryLoss</code> (accessed August 11, 2021)
+</p>
+
+
+<h3>References</h3>
+
+<p>Hannum, M. E., Ramirez, V. A., Lipson, S. J., Herriman, R. D., Toskala, A. K., Lin, C., Joseph, P. V., &amp; Reed, D. R. (2020). Objective sensory testing methods reveal a higher prevalence of olfactory loss in COVID-19 positive patients compared to subjective methods: A systematic review and meta-analysis. <em>Chemical Senses</em>, <b>45</b>(9), 865&ndash;874. <code style="white-space: pre;">https://doi.org/10.1093/chemse/bjaa064</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# copy data into 'dat' and examine data
+dat &lt;- dat.hannum2020
+dat
+
+## Not run: 
+   
+# load metafor package
+library(metafor)
+
+# compute effect size
+dat &lt;- escalc(measure="PR", xi=xi, ni=ni, data=dat)
+
+# split data into objective and subjective datasets
+dat_split &lt;- split(dat, dat$objectivity)
+dat_objective &lt;- dat_split[["Objective"]]
+dat_subjective &lt;- dat_split[["Subjective"]]
+
+# random-effects model all studies
+res_all &lt;- rma(yi, vi, data=dat)
+print(res_all, digits=2)
+
+# random-effects model objective
+res_objective &lt;- rma(yi, vi, data=dat_objective)
+print(res_objective, digits=2)
+
+# random-effects model subjective
+res_subjective &lt;- rma(yi, vi, data=dat_subjective)
+print(res_subjective, digits=2)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on Dopamine Agonists to Reduce &quot;Off-Time&quot; in Patients...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.franchini2012 {metadat}"><tr><td>dat.franchini2012 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on Dopamine Agonists to Reduce &ldquo;Off-Time&rdquo; in Patients with Advanced Parkinson Disease</h2>
+
+<h3>Description</h3>
+
+<p>Results from 7 trials examining the effectiveness of four dopamine agonists and placebo to reduce &ldquo;off-time&rdquo; in patients with advanced Parkinson disease.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.franchini2012
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>Study</b>      </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> study label </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>Treatment1</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> treatment 1 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>y1</b>         </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> treatment effect arm 1 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>sd1</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> standard deviation arm 2 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n1</b>         </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> sample size arm 1 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>Treatment2</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> treatment 2 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>y2</b>         </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> treatment effect arm 2 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>sd2</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> standard deviation arm 2 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n2</b>         </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> sample size arm 1 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>Treatment3</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> treatment 3 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>y3</b>         </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> treatment effect arm 3 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>sd3</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> standard deviation arm 2 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n3</b>         </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> sample size arm 1
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>This network meta-analysis compared the effectiveness of four active treatments and placebo in patients with advanced Parkinson disease (Franchini et al., 2012). The outcome is mean lost work-time reduction in patients given dopamine agonists as adjunct therapy. The data are given as sample size, mean, and standard deviation in each trial arm.
+</p>
+<p>This data set was used as an example in the supplemental material of Dias et al. (2013) where placebo is coded as 1 and the four active drugs as 2 to 5.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>medicine, raw mean differences, network meta-analysis
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Guido Schwarzer, <a href="mailto:sc@imbi.uni-freiburg.de">sc@imbi.uni-freiburg.de</a>, <a href="https://github.com/guido-s/">https://github.com/guido-s/</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Dias, S., Sutton, A. J., Ades, A. E., &amp; Welton, N. J. (2013). Evidence synthesis for decision making 2: A generalized linear modeling framework for pairwise and network meta-analysis of randomized controlled trials. <em>Medical Decision Making</em>, <b>33</b>(5), 607&ndash;617. <code style="white-space: pre;">https://doi.org/10.1177/0272989X12458724</code>
+</p>
+<p>Franchini, A. J., Dias, S., Ades, A. E., Jansen, J. P., &amp; Welton, N. J. (2012). Accounting for correlation in network meta-analysis with multi-arm trials. <em>Research Synthesis Methods</em>, <b>3</b>(2), 142&ndash;160. <code style="white-space: pre;">https://doi.org/10.1002/jrsm.1049</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### Show results from first three studies; third study is a three-arm
+### study
+head(dat.franchini2012, 3)
+
+## Not run: 
+
+### Load netmeta package
+suppressPackageStartupMessages(library(netmeta))
+
+### Print mean differences with two digits
+settings.meta(digits = 2)
+
+### Transform data from wide arm-based format to contrast-based
+### format. Argument 'sm' must not be provided as the mean difference
+### is the default in R function metacont() called internally.
+pw &lt;- pairwise(list(Treatment1, Treatment2, Treatment3),
+  n = list(n1, n2, n3),
+  mean = list(y1, y2, y3),
+  sd = list(sd1, sd2, sd3),
+  data = dat.franchini2012, studlab = Study, sm = "MD")
+
+### Show calculated mean differences (TE) for first three studies
+pw[1:5, c(3:7, 10, 1)]
+
+### Conduct network meta-analysis
+net &lt;- netmeta(pw)
+net
+
+### Draw network graph
+netgraph(net, points = TRUE, cex.points = 3, cex = 1.5,
+  plastic = TRUE, thickness = "se.fixed",
+  iterate = TRUE, start = "eigen")
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

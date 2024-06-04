@@ -1,0 +1,61 @@
+HEAT_create_dimension_table
+                        Creates the dimension table including adding
+                        the colors and shapes for dimension subgroups
+HEAT_create_random_sample
+                        Title
+HEAT_create_setyrsrc_table
+                        Create a table with the unique set of setting,
+                        year and source
+HEAT_create_strata_table
+                        Create the strata table (unique set of strata)
+HEAT_create_subregionminmax_table
+                        Compute the table of subregion min and max
+                        values for the mapping (only required for HEAT)
+HEAT_data_add_variables
+                        Add required new variables to the dataset
+HEAT_data_fixes         Apply specific data fixes to raw data
+HEAT_drop_defective_strata
+                        Drop strata with all missing estimates
+HEAT_force_variable_types
+                        Force variables to be the types they're
+                        supposed to be
+HEAT_rename_variables   Rename a table's variables
+HEAT_table_validation_tests
+                        Apply validation tests to the table
+appendColors            Add colors to the data
+choose_one_shp          Title
+compare_old_and_new_data
+                        Title
+create_non_spatial_data
+                        Title
+drop_problematic_country_yr
+                        Title
+duplicate_survey_geo    Pre-built country/years where the geography for
+                        a survey should get duplicated so that it can
+                        be used for more than one year
+get_heat_table          Title
+heatdata-package        HEAT Data application
+multi_use_survey_geo    Add new record in DHS survey geo dataset that
+                        is a duplicate of an existing year except
+                        includes a new year.
+shp_to_tibble           Title
+spatial_fix_country_names
+                        Title
+spatial_fix_survey_years
+                        Change the DHS shapefile year so that the year
+                        matches the WHO HEAT year - for DHS surveys
+                        that spanned two years, DHS may have assigned
+                        one year while WHO HEAT assigned the other year
+spatial_simplify_geo    Title
+standardize_region_text
+                        Title
+survey_boundary_download
+                        survey_boundary_download
+survey_boundary_move_unzip
+                        Title
+survey_boundary_prep    Title
+test_has_required_variables
+                        Test to confirm that all required variables are
+                        present in the dataset
+union_subnational_boundaries
+                        Title

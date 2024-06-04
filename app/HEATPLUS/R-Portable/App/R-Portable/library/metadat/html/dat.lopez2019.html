@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on the Effectiveness of CBT for Depression</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.lopez2019 {metadat}"><tr><td>dat.lopez2019 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on the Effectiveness of CBT for Depression</h2>
+
+<h3>Description</h3>
+
+<p>Results from 76 studies examining the effectiveness of cognitive behavioral therapy (CBT) for depression in adults.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.lopez2019
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>study</b>     </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> (first) author and year of study </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>treatment</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> treatment provided (see &lsquo;Details&rsquo;) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>scale</b>     </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> scale used to measure depression symptoms </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n</b>         </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> group size </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>diff</b>      </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> standardized mean change </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>se</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> corresponding standard error </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>group</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> type of therapy (0 = individual, 1 = group therapy) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>tailored</b>  </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> whether the intervention was tailored to each patient (0 = no, 1 = yes) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>sessions</b>  </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of sessions </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>length</b>    </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> average session length (in minutes) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>intensity</b> </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> product of sessions and length </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>multi</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> intervention included multimedia elements (0 = no, 1 = yes) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>cog</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> intervention included cognitive techniques (0 = no, 1 = yes) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ba</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> intervention included behavioral activation (0 = no, 1 = yes) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>psed</b>      </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> intervention included psychoeducation (0 = no, 1 = yes) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>home</b>      </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> intervention included homework (0 = no, 1 = yes) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>prob</b>      </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> intervention included problem solving (0 = no, 1 = yes) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>soc</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> intervention included social skills training (0 = no, 1 = yes) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>relax</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> intervention included relaxation (0 = no, 1 = yes) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>goal</b>      </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> intervention included goal setting (0 = no, 1 = yes) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>final</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> intervention included a final session (0 = no, 1 = yes) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>mind</b>      </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> intervention included mindfulness (0 = no, 1 = yes) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>act</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> intervention included acceptance and commitment therapy (0 = no, 1 = yes)
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>The dataset includes the results from 76 studies examining the effectiveness of cognitive behavioral therapy (CBT) for treating depression in adults. Studies included two or more of the following treatments/conditions:
+</p>
+
+<ol>
+<li><p> treatment as usual (TAU),
+</p>
+</li>
+<li><p> no treatment,
+</p>
+</li>
+<li><p> wait list,
+</p>
+</li>
+<li><p> psychological or attention placebo,
+</p>
+</li>
+<li><p> face-to-face CBT,
+</p>
+</li>
+<li><p> multimedia CBT,
+</p>
+</li>
+<li><p> hybrid CBT (i.e., multimedia CBT with one or more face-to-face sessions).
+</p>
+</li></ol>
+
+<p>Multimedia CBT was defined as CBT delivered via self-help books, audio/video recordings, telephone, computer programs, apps, e-mail, or text messages.
+</p>
+<p>Variable <code>diff</code> is the standardized mean change within each group, with negative values indicating a decrease in depression symptoms.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>psychiatry, standardized mean changes, network meta-analysis
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Personal communication.
+</p>
+
+
+<h3>References</h3>
+
+<p>López-López, J. A., Davies, S. R., Caldwell, D. M., Churchill, R., Peters, T. J., Tallon, D., Dawson, S., Wu, Q., Li, J., Taylor, A., Lewis, G., Kessler, D. S., Wiles, N., &amp; Welton, N. J. (2019). The process and delivery of CBT for depression in adults: A systematic review and network meta-analysis. <em>Psychological Medicine</em>, <b>49</b>(12), 1937&ndash;1947. <code style="white-space: pre;">https://doi.org/10.1017/S003329171900120X</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.lopez2019
+dat[1:10,1:6]
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### create network graph ('igraph' package must be installed)
+library(igraph, warn.conflicts=FALSE)
+pairs &lt;- data.frame(do.call(rbind,
+   sapply(split(dat$treatment, dat$study), function(x) t(combn(x,2)))), stringsAsFactors=FALSE)
+pairs$X1 &lt;- factor(pairs$X1, levels=sort(unique(dat$treatment)))
+pairs$X2 &lt;- factor(pairs$X2, levels=sort(unique(dat$treatment)))
+tab &lt;- table(pairs[,1], pairs[,2])
+tab # adjacency matrix
+g &lt;- graph_from_adjacency_matrix(tab, mode = "plus", weighted=TRUE, diag=FALSE)
+plot(g, edge.curved=FALSE, edge.width=E(g)$weight/2,
+     layout=layout_in_circle(g, order=c("Wait list", "No treatment", "TAU", "Multimedia CBT",
+                                        "Hybrid CBT", "F2F CBT", "Placebo")),
+     vertex.size=45, vertex.color="lightgray", vertex.label.color="black", vertex.label.font=2)
+
+### restructure data into wide format
+dat &lt;- to.wide(dat, study="study", grp="treatment", ref="TAU",
+               grpvars=c("diff","se","n"), postfix=c("1","2"))
+
+### compute contrasts between treatment pairs and corresponding sampling variances
+dat$yi &lt;- with(dat, diff1 - diff2)
+dat$vi &lt;- with(dat, se1^2 + se2^2)
+
+### calculate the variance-covariance matrix for multitreatment studies
+calc.v &lt;- function(x) {
+   v &lt;- matrix(x$se2[1]^2, nrow=nrow(x), ncol=nrow(x))
+   diag(v) &lt;- x$vi
+   v
+}
+V &lt;- bldiag(lapply(split(dat, dat$study), calc.v))
+
+### add contrast matrix to the dataset
+dat &lt;- contrmat(dat, grp1="treatment1", grp2="treatment2")
+
+### network meta-analysis using a contrast-based random-effects model
+### by setting rho=1/2, tau^2 reflects the amount of heterogeneity for all treatment comparisons
+### the treatment left out (TAU) becomes the reference level for the treatment comparisons
+res &lt;- rma.mv(yi, V, data=dat,
+         mods = ~ No.treatment + Wait.list + Placebo + F2F.CBT + Hybrid.CBT + Multimedia.CBT - 1,
+         random = ~ comp | study, rho=1/2)
+res
+
+### forest plot of the contrast estimates (treatments versus TAU)
+forest(coef(res), diag(vcov(res)), slab=sub(".", " ", names(coef(res)), fixed=TRUE),
+       xlim=c(-5,5), alim=c(-3,3), psize=1, header="Treatment",
+       xlab="Difference in Standardized Mean Change (compared to TAU)")
+
+### fit random inconsistency effects model
+res &lt;- rma.mv(yi, V, data=dat,
+         mods = ~ No.treatment + Wait.list + Placebo + F2F.CBT + Hybrid.CBT + Multimedia.CBT - 1,
+         random = list(~ comp | study, ~ comp | design), rho=1/2, phi=1/2)
+res
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

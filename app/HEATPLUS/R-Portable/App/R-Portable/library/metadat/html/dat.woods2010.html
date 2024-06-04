@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on Treatments for Chronic Obstructive Pulmonary...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.woods2010 {metadat}"><tr><td>dat.woods2010 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on Treatments for Chronic Obstructive Pulmonary Disease</h2>
+
+<h3>Description</h3>
+
+<p>Results from 3 trials examining the mortality risk of three treatments and placebo in patients with chronic obstructive pulmonary disease.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.woods2010
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>author</b>    </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> first author / study name </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>treatment</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> treatment </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>r</b>         </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> number of deaths </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>N</b>         </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> number of patients
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>Count mortality statistics in randomised controlled trials of treatments for chronic obstructive pulmonary disease (Woods et al., 2010, Table 1).
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>medicine, odds ratios, network meta-analysis
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Guido Schwarzer, <a href="mailto:sc@imbi.uni-freiburg.de">sc@imbi.uni-freiburg.de</a>, <a href="https://github.com/guido-s/">https://github.com/guido-s/</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Woods, B. S., Hawkins, N., &amp; Scott, D. A. (2010). Network meta-analysis on the log-hazard scale, combining count and hazard ratio statistics accounting for multi-arm trials: A tutorial. <em>BMC Medical Research Methodology</em>, <b>10</b>, 54. <code style="white-space: pre;">https://doi.org/10.1186/1471-2288-10-54</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### Show full data set
+dat.woods2010
+
+## Not run: 
+
+### Load netmeta package
+suppressPackageStartupMessages(library(netmeta))
+
+### Print odds ratios and confidence limits with two digits
+settings.meta(digits = 2)
+
+### Change appearance of confidence intervals
+cilayout("(", "-")
+
+### Transform data from long arm-based format to contrast-based
+### format. Argument 'sm' has to be used for odds ratio as summary
+### measure; by default the risk ratio is used in the metabin function
+### called internally.
+pw &lt;- pairwise(treatment, event = r, n = N,
+  studlab = author, data = dat.woods2010, sm = "OR")
+pw
+
+### Conduct network meta-analysis
+net &lt;- netmeta(pw)
+net
+
+### Show forest plot
+forest(net, ref = "Placebo", drop = TRUE,
+  leftlabs = "Contrast to Placebo")
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

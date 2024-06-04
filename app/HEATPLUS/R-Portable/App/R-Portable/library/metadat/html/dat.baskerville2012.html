@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on the Effectiveness of Practice Facilitation...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.baskerville2012 {metadat}"><tr><td>dat.baskerville2012 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on the Effectiveness of Practice Facilitation Interventions</h2>
+
+<h3>Description</h3>
+
+<p>Results from 23 studies on the effectiveness of practice facilitation interventions within the primary care practice setting.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.baskerville2012
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>author</b>    </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> study author(s) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>year</b>      </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> publication year </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>score</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> quality score (0 to 12 scale) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>design</b>    </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> study design (cct = controlled clinical trial, rct = randomized clinical trial, crct = cluster randomized clinical trial) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>alloconc</b>  </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> allocation concealed (0 = no, 1 = yes) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>blind</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> single- or double-blind study (0 = no, 1 = yes) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>itt</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> intention to treat analysis (0 = no, 1 = yes) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>fumonths</b>  </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> follow-up months </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>retention</b> </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> retention (in percent) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>country</b>   </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> country where study was conducted </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>outcomes</b>  </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of outcomes assessed </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>duration</b>  </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> duration of intervention </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>pperf</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> practices per facilitator </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>meetings</b>  </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> (average) number of meetings </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>hours</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> (average) hours per meeting </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>tailor</b>    </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> intervention tailored to the context and needs of the practice (0 = no, 1 = yes) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>smd</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> standardized mean difference </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>se</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> corresponding standard error
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>Baskerville et al. (2012) describe outreach or practice facilitation as a &quot;multifaceted approach that involves skilled individuals who enable others, through a range of intervention components and approaches, to address the challenges in implementing evidence-based care guidelines within the primary care setting&quot;. The studies included in this dataset examined the effectiveness of practice facilitation interventions for improving some relevant evidence-based practice behavior. The effect was quantified in terms of a standardized mean difference, comparing the change (from pre- to post-intervention) in the intervention versus the comparison group (or the difference from baseline in prospective cohort studies).
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>medicine, primary care, standardized mean differences, publication bias, meta-regression
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Baskerville, N. B., Liddy, C., &amp; Hogg, W. (2012). Systematic review and meta-analysis of practice facilitation within primary care settings. <em>Annals of Family Medicine</em>, <b>10</b>(1), 63&ndash;74. <code style="white-space: pre;">https://doi.org/10.1370/afm.1312</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.baskerville2012
+dat
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### random-effects model
+res &lt;- rma(smd, sei=se, data=dat, method="DL")
+print(res, digits=2)
+
+### funnel plot
+funnel(res, xlab="Standardized Mean Difference", ylim=c(0,0.6))
+
+### rank and regression tests for funnel plot asymmetry
+ranktest(res)
+regtest(res)
+
+### meta-regression analyses examining various potential moderators
+rma(smd, sei=se, mods = ~ score, data=dat, method="DL")
+rma(smd, sei=se, mods = ~ alloconc, data=dat, method="DL")
+rma(smd, sei=se, mods = ~ blind,    data=dat, method="DL")
+rma(smd, sei=se, mods = ~ itt,      data=dat, method="DL")
+rma(smd, sei=se, mods = ~ duration, data=dat, method="DL")
+rma(smd, sei=se, mods = ~ tailor,   data=dat, method="DL")
+rma(smd, sei=se, mods = ~ pperf,    data=dat, method="DL")
+rma(smd, sei=se, mods = ~ I(meetings * hours), data=dat, method="DL")
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on Intravenous Streptokinase for Acute Myocardial...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.lau1992 {metadat}"><tr><td>dat.lau1992 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on Intravenous Streptokinase for Acute Myocardial Infarction</h2>
+
+<h3>Description</h3>
+
+<p>Results from 33 trials comparing intravenous streptokinase versus placebo or no therapy in patients who had been hospitalized for acute myocardial infarction.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.lau1992
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>trial</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> trial name </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>year</b>  </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> publication year </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ai</b>    </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of deaths in the streptokinase group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n1i</b>   </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of patients in the streptokinase group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ci</b>    </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of deaths in the control group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n2i</b>   </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of patients in the control group
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>In the paper by Lau et al. (1992), the data are used to illustrate the idea of a cumulative meta-analysis, where the results are updated as each trial is added to the dataset. See &lsquo;Examples&rsquo; for code that replicates the results and shows corresponding forest plots.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>medicine, cardiology, odds ratios, cumulative meta-analysis
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Lau, J., Antman, E. M., Jimenez-Silva, J., Kupelnick, B., Mosteller, F., &amp; Chalmers, T. C. (1992). Cumulative meta-analysis of therapeutic trials for myocardial infarction. <em>New England Journal of Medicine</em>, <b>327</b>(4), 248&ndash;254. <code style="white-space: pre;">https://doi.org/10.1056/NEJM199207233270406</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.lau1992
+dat
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### meta-analysis of log odds ratios using the MH method
+res &lt;- rma.mh(measure="OR", ai=ai, n1i=n1i, ci=ci, n2i=n2i, data=dat, slab=trial)
+print(res, digits=2)
+
+### forest plot
+forest(res, xlim=c(-10,9), atransf=exp, at=log(c(.01, 0.1, 1, 10, 100)),
+       header=TRUE, top=2, ilab=dat$year, ilab.xpos=-6)
+text(-6, 35, "Year", font=2)
+
+### cumulative meta-analysis
+sav &lt;- cumul(res)
+
+### forest plot of the cumulative results
+forest(sav, xlim=c(-5,4), atransf=exp, at=log(c(0.1, 0.5, 1, 2, 10)),
+       header=TRUE, top=2, ilab=dat$year, ilab.xpos=-3)
+text(-3, 35, "Year", font=2)
+id &lt;- c(4, 8, 15, 33) # rows for which the z/p-values should be shown (as in Lau et al., 1992)
+text(1.1, (res$k:1)[id], paste0("z = ", formatC(sav$zval[id], format="f", digits=2),
+                                ", p = ", formatC(sav$pval[id], format="f", digits=4)))
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

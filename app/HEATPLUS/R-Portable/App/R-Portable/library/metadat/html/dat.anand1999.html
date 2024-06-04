@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on the Effectiveness of Oral Anticoagulants in...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.anand1999 {metadat}"><tr><td>dat.anand1999 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on the Effectiveness of Oral Anticoagulants in Patients with Coronary Artery Disease</h2>
+
+<h3>Description</h3>
+
+<p>Results from 34 trials examining the effectiveness of oral anticoagulants in patients with coronary artery disease.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.anand1999
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>study</b>     </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> author(s) or trial name </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>year</b>      </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> publication year </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>intensity</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> intensity of anticoagulation (low, medium, or high) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>asp.t</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> concomitant use of aspirin in the treatment group (0 = no, 1 = yes) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>asp.c</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> concomitant use of aspirin in the control group (0 = no, 1 = yes) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ai</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of deaths in the treatment group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n1i</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of patients in the treatment group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ci</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of deaths in the control group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n2i</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of patients in the control group
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>The dataset includes the results from 34 randomized clinical trials that examined the effectiveness of oral anticoagulants in patients with coronary artery disease. The results given here are focused on the total mortality in the treatment versus control groups.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>medicine, cardiology, odds ratios, Mantel-Haenszel method
+</p>
+
+
+<h3>Note</h3>
+
+<p>Strictly speaking, there are only 31 trials, since Breddin et al. (1980) and ATACS (1990) are multiarm trials.
+</p>
+<p>According to a correction, <code>dat.anand1999$ci[29]</code> should be 1. But then <code>dat.anand1999$ci[21]</code> would also have to be 1 (if these data indeed refer to the same control group). This appears contradictory, so this correction was not made.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Anand, S. S., &amp; Yusuf, S. (1999). Oral anticoagulant therapy in patients with coronary artery disease: A meta-analysis. <em>Journal of the American Medical Association</em>, <b>282</b>(21), 2058&ndash;2067. <code style="white-space: pre;">https://doi.org/10.1001/jama.282.21.2058</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.anand1999
+dat
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### High-Intensity OA vs Control
+rma.mh(measure="OR", ai=ai, n1i=n1i, ci=ci, n2i=n2i, data=dat,
+       subset=(intensity=="high" &amp; asp.t==0 &amp; asp.c==0), digits=2)
+
+### High- or Moderate-Intensity OA vs Aspirin
+rma.mh(measure="OR", ai=ai, n1i=n1i, ci=ci, n2i=n2i, data=dat,
+       subset=(intensity %in% c("high","moderate") &amp; asp.t==0 &amp; asp.c==1), digits=2)
+
+### Moderate-Intensity OA vs Control
+rma.mh(measure="OR", ai=ai, n1i=n1i, ci=ci, n2i=n2i, data=dat,
+       subset=(intensity=="moderate" &amp; asp.t==0 &amp; asp.c==0), digits=2)
+
+### High- or Moderate-Intensity OA and Aspirin vs Aspirin
+rma.mh(measure="OR", ai=ai, n1i=n1i, ci=ci, n2i=n2i, data=dat,
+       subset=(intensity %in% c("high","moderate") &amp; asp.t==1 &amp; asp.c==1), digits=2)
+
+### Low-Intensity OA and Aspirin vs Aspirin
+rma.mh(measure="OR", ai=ai, n1i=n1i, ci=ci, n2i=n2i, data=dat,
+       subset=(intensity=="low" &amp; asp.t==1 &amp; asp.c==1), digits=2)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

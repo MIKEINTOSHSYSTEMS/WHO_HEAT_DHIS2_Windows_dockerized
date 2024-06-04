@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Collapsible panes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for collapsePane {yonder}"><tr><td>collapsePane {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Collapsible panes</h2>
+
+<h3>Description</h3>
+
+<p>The <code>collapsePane()</code> creates a collapsible container. The state of the
+container, expanded or collapsed, is toggled using <code>showCollapsePane()</code>,
+<code>hideCollapsePane()</code>, and <code>toggleCollapsePane()</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+collapsePane(id, ..., show = FALSE, animate = TRUE)
+
+hideCollapsePane(id, session = getDefaultReactiveDomain())
+
+showCollapsePane(id, session = getDefaultReactiveDomain())
+
+toggleCollapsePane(id, session = getDefaultReactiveDomain())
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>id</code></td>
+<td>
+<p>A character string specifying the id of the collapse pane.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Tag elements inside the collapsible pane or additional named
+arguments passed as HTML attributes to parent element.</p>
+</td></tr>
+<tr valign="top"><td><code>show</code></td>
+<td>
+<p>One of <code>TRUE</code> or <code>FALSE</code> specifying if the collapsible pane
+is shown when the page renders, defaults to <code>FALSE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>animate</code></td>
+<td>
+<p>One of <code>TRUE</code> or <code>FALSE</code> specifying if showing and closing the
+collapsible pane is animated, defaults to <code>TRUE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>session</code></td>
+<td>
+<p>A reactive context, defaults to <code><a href="../../crosstalk/html/getDefaultReactiveDomain.html">getDefaultReactiveDomain()</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Padding may not be applied to the collapsible pane div element. To pad a
+collapsible pane first wrap the pane in another element and add padding to
+this new element.
+</p>
+
+
+<h3>App with collapse</h3>
+
+<div class="R"><pre>ui &lt;- container(
+  buttonInput(
+    id = "demo",
+    label = "Toggle collapse"
+  ),
+  collapsePane(
+    id = "collapse",
+    p(
+      "Pellentesque condimentum, magna ut suscipit hendrerit, ",
+      "ipsum augue ornare nulla, non luctus diam neque sit amet urna."
+    ),
+    p(
+      "Praesent fermentum tempor tellus.  Vestibulum convallis, ",
+      "lorem a tempus semper, dui dui euismod elit, vitae placerat ",
+      "urna tortor vitae lacus."
+    )
+  )
+)
+
+server &lt;- function(input, output) {
+  observeEvent(input$demo, {
+    toggleCollapsePane("collapse")
+  })
+}
+
+shinyApp(ui, server)
+</pre></div>
+
+
+<h3>See Also</h3>
+
+<p>Other components: 
+<code><a href="../../yonder/help/alert.html">alert</a>()</code>,
+<code><a href="../../yonder/help/badge.html">badge</a>()</code>,
+<code><a href="../../yonder/help/blockquote.html">blockquote</a>()</code>,
+<code><a href="../../yonder/help/card.html">card</a>()</code>,
+<code><a href="../../yonder/help/d1.html">d1</a>()</code>,
+<code><a href="../../yonder/help/dropdown.html">dropdown</a>()</code>,
+<code><a href="../../yonder/help/img.html">img</a>()</code>,
+<code><a href="../../yonder/help/jumbotron.html">jumbotron</a>()</code>,
+<code><a href="../../yonder/help/modal.html">modal</a>()</code>,
+<code><a href="../../yonder/help/navContent.html">navContent</a>()</code>,
+<code><a href="../../yonder/help/popover.html">popover</a>()</code>,
+<code><a href="../../yonder/help/pre.html">pre</a>()</code>,
+<code><a href="../../yonder/help/toast.html">toast</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+### Examples
+
+# As these are server-side utilities, please run the example applications
+# above.
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

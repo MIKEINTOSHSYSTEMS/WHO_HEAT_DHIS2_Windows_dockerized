@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Shadows</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for shadow {yonder}"><tr><td>shadow {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Shadows</h2>
+
+<h3>Description</h3>
+
+<p>The <code>shadow</code> utility applies a shadow to a tag element. Elements with a
+shadow may appear to pop off the page. The material design set of components,
+used on Android and for Google applications, commonly uses shadowing.
+Although <code>"none"</code> is an allowed <code>size</code>, most elements do not have a shadow by
+default.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+shadow(tag, size = "regular")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>tag</code></td>
+<td>
+<p>A tag element.</p>
+</td></tr>
+<tr valign="top"><td><code>size</code></td>
+<td>
+<p>One of <code>"none"</code>, <code>"small"</code>, <code>"regular"</code>, or <code>"large"</code> specifying
+the amount of shadow added, defaults to <code>"regular"</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p>Other design utilities: 
+<code><a href="../../yonder/help/active.html">active</a>()</code>,
+<code><a href="../../yonder/help/affix.html">affix</a>()</code>,
+<code><a href="../../yonder/help/background.html">background</a>()</code>,
+<code><a href="../../yonder/help/border.html">border</a>()</code>,
+<code><a href="../../yonder/help/display.html">display</a>()</code>,
+<code><a href="../../yonder/help/float.html">float</a>()</code>,
+<code><a href="../../yonder/help/font.html">font</a>()</code>,
+<code><a href="../../yonder/help/height.html">height</a>()</code>,
+<code><a href="../../yonder/help/padding.html">padding</a>()</code>,
+<code><a href="../../yonder/help/scroll.html">scroll</a>()</code>,
+<code><a href="../../yonder/help/width.html">width</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+### Styling a navbar
+
+div(
+  navbar(brand = "Navbar") %&gt;%
+    background("cyan") %&gt;%
+    shadow("small") %&gt;%
+    margin(bottom = 3),
+  p(
+    "Cras mattis consectetur purus sit amet fermentum. Donec sed ",
+    "odio dui. Lorem ipsum dolor sit amet, consectetur adipiscing ",
+    "elit. Aenean eu leo quam. Pellentesque ornare sem lacinia quam ",
+    "venenatis vestibulum."
+  )
+)
+
+### Different shadows
+
+div(
+  lapply(
+    c("small", "regular", "large"),
+    shadow,
+    tag = div() %&gt;%
+      padding(5) %&gt;%
+      margin(2)
+  )
+) %&gt;%
+  display("flex")
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

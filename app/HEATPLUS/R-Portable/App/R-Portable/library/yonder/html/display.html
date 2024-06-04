@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Display property</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for display {yonder}"><tr><td>display {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Display property</h2>
+
+<h3>Description</h3>
+
+<p>Use the <code>display()</code> utility to adjust how a tag element is rendered. All
+arguments are responsive allowing you to hide elements on small screens or
+convert elements from inline to block on large screens.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+display(tag, type)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>tag</code></td>
+<td>
+<p>A tag element.</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>A <a href="../../yonder/help/responsive.html">responsive</a> argument. One of <code>"inline"</code>, <code>"block"</code>,
+<code>"inline-block"</code>, <code>"flex"</code>, <code>"inline-flex"</code>, or <code>"none"</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p>Other design utilities: 
+<code><a href="../../yonder/help/active.html">active</a>()</code>,
+<code><a href="../../yonder/help/affix.html">affix</a>()</code>,
+<code><a href="../../yonder/help/background.html">background</a>()</code>,
+<code><a href="../../yonder/help/border.html">border</a>()</code>,
+<code><a href="../../yonder/help/float.html">float</a>()</code>,
+<code><a href="../../yonder/help/font.html">font</a>()</code>,
+<code><a href="../../yonder/help/height.html">height</a>()</code>,
+<code><a href="../../yonder/help/padding.html">padding</a>()</code>,
+<code><a href="../../yonder/help/scroll.html">scroll</a>()</code>,
+<code><a href="../../yonder/help/shadow.html">shadow</a>()</code>,
+<code><a href="../../yonder/help/width.html">width</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+### Using flexbox
+
+# When using `flex()` be sure to set the display, too.
+
+div(
+  lapply(
+    1:5,
+    function(i) {
+      div() %&gt;%
+        padding(5) %&gt;%
+        margin(top = c(xs = 2), bottom = c(xs = 2)) %&gt;%
+        background("blue")
+    }
+  )
+) %&gt;%
+  display("flex") %&gt;%
+  flex(
+    direction = c(xs = "column", sm = "row"),
+    justify = c(sm = "around")
+  )
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Modal dialogs</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for modal {yonder}"><tr><td>modal {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Modal dialogs</h2>
+
+<h3>Description</h3>
+
+<p>Modals are a flexible alert window, which disable interaction with the page
+behind them. Modals may include inputs, buttons, or simply text. Each modal
+may be assigned an <code>id</code>. By default <code>hideModal()</code> will hide all modals, but
+you may instead specify a modal's <code>id</code> in which case only that modal is
+closed. Additionally, when <code>id</code> is not <code>NULL</code> observers and reactives may
+watch for the modal's close event.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+modal(
+  id,
+  ...,
+  header = NULL,
+  footer = NULL,
+  center = FALSE,
+  size = "md",
+  fade = TRUE
+)
+
+showModal(modal, session = getDefaultReactiveDomain())
+
+closeModal(id = NULL, session = getDefaultReactiveDomain())
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>id</code></td>
+<td>
+<p>A character string specifying the id of the modal, when closed
+<code>input[[id]]</code> is set to <code>TRUE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Unnamed values passed as tag elements to the body of the modal.
+or named values passed as HTML attributes to the body element of the
+modal.</p>
+</td></tr>
+<tr valign="top"><td><code>header</code></td>
+<td>
+<p>A character string or tag element specifying the header of the
+modal.</p>
+</td></tr>
+<tr valign="top"><td><code>footer</code></td>
+<td>
+<p>A character string or tag element specifying the footer of the
+modal.</p>
+</td></tr>
+<tr valign="top"><td><code>center</code></td>
+<td>
+<p>One of <code>TRUE</code> or <code>FALSE</code> specifying whether the modal is
+vertically centered on the page, defaults to <code>FALSE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>size</code></td>
+<td>
+<p>One of <code>"sm"</code> (small), <code>"md"</code> (medium), <code>"lg"</code> (large), or <code>"xl"</code>
+(extra large) specifying the relative width of the modal, defaults to
+<code>"md"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>fade</code></td>
+<td>
+<p>One of <code>TRUE</code> or <code>FALSE</code> specifying if the modal fades in when
+shown and fades out when closed, defaults to <code>TRUE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>modal</code></td>
+<td>
+<p>A modal tag element created using <code>modal()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>session</code></td>
+<td>
+<p>A reactive context, defaults to <code><a href="../../crosstalk/html/getDefaultReactiveDomain.html">getDefaultReactiveDomain()</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Example application</h3>
+
+<div class="R"><pre>ui &lt;- container(
+  buttonInput(
+    id = "open",
+    "Open modal",
+    icon("plus")
+  )
+)
+
+server &lt;- function(input, output) {
+  modal1 &lt;- modal(
+    title = "A simple modal",
+    p(
+      "Cras mattis consectetur purus sit amet fermentum.",
+      "Cras justo odio, dapibus ac facilisis in, egestas",
+      "eget quam. Morbi leo risus, porta ac consectetur",
+      "ac, vestibulum at eros."
+    )
+  )
+
+  observeEvent(input$open, ignoreInit = TRUE, {
+    showModal(modal1)
+  })
+}
+
+shinyApp(ui, server)
+</pre></div>
+
+
+<h3>See Also</h3>
+
+<p>Other components: 
+<code><a href="../../yonder/help/alert.html">alert</a>()</code>,
+<code><a href="../../yonder/help/badge.html">badge</a>()</code>,
+<code><a href="../../yonder/help/blockquote.html">blockquote</a>()</code>,
+<code><a href="../../yonder/help/card.html">card</a>()</code>,
+<code><a href="../../yonder/help/collapsePane.html">collapsePane</a>()</code>,
+<code><a href="../../yonder/help/d1.html">d1</a>()</code>,
+<code><a href="../../yonder/help/dropdown.html">dropdown</a>()</code>,
+<code><a href="../../yonder/help/img.html">img</a>()</code>,
+<code><a href="../../yonder/help/jumbotron.html">jumbotron</a>()</code>,
+<code><a href="../../yonder/help/navContent.html">navContent</a>()</code>,
+<code><a href="../../yonder/help/popover.html">popover</a>()</code>,
+<code><a href="../../yonder/help/pre.html">pre</a>()</code>,
+<code><a href="../../yonder/help/toast.html">toast</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+### Simple modal
+
+modal(
+  id = "simple",
+  header = h5("Title"),
+  p("Cras placerat accumsan nulla.")
+)
+
+### Modal with container body
+
+modal(
+  id = "more_complex",
+  size = "lg",
+  header = h5("More complex"),
+  container(
+    columns(
+      column("Cras placerat accumsan nulla."),
+      column("Curabitur lacinia pulvinar nibh."),
+      column(
+        "Aliquam posuere.",
+        "Praesent fermentum tempor tellus."
+      )
+    )
+  )
+)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

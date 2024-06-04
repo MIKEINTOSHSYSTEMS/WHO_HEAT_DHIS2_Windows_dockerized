@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on Pharmacologic Treatments for Chronic Obstructive...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.baker2009 {metadat}"><tr><td>dat.baker2009 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on Pharmacologic Treatments for Chronic Obstructive Pulmonary Disease</h2>
+
+<h3>Description</h3>
+
+<p>Results from 39 trials examining pharmacologic treatments for chronic obstructive pulmonary disease (COPD).</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.baker2009
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>study</b>     </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> study label </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>year</b>      </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> year of publication </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>id</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> study ID </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>treatment</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> treatment </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>exac</b>      </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of individuals with one or more COPD exacerbations </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>total</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of individuals
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>This data set comes from a systematic review of randomized controlled trials on pharmacologic treatments for chronic obstructive pulmonary disease (COPD) (Baker et al., 2009).
+</p>
+<p>The primary outcome, occurrence of one or more episodes of COPD exacerbation, is binary (yes / no). For this outcome, five drug treatments (fluticasone, budesonide, salmeterol, formoterol, tiotropium) and two combinations (fluticasone + salmeterol, budesonide + formoterol) were compared to placebo. The authors considered the two combinations as separate treatments instead of evaluating the individual components.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>medicine, odds ratios, network meta-analysis, component network meta-analysis
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Guido Schwarzer, <a href="mailto:sc@imbi.uni-freiburg.de">sc@imbi.uni-freiburg.de</a>, <a href="https://github.com/guido-s/">https://github.com/guido-s/</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Baker, W. L., Baker, E. L., &amp; Coleman, C. I. (2009). Pharmacologic treatments for chronic obstructive pulmonary disease: A mixed-treatment comparison meta-analysis. <em>Pharmacotherapy: The Journal of Human Pharmacology and Drug Therapy</em>, <b>29</b>(8), 891&ndash;905. <code style="white-space: pre;">https://doi.org/10.1592/phco.29.8.891</code>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../netmeta/help/pairwise.html">pairwise</a></code>, <code><a href="../../meta/help/metabin.html">metabin</a></code>,
+<code><a href="../../netmeta/help/netmeta.html">netmeta</a></code>, <code><a href="../../netmeta/help/netcomb.html">netcomb</a></code>,
+<code><a href="../../netmeta/help/netmetabin.html">netmetabin</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### Show first 6 rows of the dataset
+head(dat.baker2009)
+
+## Not run: 
+
+### Load netmeta package
+suppressPackageStartupMessages(library(netmeta))
+
+### Print odds ratios and confidence limits with two digits
+settings.meta(digits = 2)
+
+### Transform data from long arm-based format to contrast-based
+### format. Argument 'sm' has to be used for odds ratio as summary
+### measure; by default the risk ratio is used in the metabin function
+### called internally.
+pw &lt;- pairwise(treatment, exac, total, studlab = paste(study, year),
+  data = dat.baker2009, sm = "OR")
+
+### Conduct random effects network meta-analysis (NMA)
+### with placebo as reference
+net &lt;- netmeta(pw, fixed = FALSE, ref = "plac")
+
+### Show network graph
+netgraph(net, seq = "optimal", start = "prcomp",
+  labels = gsub("+", " +\n", trts, fixed = TRUE),
+  plastic = TRUE, thickness = "se.fixed", number = TRUE,
+  points = TRUE, cex.points = 5, col.points = "red",
+  offset = 0.025)
+
+### Print and plot results for network meta-analysis
+net
+forest(net)
+
+### Conduct component network meta-analysis (CNMA)
+cnet &lt;- netcomb(net)
+cnet
+
+### Compare results of NMA and additive CNMA
+nb &lt;- netbind(net, cnet, name = c("Standard NMA", "Additive CNMA"))
+forest(nb)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

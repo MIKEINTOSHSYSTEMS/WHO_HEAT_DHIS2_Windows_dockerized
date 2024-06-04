@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on the Relationship between the Competitive State...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.craft2003 {metadat}"><tr><td>dat.craft2003 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on the Relationship between the Competitive State Anxiety Inventory-2 and Sport Performance</h2>
+
+<h3>Description</h3>
+
+<p>Results from 10 studies on the relationship between the Competitive State Anxiety Inventory-2 (CSAI-2) and sport performance.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.craft2003
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>study</b> </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> study number </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ni</b>    </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> sample size </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>sport</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> type of sport (T = team sport, I = individual sport) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ri</b>    </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> correlation coefficient </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>var1</b>  </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> variable 1 of the correlation coefficient (see &lsquo;Details&rsquo;) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>var2</b>  </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> variable 2 of the correlation coefficient (see &lsquo;Details&rsquo;)
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>The 10 studies included in this dataset are a subset of the studies included in the meta-analysis by Craft et al. (2003) on the relationship between the Competitive State Anxiety Inventory-2 (CSAI-2) and sport performance.
+</p>
+<p>The CSAI-2 has three subscales: cognitive anxiety (<code>acog</code>), somatic anxiety (<code>asom</code>), and self-confidence (<code>conf</code>). The studies included in this dataset administered the CSAI-2 prior to some sport competition and then measured sport performance based on the competition. Most studies provided all 6 correlations (3 for the correlations among the 3 subscales and 3 for the correlations between the subscales and sport performance), but 2 studies (with study numbers 6 and 17) only provided a subset.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>psychology, correlation coefficients, multivariate models
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Becker, B. J., &amp; Aloe, A. M. (2019). Model-based meta-analysis and related approaches. In H. Cooper, L. V. Hedges, &amp; J. C. Valentine (Eds.), <em>The handbook of research synthesis and meta-analysis</em> (3nd ed., pp. 339&ndash;363). New York: Russell Sage Foundation.
+</p>
+
+
+<h3>References</h3>
+
+<p>Craft, L. L., Magyar, T. M., Becker, B. J., &amp; Feltz, D. L. (2003). The relationship between the Competitive State Anxiety Inventory-2 and sport performance: A meta-analysis. <em>Journal of Sport and Exercise Psychology</em>, <b>25</b>(1), 44&ndash;65. <code style="white-space: pre;">https://doi.org/10.1123/jsep.25.1.44</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.craft2003
+head(dat, 18)
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### construct dataset and var-cov matrix of the correlations
+tmp &lt;- rcalc(ri ~ var1 + var2 | study, ni=ni, data=dat)
+V &lt;- tmp$V
+dat &lt;- tmp$dat
+
+### examine data for study 1
+dat[dat$study == 1,]
+V[dat$study == 1, dat$study == 1]
+
+### examine data for study 6
+dat[dat$study == 6,]
+V[dat$study == 6, dat$study == 6]
+
+### examine data for study 17
+dat[dat$study == 17,]
+V[dat$study == 17, dat$study == 17]
+
+### multivariate random-effects model
+res &lt;- rma.mv(yi, V, mods = ~ var1.var2 - 1, random = ~ var1.var2 | study, struct="UN", data=dat)
+res
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

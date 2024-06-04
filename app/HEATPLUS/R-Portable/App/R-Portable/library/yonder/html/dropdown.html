@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Dropdown menus</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dropdown {yonder}"><tr><td>dropdown {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Dropdown menus</h2>
+
+<h3>Description</h3>
+
+<p>Dropdown menus are a container for buttons, text, and form inputs. See
+argument <code>...</code> for details on composing dropdown menus.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dropdown(label, ..., direction = "down", align = "left")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>label</code></td>
+<td>
+<p>A character string specifying the label of the dropdown's
+button.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Character strings or vectors, header tag elements, button inputs,
+or form inputs specifying the elements of the dropdown. These elements may
+be grouped into lists to create a menu with sections. <code>h6()</code> is the
+recommended heading level for menu headers. Character vectors are converted
+into paragraphs of text. To format menu text use <code>p()</code> and utility
+functions.
+</p>
+<p>Additional named arguments are passed as HTML attributes to the parent
+element.</p>
+</td></tr>
+<tr valign="top"><td><code>direction</code></td>
+<td>
+<p>One of <code>"up"</code>, <code>"right"</code>, <code>"down"</code>, or <code>"left"</code> specifying
+the direction in which the menu opens, defaults to <code>"down"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>align</code></td>
+<td>
+<p>One of <code>"left"</code> or <code>"right"</code> specifying which side of the button
+to align the dropdown menu to, defaults to <code>"left"</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p>Other components: 
+<code><a href="../../yonder/help/alert.html">alert</a>()</code>,
+<code><a href="../../yonder/help/badge.html">badge</a>()</code>,
+<code><a href="../../yonder/help/blockquote.html">blockquote</a>()</code>,
+<code><a href="../../yonder/help/card.html">card</a>()</code>,
+<code><a href="../../yonder/help/collapsePane.html">collapsePane</a>()</code>,
+<code><a href="../../yonder/help/d1.html">d1</a>()</code>,
+<code><a href="../../yonder/help/img.html">img</a>()</code>,
+<code><a href="../../yonder/help/jumbotron.html">jumbotron</a>()</code>,
+<code><a href="../../yonder/help/modal.html">modal</a>()</code>,
+<code><a href="../../yonder/help/navContent.html">navContent</a>()</code>,
+<code><a href="../../yonder/help/popover.html">popover</a>()</code>,
+<code><a href="../../yonder/help/pre.html">pre</a>()</code>,
+<code><a href="../../yonder/help/toast.html">toast</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+### Dropdown with buttons
+
+dropdown(
+  label = "Choices",
+  buttonInput("choice1", "Choice 1"),
+  buttonInput("choice2", "Choice 2"),
+  buttonInput("choice3", "Choice 3")
+)
+
+### Dropdown with links
+
+dropdown(
+  label = "Choices",
+  linkInput("link1", "Choice 1"),
+  linkInput("link2", "Choice 2")
+)
+
+### Grouped sections
+
+dropdown(
+  label = "Sections",
+  h6("Section 1"),
+  buttonInput("a", "Option A"),
+  buttonInput("b", "Option B"),
+  hr(),
+  h6("Section 2"),
+  buttonInput("c", "Option C"),
+  buttonInput("d", "Option D")
+)
+
+### Direction variations
+
+dropdown(
+  label = "Up!",
+  direction = "up",
+  buttonInput("up1", "Choice 1"),
+  buttonInput("up2", "Choice 2")
+)
+
+### Dropdowns with forms
+
+dropdown(
+  label = "Sign in",
+  formInput(
+    id = "login",
+    formGroup(
+      label = "Username / Email",
+      textInput(
+        type = "email",
+        id = "user"
+      )
+    ),
+    formGroup(
+      label = "Password",
+      textInput(
+        type = "password",
+        id = "pass"
+      )
+    ),
+    formSubmit(
+      label = "Sign in",
+      value = "signin"
+    )
+  ) %&gt;%
+    padding(3, 4, 3, 4)
+)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

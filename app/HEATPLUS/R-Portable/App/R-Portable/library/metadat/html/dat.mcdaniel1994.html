@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on the Validity of Employment Interviews</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.mcdaniel1994 {metadat}"><tr><td>dat.mcdaniel1994 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on the Validity of Employment Interviews</h2>
+
+<h3>Description</h3>
+
+<p>Results from 160 studies on the correlation between employment interview assessments and job performance.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.mcdaniel1994
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>study</b>    </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> study number </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ni</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> sample size of the study </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ri</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> observed correlation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>type</b>     </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> interview type (j = job-related, s = situational, p = psychological) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>struct</b>   </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> interview structure (u = unstructured, s = structured)
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>The 160 studies provide data in terms of the correlation between employment interview performance and actual job performance. In addition, the interview type and the interview structure are indicated.
+</p>
+<p>McDaniel et al. (1994) describe the interview type and structure variables as follows. &quot;Questions in situational interviews [...] focus on the individual's ability to project what his or her behavior would be in a given situation. [...] Job-related interviews are those in which the interviewer is a personnel officer or hiring authority and the questions attempt to assess past behaviors and job-related information, but most questions are not considered situational. Psychological interviews are conducted by a psychologist, and the questions are intended to assess personal traits, such as dependability.&quot; In structured interviews, &quot;the questions and acceptable responses were specified in advance and the responses were rated for appropriateness of content. [...] Unstructured interviews gather applicant information in a less systematic manner than do structured interviews. Although the questions may be specified in advance, they usually are not, and there is seldom a formalized scoring guide. Also, all persons being interviewed are not typically asked the same questions.&quot;
+</p>
+<p>The goal of the meta-analysis was to examine the overall criterion-related validity of employment interviews and to examine whether the validity depends on the type and structure of the interview.
+</p>
+<p>The data in this dataset were obtained from Table A.2 in Rothstein, Sutton, and Borenstein (2005, p. 325-329). Note that the <code>type</code> and <code>struct</code> variables contain some <code>NA</code>s.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>psychology, correlation coefficients, meta-regression
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Rothstein, H. R., Sutton, A. J., &amp; Borenstein, M. (Eds.). (2005). <em>Publication bias in meta-analysis: Prevention, assessment, and adjustments</em>. Chichester, England: Wiley.
+</p>
+
+
+<h3>References</h3>
+
+<p>McDaniel, M. A., Whetzel, D. L., Schmidt, F. L., &amp; Maurer, S. D. (1994). The validity of employment interviews: A comprehensive review and meta-analysis. <em>Journal of Applied Psychology</em>, <b>79</b>(4), 599&ndash;616. <code style="white-space: pre;">https://doi.org/10.1037/0021-9010.79.4.599</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.mcdaniel1994
+head(dat)
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### calculate r-to-z transformed correlations and corresponding sampling variances
+dat &lt;- escalc(measure="ZCOR", ri=ri, ni=ni, data=dat)
+head(dat)
+
+### meta-analysis of the transformed correlations using a random-effects model
+res &lt;- rma(yi, vi, data=dat)
+res
+
+### average correlation with 95% CI
+predict(res, transf=transf.ztor)
+
+### mixed-effects model with interview type as factor
+### note: job-related interviews is the reference level
+rma(yi, vi, mods = ~ factor(type), data=dat)
+
+### mixed-effects model with interview structure as factor
+### note: structured interviews is the reference level
+rma(yi, vi, mods = ~ factor(struct), data=dat)
+
+### note: the interpretation of the results is difficult since all
+### situational interviews were structured, almost all psychological
+### interviews were unstructured, and actually for the majority of
+### the psychological interviews it was unknown whether the interview
+### was structured or unstructured
+table(dat$type, dat$struct, useNA="always")
+
+### meta-analysis of raw correlations using a random-effects model
+res &lt;- rma(measure="COR", ri=ri, ni=ni, data=dat.mcdaniel1994)
+res
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

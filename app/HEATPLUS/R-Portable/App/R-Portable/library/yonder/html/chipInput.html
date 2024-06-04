@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Chip inputs</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for chipInput {yonder}"><tr><td>chipInput {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Chip inputs</h2>
+
+<h3>Description</h3>
+
+<p>The chip input is a selectize alternative. Choices are selected from a
+dropdown menu and appear as chips below the input's text box. Chips do not
+appear in the order they are selected. Instead chips are shown in the order
+specified by the <code>choices</code> argument. Use the <code>max</code> argument to limit the
+number of choices a user may select.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+chipInput(
+  id,
+  choices = NULL,
+  values = choices,
+  selected = NULL,
+  ...,
+  placeholder = NULL,
+  max = Inf,
+  inline = TRUE,
+  sort = "stack"
+)
+
+updateChipInput(
+  id,
+  choices = NULL,
+  values = choices,
+  selected = NULL,
+  max = NULL,
+  enable = NULL,
+  disable = NULL,
+  session = getDefaultReactiveDomain()
+)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>id</code></td>
+<td>
+<p>A character string specifying the id of the reactive input.</p>
+</td></tr>
+<tr valign="top"><td><code>choices</code></td>
+<td>
+<p>A character vector or list specifying the possible choices.</p>
+</td></tr>
+<tr valign="top"><td><code>values</code></td>
+<td>
+<p>A character vector or list of strings specifying the input's
+values, defaults to <code>choices</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>selected</code></td>
+<td>
+<p>One or more of <code>values</code> specifying which values are selected
+by default.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional named arguments passed as HTML attributes to the
+parent element or tag elements passed as child elements to the parent
+element.</p>
+</td></tr>
+<tr valign="top"><td><code>placeholder</code></td>
+<td>
+<p>A character string specifying placeholder text of the
+chip input, defaults to <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>max</code></td>
+<td>
+<p>A number specifying the maximum number of items a user may select,
+defaults to <code>Inf</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>inline</code></td>
+<td>
+<p>One of <code>TRUE</code> or <code>FALSE</code> specifying if chips are rendered
+inline. If <code>TRUE</code> multiple chips may fit onto a single row, otherwise, if
+<code>FALSE</code>, chips expand to fill the width of their parent element, one chip
+per row.</p>
+</td></tr>
+<tr valign="top"><td><code>sort</code></td>
+<td>
+<p>One of <code>"stack"</code>, <code>"queue"</code>, or <code>"fixed"</code> specifying how
+selected chips are ordered, defaults to <code>"stack"</code>.
+</p>
+<p><code>"stack"</code>, selected chips are placed ahead of other selected chips.
+</p>
+<p><code>"queue"</code>, selected chips are placed behind other selected chips.
+</p>
+<p><code>"fixed"</code>, selected chips appear in the order specified by
+<code>choices</code> and <code>values</code>. Use <code>"fixed"</code> and sort <code>choices</code> to keep selected
+chips in the same sorted order.</p>
+</td></tr>
+<tr valign="top"><td><code>enable</code></td>
+<td>
+<p>One of <code>values</code> specifying particular choices to enable or
+<code>TRUE</code> specifying the entire input is enabled, defaults to <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>disable</code></td>
+<td>
+<p>One of <code>values</code> specifying particular choices to disable or
+<code>TRUE</code> specifying the entire input is disabled, defaults to <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>session</code></td>
+<td>
+<p>A reactive context, defaults to <code><a href="../../crosstalk/html/getDefaultReactiveDomain.html">getDefaultReactiveDomain()</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3><strong>Example</strong> simple application</h3>
+
+<div class="R"><pre>ui &lt;- container(
+  chipInput(
+    id = "chips",
+    choices = paste("Option number", 1:10),
+    values = 1:10,
+    inline = TRUE
+  ) %&gt;%
+    width("1/2")
+)
+
+server &lt;- function(input, output) {
+
+}
+
+shinyApp(ui, server)
+</pre></div>
+
+
+<h3><strong>Example</strong> inline chips</h3>
+
+<div class="R"><pre>ui &lt;- container(
+  chipInput(
+    id = "chips",
+    choices = c(
+      "A rather long option, isn't it?",
+      "Shorter",
+      "A middle-size option",
+      "One more"
+    ),
+    values = 1:4,
+    fill = FALSE
+  ) %&gt;%
+    width("1/2") %&gt;%
+    background("blue") %&gt;%
+    shadow("small")
+)
+
+server &lt;- function(input, output) {
+
+}
+
+shinyApp(ui, server)
+</pre></div>
+
+
+<h3>See Also</h3>
+
+<p>Other inputs: 
+<code><a href="../../yonder/help/buttonGroupInput.html">buttonGroupInput</a>()</code>,
+<code><a href="../../yonder/help/buttonInput.html">buttonInput</a>()</code>,
+<code><a href="../../yonder/help/checkbarInput.html">checkbarInput</a>()</code>,
+<code><a href="../../yonder/help/checkboxInput.html">checkboxInput</a>()</code>,
+<code><a href="../../yonder/help/fileInput.html">fileInput</a>()</code>,
+<code><a href="../../yonder/help/formInput.html">formInput</a>()</code>,
+<code><a href="../../yonder/help/listGroupInput.html">listGroupInput</a>()</code>,
+<code><a href="../../yonder/help/menuInput.html">menuInput</a>()</code>,
+<code><a href="../../yonder/help/navInput.html">navInput</a>()</code>,
+<code><a href="../../yonder/help/radioInput.html">radioInput</a>()</code>,
+<code><a href="../../yonder/help/radiobarInput.html">radiobarInput</a>()</code>,
+<code><a href="../../yonder/help/rangeInput.html">rangeInput</a>()</code>,
+<code><a href="../../yonder/help/selectInput.html">selectInput</a>()</code>,
+<code><a href="../../yonder/help/textInput.html">textInput</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+### Default input
+
+chipInput(
+  id = "chip1",
+  choices = paste("Choice", 1:5),
+  selected = c("Choice 3", "Choice 4")
+)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

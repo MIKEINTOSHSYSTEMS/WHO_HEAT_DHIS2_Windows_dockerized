@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Vertical and horizontal scroll</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for scroll {yonder}"><tr><td>scroll {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Vertical and horizontal scroll</h2>
+
+<h3>Description</h3>
+
+<p>Many of the applications you build despite a complex layout will still fit
+onto a single page. To help scroll long content alongside shorter content use
+the <code>scroll()</code> utility function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+scroll(tag, direction = "vertical")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>tag</code></td>
+<td>
+<p>A tag element.</p>
+</td></tr>
+<tr valign="top"><td><code>direction</code></td>
+<td>
+<p>One of <code>"horizontal"</code> or <code>"vertical"</code> specifying which
+direction to scroll overflowing content, defaults to <code>"vertical"</code>, in which
+case the content may scroll up and down.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p>Other design utilities: 
+<code><a href="../../yonder/help/active.html">active</a>()</code>,
+<code><a href="../../yonder/help/affix.html">affix</a>()</code>,
+<code><a href="../../yonder/help/background.html">background</a>()</code>,
+<code><a href="../../yonder/help/border.html">border</a>()</code>,
+<code><a href="../../yonder/help/display.html">display</a>()</code>,
+<code><a href="../../yonder/help/float.html">float</a>()</code>,
+<code><a href="../../yonder/help/font.html">font</a>()</code>,
+<code><a href="../../yonder/help/height.html">height</a>()</code>,
+<code><a href="../../yonder/help/padding.html">padding</a>()</code>,
+<code><a href="../../yonder/help/shadow.html">shadow</a>()</code>,
+<code><a href="../../yonder/help/width.html">width</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+### A simple scroll
+
+div(
+  lapply(
+    rep("Integer placerat tristique nisl.", 20),
+    . %&gt;% p() %&gt;% margin(bottom = 2)
+  )
+) %&gt;%
+  height(20) %&gt;%
+  border("black") %&gt;%
+  scroll()
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on the Effectiveness of Azithromycin for Treating...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.laopaiboon2015 {metadat}"><tr><td>dat.laopaiboon2015 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on the Effectiveness of Azithromycin for Treating Lower Respiratory Tract Infections</h2>
+
+<h3>Description</h3>
+
+<p>Results from 15 studies on the effectiveness of azithromycin versus amoxycillin or amoxycillin/clavulanic acid (amoxyclav) in the treatment of acute lower respiratory tract infections.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.laopaiboon2015
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>author</b>  </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> author(s) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>year</b>    </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> publication year </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ai</b>      </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of clinical failures in the group treated with azithromycin </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n1i</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of patients in the group treated with azithromycin </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ci</b>      </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of clinical failures in the group treated with amoxycillin or amoxyclav </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n2i</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of patients in the group treated with amoxycillin or amoxyclav </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>age</b>     </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> whether the trial included adults or children </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>diag.ab</b> </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> trial included patients with a diagnosis of acute bacterial bronchitis </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>diag.cb</b> </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> trial included patients with a diagnosis of chronic bronchitis with acute exacerbation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>diag.pn</b> </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> trial included patients with a diagnosis of pneumonia </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ctrl</b>    </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> antibiotic in control group (amoxycillin or amoxyclav)
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>Azithromycin is an antibiotic useful for the treatment of a number of bacterial infections. Laopaiboon et al. (2015) conducted a meta-analysis of trials comparing the effectiveness of azithromycin versus amoxycillin or amoxycillin/clavulanic acid (amoxyclav) in the treatment of acute lower respiratory tract infections, including acute bacterial bronchitis, acute exacerbations of chronic bronchitis, and pneumonia. The results from 15 trials are included in this dataset.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>medicine, risk ratios
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Laopaiboon, M., Panpanich, R., &amp; Swa Mya, K. (2015). Azithromycin for acute lower respiratory tract infections. <em>Cochrane Database of Systematic Reviews</em>, <b>3</b>, CD001954. <code style="white-space: pre;">https://doi.org/10.1002/14651858.CD001954.pub4</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.laopaiboon2015
+dat
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### analysis using the Mantel-Haenszel method
+rma.mh(measure="RR", ai=ai, n1i=n1i, ci=ci, n2i=n2i, data=dat, digits=3)
+
+### calculate log risk ratios and corresponding sampling variances
+dat &lt;- escalc(measure="RR", ai=ai, n1i=n1i, ci=ci, n2i=n2i, data=dat)
+
+### random-effects model
+res &lt;- rma(yi, vi, data=dat)
+res
+
+### average risk ratio with 95% CI
+predict(res, transf=exp)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

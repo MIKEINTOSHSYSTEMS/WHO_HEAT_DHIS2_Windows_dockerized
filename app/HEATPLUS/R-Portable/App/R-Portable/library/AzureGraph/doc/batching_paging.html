@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Hong Ooi" />
+
+
+<title>Batching and paging</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Batching and paging</h1>
+<h4 class="author">Hong Ooi</h4>
+
+
+
+<p>This vignette describes a couple of special interfaces that are available in Microsoft Graph, and how to use them in AzureGraph.</p>
+<div id="batching" class="section level2">
+<h2>Batching</h2>
+<p>The batch API allows you to combine multiple requests into a single batch call, potentially resulting in significant performance improvements. If all the requests are independent, they can be executed in parallel, so that they only take the same time as a single request. If the requests depend on each other, they must be executed serially, but even in this case you benefit by not having to make multiple HTTP requests with the associated network overhead.</p>
+<p>For example, let’s say you want to get the object information for all the Azure Active Directory groups, directory roles and admin units you’re a member of. The <code>az_object$list_object_memberships()</code> method returns the IDs for these objects, but to get the remaining object properties, you have to call the <code>directoryObjects</code> API endpoint for each individual ID. Rather than making separate calls for every ID, let’s combine them into a single batch request.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>gr &lt;-<span class="st"> </span><span class="kw">get_graph_login</span>()</span>
+<span id="cb1-2"><a href="#cb1-2"></a>me &lt;-<span class="st"> </span>gr<span class="op">$</span><span class="kw">get_user</span>()</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># get the AAD object IDs</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>obj_ids &lt;-<span class="st"> </span>me<span class="op">$</span><span class="kw">list_object_memberships</span>(<span class="dt">security_only=</span><span class="ot">FALSE</span>)</span></code></pre></div>
+<p>AzureGraph represents a single request with the <code>graph_request</code> R6 class. To create a new request object, call <code>graph_request$new()</code> with the following arguments:</p>
+<ul>
+<li><code>op</code>: The operation to carry out, eg <code>/me/drives</code>.</li>
+<li><code>body</code>: The body of the HTTPS request, if it is a PUT, POST or PATCH.</li>
+<li><code>options</code>: A list containing the query parameters for the URL, for example OData parameters.</li>
+<li><code>headers</code>: Any optional HTTP headers for the request.</li>
+<li><code>encode</code>: If a request body is present, how it should be encoded when sending it to the endpoint. The default is <code>json</code>, meaning it will be sent as JSON text; an alternative is <code>raw</code>, for binary data.</li>
+<li><code>http_verb</code>: One of “GET” (the default), “DELETE”, “PUT”, “POST”, “HEAD”, or “PATCH”.</li>
+</ul>
+<p>For this example, only <code>op</code> is required.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>obj_reqs &lt;-<span class="st"> </span><span class="kw">lapply</span>(obj_ids, <span class="cf">function</span>(id)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>{</span>
+<span id="cb2-3"><a href="#cb2-3"></a>    op &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&quot;directoryObjects&quot;</span>, id)</span>
+<span id="cb2-4"><a href="#cb2-4"></a>    graph_request<span class="op">$</span><span class="kw">new</span>(op)</span>
+<span id="cb2-5"><a href="#cb2-5"></a>})</span></code></pre></div>
+<p>To make a request to the batch endpoint, use the <code>call_batch_endpoint()</code> function, or the <code>ms_graph$call_batch_endpoint()</code> method. This takes as arguments a list of individual requests, as well as an optional named vector of dependencies. The result of the call is a list of the responses from the requests; each response will have components named <code>id</code> and <code>status</code>, and usually <code>body</code> as well.</p>
+<p>In this case, there are no dependencies between the individual requests, so the code is very simple. Simply use the <code>call_batch_endpoint()</code> method with the request list; then run the <code>find_class_generator()</code> function to get the appropriate class generator for each list of object properties, and instantiate a new object.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>objs &lt;-<span class="st"> </span>gr<span class="op">$</span><span class="kw">call_batch_endpoint</span>(obj_reqs)</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">lapply</span>(objs, <span class="cf">function</span>(obj)</span>
+<span id="cb3-3"><a href="#cb3-3"></a>{</span>
+<span id="cb3-4"><a href="#cb3-4"></a>    cls &lt;-<span class="st"> </span><span class="kw">find_class_generator</span>(obj)</span>
+<span id="cb3-5"><a href="#cb3-5"></a>    cls<span class="op">$</span><span class="kw">new</span>(gr<span class="op">$</span>token, gr<span class="op">$</span>tenant, obj<span class="op">$</span>body)</span>
+<span id="cb3-6"><a href="#cb3-6"></a>})</span></code></pre></div>
+</div>
+<div id="paging" class="section level2">
+<h2>Paging</h2>
+<p>Some Microsoft Graph calls return multiple results. In AzureGraph, these calls are generally those represented by methods starting with <code>list_*</code>, eg the <code>list_object_memberships</code> method used previously. Graph handles result sets by breaking them into <em>pages</em>, with each page containing several results.</p>
+<p>The built-in AzureGraph methods will generally handle paging automatically, without you needing to be aware of the details. If necessary however, you can also carry out a paged request and handle the results manually.</p>
+<p>The starting point for a paged request is a regular Graph call to an endpoint that returns a paged response. For example, let’s take the <code>memberOf</code> endpoint, which returns the groups of which a user is a member. Calling this endpoint returns the first page of results, along with a link to the next page.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>res &lt;-<span class="st"> </span>me<span class="op">$</span><span class="kw">do_operation</span>(<span class="st">&quot;memberOf&quot;</span>)</span></code></pre></div>
+<p>Once you have the first page, you can use that to instantiate a new object of class <code>ms_graph_pager</code>. This is an <em>iterator</em> object: each time you access data from it, you retrieve a new page of results. If you have used other programming languages such as Python, Java or C#, the concept of iterators should be familiar. If you’re a user of the foreach package, you’ll also have used iterators: foreach depends on the iterators package, which implements the same concept using S3 classes.</p>
+<p>The easiest way to instantiate a new pager object is via the <code>get_list_pager()</code> method. Once instantiated, you access the <code>value</code> active binding to retrieve each page of results, starting from the first page.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>pager &lt;-<span class="st"> </span>me<span class="op">$</span><span class="kw">get_list_pager</span>(res)</span>
+<span id="cb5-2"><a href="#cb5-2"></a>pager<span class="op">$</span>value</span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co"># [[1]]</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co"># &lt;Security group &#39;secgroup&#39;&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#   directory id: cd806a5f-9d19-426c-b34b-3a3ec662ecf2 </span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#   description: test security group</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co"># ---</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#   Methods:</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#     delete, do_operation, get_list_pager, list_group_memberships,</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#     list_members, list_object_memberships, list_owners, sync_fields,</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="co">#     update</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="co"># [[2]]</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="co"># &lt;Azure Active Directory role &#39;Global Administrator&#39;&gt;</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a><span class="co">#   directory id: df643f93-3d9d-497f-8f2e-9cfd4c275e41</span></span>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="co">#   description: Can manage all aspects of Azure AD and Microsoft services that use Azure </span></span>
+<span id="cb5-17"><a href="#cb5-17"></a><span class="co"># AD identities.</span></span>
+<span id="cb5-18"><a href="#cb5-18"></a><span class="co"># ---</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a><span class="co">#   Methods:</span></span>
+<span id="cb5-20"><a href="#cb5-20"></a><span class="co">#     delete, do_operation, get_list_pager, list_group_memberships,</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a><span class="co">#     list_members, list_object_memberships, sync_fields, update</span></span></code></pre></div>
+<p>Once there are no more pages, calling <code>value</code> returns an empty result.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>pager<span class="op">$</span>value</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co"># list()</span></span></code></pre></div>
+<p>By default, as shown above, the pager object will create new AzureGraph R6 objects from the properties for each item in the results. You can customise the output in the following ways:</p>
+<ul>
+<li><p>If the first page of results consists of a data frame, rather than a list of items, the pager will continue to output data frames. This is most useful when the results are meant to represent external, tabular data, eg items in a SharePoint list or files in a OneDrive folder. Some AzureGraph methods will automatically request data frame output; if you want this from a manual REST API call, specify <code>simplify=TRUE</code> in the <code>do_operation()</code> call.</p></li>
+<li><p>You can suppress the conversion of the item properties into an R6 object by specifying <code>generate_objects=FALSE</code> in the <code>get_list_pager()</code> call. In this case, the pager will return raw lists.</p></li>
+</ul>
+<p>AzureGraph also provides the <code>extract_list_values()</code> function to perform the common task of getting all or some of the values from a paged result set. Rather than reading <code>pager$value</code> repeatedly until there is no data left, you can simply call:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">extract_list_values</span>(pager)</span></code></pre></div>
+<p>To restrict the output to only the first N items, call <code>extract_list_values(pager, n=N)</code>. However, note that the result set from a paged query usually isn’t ordered in any way, so the items you get will be arbitrary.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

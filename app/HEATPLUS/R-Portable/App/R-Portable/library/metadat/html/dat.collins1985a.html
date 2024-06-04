@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on the Treatment of Upper Gastrointestinal Bleeding...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.collins1985a {metadat}"><tr><td>dat.collins1985a {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on the Treatment of Upper Gastrointestinal Bleeding by a Histamine H2 Antagonist</h2>
+
+<h3>Description</h3>
+
+<p>Results from studies examining the effectiveness of histamine H2 antagonists (cimetidine or ranitidine) in treating patients with acute upper gastrointestinal hemorrhage.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.collins1985a
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>id</b>    </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> study number </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>trial</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> first author of trial </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>year</b>  </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> year of publication </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ref</b>   </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> reference number </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>trt</b>   </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> C = cimetidine, R = ranitidine </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ctrl</b>  </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> P = placebo, AA = antacids, UT = usual treatment </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>nti</b>   </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of patients in treatment group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>b.xti</b> </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of patients in treatment group with persistent or recurrent bleedings </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>o.xti</b> </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of patients in treatment group in need of operation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>d.xti</b> </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of patients in treatment group that died </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>nci</b>   </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of patients in control group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>b.xci</b> </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of patients in control group with persistent or recurrent bleedings </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>o.xci</b> </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of patients in control group in need of operation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>d.xci</b> </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of patients in control group that died
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>The data were obtained from Tables 1 and 2 in Collins and Langman (1985). The authors used Peto's (one-step) method for meta-analyzing the 27 trials. This approach is implemented in the <code><a href="../../metafor/help/rma.peto.html">rma.peto</a></code> function. Using the same dataset, van Houwelingen, Zwinderman, and Stijnen (1993) describe some alternative approaches for analyzing these data, including fixed- and random-effects conditional logistic models. Those are implemented in the <code><a href="../../metafor/help/rma.glmm.html">rma.glmm</a></code> function.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>medicine, odds ratios, Peto's method, generalized linear models
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Collins, R., &amp; Langman, M. (1985). Treatment with histamine H2 antagonists in acute upper gastrointestinal hemorrhage. <em>New England Journal of Medicine</em>, <b>313</b>(11), 660&ndash;666. <code style="white-space: pre;">https://doi.org/10.1056/NEJM198509123131104</code>
+</p>
+
+
+<h3>References</h3>
+
+<p>van Houwelingen, H. C., Zwinderman, K. H., &amp; Stijnen, T. (1993). A bivariate approach to meta-analysis. <em>Statistics in Medicine</em>, <b>12</b>(24), 2273&ndash;2284. <code style="white-space: pre;">https://doi.org/10.1002/sim.4780122405</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.collins1985a
+dat
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### meta-analysis of log ORs using Peto's method (outcome: persistent or recurrent bleedings)
+res &lt;- rma.peto(ai=b.xti, n1i=nti, ci=b.xci, n2i=nci, data=dat)
+print(res, digits=2)
+
+### meta-analysis of log ORs using a conditional logistic regression model (FE model)
+res &lt;- rma.glmm(measure="OR", ai=b.xti, n1i=nti, ci=b.xci, n2i=nci, data=dat,
+                model="CM.EL", method="FE")
+summary(res)
+predict(res, transf=exp, digits=2)
+
+### plot the likelihoods of the odds ratios
+llplot(measure="OR", ai=b.xti, n1i=nti, ci=b.xci, n2i=nci, data=dat,
+       lwd=1, refline=NA, xlim=c(-4,4), drop00=FALSE)
+
+### meta-analysis of log odds ratios using a conditional logistic regression model (RE model)
+res &lt;- rma.glmm(measure="OR", ai=b.xti, n1i=nti, ci=b.xci, n2i=nci, data=dat,
+                model="CM.EL", method="ML")
+summary(res)
+predict(res, transf=exp, digits=2)
+
+### meta-analysis of log ORs using Peto's method (outcome: need for surgery)
+res &lt;- rma.peto(ai=o.xti, n1i=nti, ci=o.xci, n2i=nci, data=dat)
+print(res, digits=2)
+
+### meta-analysis of log ORs using Peto's method (outcome: death)
+res &lt;- rma.peto(ai=d.xti, n1i=nti, ci=d.xci, n2i=nci, data=dat)
+print(res, digits=2)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,18 @@
+comparisons             Comparisons Between Predictions Made With
+                        Different Regressor Values
+datagrid                Data grids
+hypotheses              (Non-)Linear Tests for Null Hypotheses,
+                        Equivalence, Non Superiority, and Non
+                        Inferiority
+inferences              (EXPERIMENTAL) Bootstrap and Simulation-Based
+                        Inference
+marginal_means          Marginal Means
+plot_comparisons        Plot Conditional or Marginal Comparisons
+plot_predictions        Plot Conditional or Marginal Predictions
+plot_slopes             Plot Conditional or Marginal Slopes
+posterior_draws         Extract Posterior Draws or Bootstrap Resamples
+                        from 'marginaleffects' Objects
+predictions             Predictions
+print.marginaleffects   Print 'marginaleffects' objects
+slopes                  Slopes (aka Partial derivatives, Marginal
+                        Effects, or Trends)

@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on the Effects of Modified School Calendars on...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.konstantopoulos2011 {metadat}"><tr><td>dat.konstantopoulos2011 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on the Effects of Modified School Calendars on Student Achievement</h2>
+
+<h3>Description</h3>
+
+<p>Results from 56 studies on the effects of modified school calendars on student achievement.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.konstantopoulos2011
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>district</b> </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> district id number </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>school</b>   </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> school id number (within district) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>study</b>    </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> study id number </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>yi</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> standardized mean difference </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>vi</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> corresponding sampling variance </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>year</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> year of the study
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>Instead of following the more traditional school calendar with a long summer break (in addition to a short winter and spring break), some schools have switched to a modified school calendar comprising more frequent but shorter intermittent breaks (e.g., 9 weeks of school followed by 3 weeks off), while keeping the total number of days at school approximately the same. The effects of using such a modified calendar on student achievement have been examined in a number of studies and were meta-analyzed by Cooper et al. (2003).
+</p>
+<p>The dataset (taken from Konstantopoulos, 2011) contains the results from 56 studies, each comparing the level of academic achievement in a group of students following a modified school calendar with that of a group of students following a more traditional school calendar. The difference between the two groups was quantified in terms of a standardized mean difference (with positive values indicating a higher mean level of achievement in the group following the modified school calendar).
+</p>
+<p>The studies were conducted at various schools that were clustered within districts. The data therefore have a multilevel structure, with schools nested within districts. A multilevel meta-analysis of these data can be used to estimate and account for the amount of heterogeneity between districts and between schools within districts.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>education, standardized mean differences, multilevel models
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Konstantopoulos, S. (2011). Fixed effects and variance components estimation in three-level meta-analysis. <em>Research Synthesis Methods</em>, <b>2</b>(1), 61&ndash;76. <code style="white-space: pre;">https://doi.org/10.1002/jrsm.35</code>
+</p>
+
+
+<h3>References</h3>
+
+<p>Cooper, H., Valentine, J. C., Charlton, K., &amp; Melson, A. (2003). The effects of modified school calendars on student achievement and on school and community attitudes. <em>Review of Educational Research</em>, <b>73</b>(1), 1&ndash;52. <code style="white-space: pre;">https://doi.org/10.3102/00346543073001001</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.konstantopoulos2011
+dat
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### regular random-effects model
+res &lt;- rma(yi, vi, data=dat)
+print(res, digits=3)
+
+### regular random-effects model using rma.mv()
+res &lt;- rma.mv(yi, vi, random = ~ 1 | study, data=dat)
+print(res, digits=3)
+
+### multilevel random-effects model
+res.ml &lt;- rma.mv(yi, vi, random = ~ 1 | district/school, data=dat)
+print(res.ml, digits=3)
+
+### profile variance components
+profile(res.ml, progbar=FALSE)
+
+### multivariate parameterization of the model
+res.mv &lt;- rma.mv(yi, vi, random = ~ school | district, data=dat)
+print(res.mv, digits=3)
+
+### tau^2 from multivariate model = sum of the two variance components from the multilevel model
+round(sum(res.ml$sigma2), 3)
+
+### rho from multivariate model = intraclass correlation coefficient based on the multilevel model
+round(res.ml$sigma2[1] / sum(res.ml$sigma2), 3)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

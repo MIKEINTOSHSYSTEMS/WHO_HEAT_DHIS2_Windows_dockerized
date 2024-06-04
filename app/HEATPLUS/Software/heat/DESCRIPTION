@@ -1,0 +1,43 @@
+Package: heat
+Type: Package
+Title: WHO HEAT Application
+Version: 3.1.1
+Authors@R: c(
+   person("Ahmadreza", "Hosseinpoor", role = c("aut", "ctb")), 
+   person("Anne", "Schlotheuber", role = c("aut", "ctb")), 
+   person("Zev", "Ross", role = c("aut", "cre"), email = "zev@zevross.com"),
+   person("Nate", "Teetor", role = "ctb", email = "nate@zevross.com"),
+   person(family = "World Health Organization", role = "cph")
+   )
+Description: An application to explore and compare within-country health 
+   inequalities across settings.
+License: GPL-2 | file LICENSE
+Encoding: UTF-8
+RoxygenNote: 7.1.0
+Roxygen: list(markdown = TRUE)
+Remotes: WHOequity/HEAT-Data-development@master,
+        WHOequity/HEAT-Measures-development@master, nteetor/highcharter
+Imports: shiny, yonder, htmltools, highcharter, dplyr, tidyr, purrr,
+        glue, viridisLite, DT, waiter, fs, pkgload, heatdata,
+        heatmeasures, readr, shinyvalidate, shinyWidgets, arrow
+Depends: yonder
+Suggests: cli
+RemoteType: github
+RemoteHost: api.github.com
+RemoteRepo: HEAT-development
+RemoteUsername: WHOequity
+RemoteRef: zr/git905/determinants
+RemoteSha: 89a4b6004f578b8c11376a494a7c0acd8db14c3e
+GithubRepo: HEAT-development
+GithubUsername: WHOequity
+GithubRef: zr/git905/determinants
+GithubSHA1: 89a4b6004f578b8c11376a494a7c0acd8db14c3e
+NeedsCompilation: no
+Packaged: 2024-05-10 08:27:22 UTC; antiportada
+Author: Ahmadreza Hosseinpoor [aut, ctb],
+  Anne Schlotheuber [aut, ctb],
+  Zev Ross [aut, cre],
+  Nate Teetor [ctb],
+  World Health Organization [cph]
+Maintainer: Zev Ross <zev@zevross.com>
+Built: R 4.4.0; ; 2024-05-10 08:27:34 UTC; windows

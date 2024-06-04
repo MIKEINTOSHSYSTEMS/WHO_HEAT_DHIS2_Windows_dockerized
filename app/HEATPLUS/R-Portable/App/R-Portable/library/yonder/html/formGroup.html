@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Input labels, help text, and formatting to inputs</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for formGroup {yonder}"><tr><td>formGroup {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Input labels, help text, and formatting to inputs</h2>
+
+<h3>Description</h3>
+
+<p>Form groups are a way of labeling an input. Form rows are similar to
+<code><a href="../../yonder/help/columns.html">columns()</a></code>s, but include additional styles intended for forms. The
+flexibility provided by form rows and groups means you can confidently
+develop shiny applications for devices and screens of varying sizes.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+formGroup(label, input, ..., help = NULL, width = NULL)
+
+formRow(...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>label</code></td>
+<td>
+<p>A character string specifying a label for the input or <code>NULL</code>
+in which case a label is not added.</p>
+</td></tr>
+<tr valign="top"><td><code>input</code></td>
+<td>
+<p>A tag element specifying the input to label.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>For <strong>formGroup</strong>, additional named arguments passed as HTML
+attributes to the parent element.
+</p>
+<p>For <strong>formRow</strong>, any number of <code>formGroup</code>s or additional named arguments
+passed as HTML attributes to the parent element.</p>
+</td></tr>
+<tr valign="top"><td><code>help</code></td>
+<td>
+<p>A character string specifying help text for the input, defaults
+to <code>NULL</code>, in which case help text is not added.</p>
+</td></tr>
+<tr valign="top"><td><code>width</code></td>
+<td>
+<p>A <a href="../../yonder/help/responsive.html">responsive</a> argument. One of <code>1:12</code>, <code>"content"</code>, or
+<code>"equal"</code> specifying a column width for the form group, defaults to <code>NULL</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+### Grid layout forms
+
+# Use responsive arguments to adjust form layouts based on viewport size.
+# Be sure to adjust the size of your browser window between large and small.
+
+card(
+  formRow(
+    formGroup(
+      width = c(md = 6),  # &lt;-
+      label = "Username",
+      textInput(
+        id = "user"
+      )
+    ),
+    formGroup(
+      width = c(md = 6),  # &lt;-
+      label = "Password",
+      textInput(
+        type = "password",
+        id = "pass"
+      )
+    )
+  ),
+  formGroup(
+    label = "Username",
+    groupTextInput(
+      id = "username",
+      left = "@"
+    )
+  ),
+  buttonInput(
+    id = "go",
+    label = "Go!"
+  ) %&gt;%
+    background("blue")
+) %&gt;%
+  margin(3) %&gt;%
+  background("grey")
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

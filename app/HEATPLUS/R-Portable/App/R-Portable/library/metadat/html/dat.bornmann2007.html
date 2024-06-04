@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on Gender Differences in Grant and Fellowship Awards</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.bornmann2007 {metadat}"><tr><td>dat.bornmann2007 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on Gender Differences in Grant and Fellowship Awards</h2>
+
+<h3>Description</h3>
+
+<p>Results from 21 studies on gender differences in grant and fellowship awards.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.bornmann2007
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>study</b>      </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> study reference </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>obs</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> observation within study </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>doctype</b>    </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> document type </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>gender</b>     </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> gender of the study authors </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>year</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> (average) cohort year </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>org</b>        </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> funding organization / program </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>country</b>    </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> country of the funding organization / program </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>type</b>       </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> fellowship or grant application </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>discipline</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> discipline / field </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>waward</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of women who received a grant/fellowship award </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>wtotal</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of women who applied for an award </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>maward</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of men who received a grant/fellowship award </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>mtotal</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of men who applied for an award
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>The studies in this dataset examine whether the chances of receiving a grant or fellowship award differs for men and women. Note that many studies provide multiple comparisons (e.g., for different years / cohorts / disciplines). A multilevel meta-analysis model can be used to account for the multilevel structure in these data.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>sociology, odds ratios, multilevel models
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Bornmann, L., Mutz, R., &amp; Daniel, H. (2007). Gender differences in grant peer review: A meta-analysis. <em>Journal of Informetrics</em>, <b>1</b>(3), 226&ndash;238. <code style="white-space: pre;">https://doi.org/10.1016/j.joi.2007.03.001</code>
+</p>
+
+
+<h3>References</h3>
+
+<p>Marsh, H. W., Bornmann, L., Mutz, R., Daniel, H.-D., &amp; O'Mara, A. (2009). Gender effects in the peer reviews of grant proposals: A comprehensive meta-analysis comparing traditional and multilevel approaches. <em>Review of Educational Research</em>, <b>79</b>(3), 1290&ndash;1326. <code style="white-space: pre;">https://doi.org/10.3102/0034654309334143</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.bornmann2007
+head(dat, 16)
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### calculate log odds ratios and corresponding sampling variances
+dat &lt;- escalc(measure="OR", ai=waward, n1i=wtotal, ci=maward, n2i=mtotal, data=dat)
+
+### fit multilevel meta-analysis model
+res &lt;- rma.mv(yi, vi, random = ~ 1 | study/obs, data=dat)
+res
+
+### estimated average odds ratio (with 95% CI/PI)
+predict(res, transf=exp, digits=2)
+
+### test for a difference between fellowship and grant applications
+res &lt;- rma.mv(yi, vi, mods = ~ type, random = ~ 1 | study/obs, data=dat)
+res
+predict(res, newmods=0:1, transf=exp, digits=2)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

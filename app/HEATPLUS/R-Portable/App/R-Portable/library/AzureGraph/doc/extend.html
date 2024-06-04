@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Hong Ooi" />
+
+
+<title>Extending AzureGraph</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Extending AzureGraph</h1>
+<h4 class="author">Hong Ooi</h4>
+
+
+
+<p>As written, AzureGraph provides support for Microsoft Graph objects derived from Azure Active Directory (AAD): users, groups, app registrations and service principals. This vignette describes how to extend it to support other services.</p>
+<div id="extend-the-ms_object-base-class" class="section level2">
+<h2>Extend the <code>ms_object</code> base class</h2>
+<p>AzureGraph provides the <code>ms_object</code> class to represent a generic object in Graph. You can extend this to support specific services by adding custom methods and fields.</p>
+<p>For example, the <a href="https://github.com/Azure/Microsoft365R">Microsoft365R</a> package extends AzureGraph to support SharePoint Online sites and OneDrive filesystems (both personal and business). This is the <code>ms_site</code> class from that package, which represents a SharePoint site. To save space, the actual code in the new methods has been elided.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>ms_site &lt;-<span class="st"> </span>R6<span class="op">::</span><span class="kw">R6Class</span>(<span class="st">&quot;ms_site&quot;</span>, <span class="dt">inherit=</span>ms_object,</span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="dt">public=</span><span class="kw">list</span>(</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a>    <span class="dt">initialize=</span><span class="cf">function</span>(token, <span class="dt">tenant=</span><span class="ot">NULL</span>, <span class="dt">properties=</span><span class="ot">NULL</span>)</span>
+<span id="cb1-6"><a href="#cb1-6"></a>    {</span>
+<span id="cb1-7"><a href="#cb1-7"></a>        self<span class="op">$</span>type &lt;-<span class="st"> &quot;site&quot;</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>        private<span class="op">$</span>api_type &lt;-<span class="st"> &quot;sites&quot;</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>        super<span class="op">$</span><span class="kw">initialize</span>(token, tenant, properties)</span>
+<span id="cb1-10"><a href="#cb1-10"></a>    },</span>
+<span id="cb1-11"><a href="#cb1-11"></a></span>
+<span id="cb1-12"><a href="#cb1-12"></a>    <span class="dt">list_drives=</span><span class="cf">function</span>() {}, <span class="co"># ...</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a></span>
+<span id="cb1-14"><a href="#cb1-14"></a>    <span class="dt">get_drive=</span><span class="cf">function</span>(<span class="dt">drive_id=</span><span class="ot">NULL</span>) {}, <span class="co"># ...</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a></span>
+<span id="cb1-16"><a href="#cb1-16"></a>    <span class="dt">list_subsites=</span><span class="cf">function</span>() {}, <span class="co"># ...</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a></span>
+<span id="cb1-18"><a href="#cb1-18"></a>    <span class="dt">get_list=</span><span class="cf">function</span>(<span class="dt">list_name=</span><span class="ot">NULL</span>, <span class="dt">list_id=</span><span class="ot">NULL</span>) {}, <span class="co"># ...</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a></span>
+<span id="cb1-20"><a href="#cb1-20"></a>    <span class="dt">print=</span><span class="cf">function</span>(...)</span>
+<span id="cb1-21"><a href="#cb1-21"></a>    {</span>
+<span id="cb1-22"><a href="#cb1-22"></a>        <span class="kw">cat</span>(<span class="st">&quot;&lt;Sharepoint site &#39;&quot;</span>, self<span class="op">$</span>properties<span class="op">$</span>displayName, <span class="st">&quot;&#39;&gt;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb1-23"><a href="#cb1-23"></a>        <span class="kw">cat</span>(<span class="st">&quot;  directory id:&quot;</span>, self<span class="op">$</span>properties<span class="op">$</span>id, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb1-24"><a href="#cb1-24"></a>        <span class="kw">cat</span>(<span class="st">&quot;  web link:&quot;</span>, self<span class="op">$</span>properties<span class="op">$</span>webUrl, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb1-25"><a href="#cb1-25"></a>        <span class="kw">cat</span>(<span class="st">&quot;  description:&quot;</span>, self<span class="op">$</span>properties<span class="op">$</span>description, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb1-26"><a href="#cb1-26"></a>        <span class="kw">cat</span>(<span class="st">&quot;---</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb1-27"><a href="#cb1-27"></a>        <span class="kw">cat</span>(<span class="kw">format_public_methods</span>(self))</span>
+<span id="cb1-28"><a href="#cb1-28"></a>        <span class="kw">invisible</span>(self)</span>
+<span id="cb1-29"><a href="#cb1-29"></a>    }</span>
+<span id="cb1-30"><a href="#cb1-30"></a>))</span></code></pre></div>
+<p>Note the following:</p>
+<ul>
+<li><p>The <code>initialize()</code> method of your class should take 3 arguments: the OAuth2 token for authenticating with Graph, the name of the AAD tenant, and the list of properties for this object as obtained from the Graph endpoint. It should set 2 fields: <code>self$type</code> contains a human-readable name for this type of object, and <code>private$api_type</code> contains the object type as it appears in the URL of a Graph API request. It should then call the superclass method to complete the initialisation. <code>initialize()</code> itself should not contact the Graph endpoint; it should merely create and populate the R6 object given the response from a previous request.</p></li>
+<li><p>The <code>print()</code> method is optional and should display any properties that can help identify this object to a human reader.</p></li>
+</ul>
+<p>You can read the code of the existing classes such as <code>az_user</code>, <code>az_app</code> etc to see how to call the API. The <code>do_operation()</code> method should suffice for any regular communication with the Graph endpoint.</p>
+</div>
+<div id="register-the-class-with-register_graph_class" class="section level2">
+<h2>Register the class with <code>register_graph_class</code></h2>
+<p>Having defined your new class, call <code>register_graph_class</code> so that AzureGraph becomes aware of it and can automatically use it to populate object lists. If you are writing a new package, the <code>register_graph_class</code> call should go in your package’s <code>.onLoad</code> startup function. For example, registering the <code>ms_site</code> SharePoint class looks like this.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>.onLoad &lt;-<span class="st"> </span><span class="cf">function</span>(libname, pkgname)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>{</span>
+<span id="cb2-3"><a href="#cb2-3"></a>    <span class="kw">register_graph_class</span>(<span class="st">&quot;site&quot;</span>, ms_site,</span>
+<span id="cb2-4"><a href="#cb2-4"></a>        <span class="cf">function</span>(props) <span class="kw">grepl</span>(<span class="st">&quot;sharepoint&quot;</span>, props<span class="op">$</span>id, <span class="dt">fixed=</span><span class="ot">TRUE</span>))</span>
+<span id="cb2-5"><a href="#cb2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6"></a>    <span class="co"># ... other startup code ...</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>}</span></code></pre></div>
+<p><code>register_graph_class</code> takes 3 arguments:</p>
+<ul>
+<li>The name of the object class, as it appears in the <a href="https://docs.microsoft.com/en-us/graph/api/overview?view=graph-rest-1.0">Microsoft Graph online documentation</a>.</li>
+<li>The R6 class generator object, as defined in the previous section.</li>
+<li>A check function which takes a list of properties (as returned by the Graph API) and returns TRUE/FALSE based on whether the properties are for an object of your class. This is necessary as some Graph calls that return lists of objects do not always include explicit metadata indicating the type of each object, hence the type must be inferred from the properties.</li>
+</ul>
+</div>
+<div id="add-getter-and-setter-methods" class="section level2">
+<h2>Add getter and setter methods</h2>
+<p>Finally, so that people can use the same workflow with your class as with AzureGraph-supplied classes, you can add getter and setter methods to <code>ms_graph</code> and any other classes for which it’s appropriate. Again, if you’re writing a package, this should happen in the <code>.onLoad</code> function.</p>
+<p>In the case of <code>ms_site</code>, it’s appropriate to add a getter method not just to <code>ms_graph</code>, but also the <code>ms_group</code> class. This is because SharePoint sites have associated user groups, hence it’s useful to be able to retrieve a site given the object for a group. The relevant code in the <code>.onLoad</code> function looks like this (slightly simplified):</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>.onLoad &lt;-<span class="st"> </span><span class="cf">function</span>(libname, pkgname)</span>
+<span id="cb3-2"><a href="#cb3-2"></a>{</span>
+<span id="cb3-3"><a href="#cb3-3"></a>    <span class="co"># ...</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a></span>
+<span id="cb3-5"><a href="#cb3-5"></a>    ms_graph<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;public&quot;</span>, <span class="st">&quot;get_sharepoint_site&quot;</span>, <span class="dt">overwrite=</span><span class="ot">TRUE</span>,</span>
+<span id="cb3-6"><a href="#cb3-6"></a>    <span class="cf">function</span>(<span class="dt">site_url=</span><span class="ot">NULL</span>, <span class="dt">site_id=</span><span class="ot">NULL</span>)</span>
+<span id="cb3-7"><a href="#cb3-7"></a>    {</span>
+<span id="cb3-8"><a href="#cb3-8"></a>        op &lt;-<span class="st"> </span><span class="cf">if</span>(<span class="kw">is.null</span>(site_url) <span class="op">&amp;&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.null</span>(site_id))</span>
+<span id="cb3-9"><a href="#cb3-9"></a>            <span class="kw">file.path</span>(<span class="st">&quot;sites&quot;</span>, site_id)</span>
+<span id="cb3-10"><a href="#cb3-10"></a>        <span class="cf">else</span> <span class="cf">if</span>(<span class="op">!</span><span class="kw">is.null</span>(site_url) <span class="op">&amp;&amp;</span><span class="st"> </span><span class="kw">is.null</span>(site_id))</span>
+<span id="cb3-11"><a href="#cb3-11"></a>        {</span>
+<span id="cb3-12"><a href="#cb3-12"></a>            site_url &lt;-<span class="st"> </span>httr<span class="op">::</span><span class="kw">parse_url</span>(site_url)</span>
+<span id="cb3-13"><a href="#cb3-13"></a>            <span class="kw">file.path</span>(<span class="st">&quot;sites&quot;</span>, <span class="kw">paste0</span>(site_url<span class="op">$</span>hostname, <span class="st">&quot;:&quot;</span>), site_url<span class="op">$</span>path)</span>
+<span id="cb3-14"><a href="#cb3-14"></a>        }</span>
+<span id="cb3-15"><a href="#cb3-15"></a>        <span class="cf">else</span> <span class="kw">stop</span>(<span class="st">&quot;Must supply either site ID or URL&quot;</span>)</span>
+<span id="cb3-16"><a href="#cb3-16"></a></span>
+<span id="cb3-17"><a href="#cb3-17"></a>        ms_site<span class="op">$</span><span class="kw">new</span>(self<span class="op">$</span>token, self<span class="op">$</span>tenant, self<span class="op">$</span><span class="kw">call_graph_endpoint</span>(op))</span>
+<span id="cb3-18"><a href="#cb3-18"></a>    })</span>
+<span id="cb3-19"><a href="#cb3-19"></a></span>
+<span id="cb3-20"><a href="#cb3-20"></a>    az_group<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;public&quot;</span>, <span class="st">&quot;get_sharepoint_site&quot;</span>, <span class="dt">overwrite=</span><span class="ot">TRUE</span>,</span>
+<span id="cb3-21"><a href="#cb3-21"></a>    <span class="cf">function</span>()</span>
+<span id="cb3-22"><a href="#cb3-22"></a>    {</span>
+<span id="cb3-23"><a href="#cb3-23"></a>        res &lt;-<span class="st"> </span>self<span class="op">$</span><span class="kw">do_operation</span>(<span class="st">&quot;sites/root&quot;</span>)</span>
+<span id="cb3-24"><a href="#cb3-24"></a>        ms_site<span class="op">$</span><span class="kw">new</span>(self<span class="op">$</span>token, self<span class="op">$</span>tenant, res)</span>
+<span id="cb3-25"><a href="#cb3-25"></a>    })</span>
+<span id="cb3-26"><a href="#cb3-26"></a></span>
+<span id="cb3-27"><a href="#cb3-27"></a>    <span class="co"># ...</span></span>
+<span id="cb3-28"><a href="#cb3-28"></a>}</span></code></pre></div>
+<p>Once this is done, the object for a SharePoint site can be instantiated as follows:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">library</span>(AzureGraph)</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="kw">library</span>(Microsoft365R)</span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a>gr &lt;-<span class="st"> </span><span class="kw">get_graph_login</span>()</span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co"># directly from the Graph client</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>mysite1 &lt;-<span class="st"> </span>gr<span class="op">$</span><span class="kw">get_sharepoint_site</span>(<span class="st">&quot;https://mytenant.sharepoint.com/sites/my-site-name&quot;</span>)</span>
+<span id="cb4-8"><a href="#cb4-8"></a></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co"># or via a group</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a>mygroup &lt;-<span class="st"> </span>gr<span class="op">$</span><span class="kw">get_group</span>(<span class="st">&quot;my-group-guid&quot;</span>)</span>
+<span id="cb4-11"><a href="#cb4-11"></a>mysite2 &lt;-<span class="st"> </span>mygroup<span class="op">$</span><span class="kw">get_sharepoint_site</span>()</span></code></pre></div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

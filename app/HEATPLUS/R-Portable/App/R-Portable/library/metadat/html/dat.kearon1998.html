@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on the Accuracy of Venous Ultrasonography for the...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.kearon1998 {metadat}"><tr><td>dat.kearon1998 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on the Accuracy of Venous Ultrasonography for the Diagnosis of Deep Venous Thrombosis</h2>
+
+<h3>Description</h3>
+
+<p>Results from diagnostic accuracy studies examining the accuracy of venous ultrasonography for the diagnosis of deep venous thrombosis.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.kearon1998
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>id</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> study id </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>author</b>   </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> study author(s) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>year</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> publication year </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>patients</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> patient group (either symptomatic or asymptomatic patients) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>tp</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of true positives </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>np</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of positive patients (cases) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>tn</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of true negatives </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>nn</b>       </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of negative patients (non-cases)
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>The studies included in the dataset examined the accuracy of venous ultrasonography for the diagnossis of a first deep venous thrombosis in symptomatic and asymptomatic patients. Cases and non-cases were determined based on contrast venography. Venous ultrasonography was then used to make a diagnosis, leading to a given number of true positives and negatives.
+</p>
+<p>A subset of this dataset (using only the studies with asymptomatic patients) was used by Deeks et al. (2005) to illustrate methods for detecting publication bias (or small-study effects) in meta-analyses of diagnostic accuracy studies.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>medicine, odds ratios, diagnostic accuracy studies, multivariate models, publication bias
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Kearon, C., Julian, J. A., Math, M., Newman, T. E., &amp; Ginsberg, J. S. (1998). Noninvasive diagnosis of deep venous thrombosis. <em>Annals of Internal Medicine</em>, <b>128</b>(8), 663&ndash;677. <code style="white-space: pre;">https://doi.org/10.7326/0003-4819-128-8-199804150-00011</code>
+</p>
+
+
+<h3>References</h3>
+
+<p>Deeks, J. J., Macaskill, P., &amp; Irwig, L. (2005). The performance of tests of publication bias and other sample size effects in systematic reviews of diagnostic test accuracy was assessed. <em>Journal of Clinical Epidemiology</em>, <b>58</b>(9), 882&ndash;893. <code style="white-space: pre;">https://doi.org/10.1016/j.jclinepi.2005.01.016</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.kearon1998
+head(dat)
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### calculate diagnostic log odds ratios and corresponding sampling variances
+dat &lt;- escalc(measure="OR", ai=tp, n1i=np, ci=nn-tn, n2i=nn, data=dat, add=1/2, to="all")
+head(dat)
+
+### fit random-effects model for the symptomatic patients
+res &lt;- rma(yi, vi, data=dat, subset=patients=="symptomatic")
+res
+
+### fit random-effects model for the asymptomatic patients
+res &lt;- rma(yi, vi, data=dat, subset=patients=="asymptomatic")
+res
+
+### estimated average diagnostic odds ratio (with 95% CI)
+predict(res, transf=exp, digits=2)
+
+### regression test for funnel plot asymmetry using SE as predictor
+reg &lt;- regtest(res, model="lm")
+reg
+
+### corresponding funnel plot
+funnel(res, atransf=exp, xlim=c(0,7), at=log(c(1,10,100,1000)), ylim=c(0,1.5), steps=4)
+ys &lt;- seq(0, 2, length=100)
+lines(coef(reg$fit)[1] + coef(reg$fit)[2]*ys, ys, lwd=2, lty=3)
+
+### regression test for funnel plot asymmetry using total sample size as predictor
+reg &lt;- regtest(res, model="lm", predictor="ni")
+reg
+
+### corresponding funnel plot
+funnel(res, yaxis="ni", atransf=exp, xlim=c(0,7), at=log(c(1,10,100,1000)), ylim=c(0,300), steps=4)
+ys &lt;- seq(0, 300, length=100)
+lines(coef(reg$fit)[1] + coef(reg$fit)[2]*ys, ys, lwd=2, lty=3)
+
+### regression test for funnel plot asymmetry using 1/sqrt(ESS) as predictor (Deeks et al., 2005)
+dat$invessi &lt;- 1/(4*dat$np) + 1/(4*dat$nn)
+tmp &lt;- rma(yi, invessi, data=dat, subset=patients=="asymptomatic")
+reg &lt;- regtest(tmp, model="lm")
+reg
+
+### corresponding funnel plot
+funnel(tmp, atransf=exp, xlim=c(0,7), at=log(c(1,10,100,1000)), ylim=c(0,.15), steps=4,
+       refline=coef(res), level=0, ylab="1/root(ess)")
+ys &lt;- seq(0, .20, length=100)
+lines(coef(reg$fit)[1] + coef(reg$fit)[2]*ys, ys, lwd=2, lty=3)
+
+### convert data to long format
+dat &lt;- to.long(measure="OR", ai=tp, n1i=np, ci=tn, n2i=nn,
+               data=dat.kearon1998, subset=patients=="asymptomatic")
+dat &lt;- dat[9:12]
+levels(dat$group) &lt;- c("sensitivity", "specificity")
+dat
+
+### calculate logit-transformed sensitivities
+dat &lt;- escalc(measure="PLO", xi=out1, mi=out2, data=dat, add=1/2, to="all",
+              include=group=="sensitivity")
+dat
+
+### calculate logit-transformed specificities
+dat &lt;- escalc(measure="PLO", xi=out1, mi=out2, data=dat, add=1/2, to="all",
+              include=group=="specificity")
+dat
+
+### bivariate random-effects model for logit sensitivity and specificity
+res &lt;- rma.mv(yi, vi, mods = ~ group - 1, random = ~ group | study, struct="UN", data=dat)
+res
+
+### estimated average sensitivity and specificity based on the model
+predict(res, newmods = rbind(c(1,0),c(0,1)), transf=transf.ilogit, tau2.levels=c(1,2), digits=2)
+
+### estimated average diagnostic odds ratio based on the model
+predict(res, newmods = c(1,1), transf=exp, digits=2)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

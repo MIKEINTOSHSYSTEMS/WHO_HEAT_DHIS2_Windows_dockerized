@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Float</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for float {yonder}"><tr><td>float {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Float</h2>
+
+<h3>Description</h3>
+
+<p>Use <code>float()</code> to float an element to the left or right side of its parent
+element. A newspaper layout is a classic usage where an image is floated with
+text wrapped around.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+float(tag, side)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>tag</code></td>
+<td>
+<p>A tag element.</p>
+</td></tr>
+<tr valign="top"><td><code>side</code></td>
+<td>
+<p>A <a href="../../yonder/help/responsive.html">responsive</a> argument. One of <code>"left"</code> or <code>"right"</code> specifying
+the side to float the element.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p>Other design utilities: 
+<code><a href="../../yonder/help/active.html">active</a>()</code>,
+<code><a href="../../yonder/help/affix.html">affix</a>()</code>,
+<code><a href="../../yonder/help/background.html">background</a>()</code>,
+<code><a href="../../yonder/help/border.html">border</a>()</code>,
+<code><a href="../../yonder/help/display.html">display</a>()</code>,
+<code><a href="../../yonder/help/font.html">font</a>()</code>,
+<code><a href="../../yonder/help/height.html">height</a>()</code>,
+<code><a href="../../yonder/help/padding.html">padding</a>()</code>,
+<code><a href="../../yonder/help/scroll.html">scroll</a>()</code>,
+<code><a href="../../yonder/help/shadow.html">shadow</a>()</code>,
+<code><a href="../../yonder/help/width.html">width</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+### Newspaper layout
+
+div(
+  div() %&gt;%
+    width(5) %&gt;%
+    height(5) %&gt;%
+    margin(right = 2) %&gt;%
+    background("amber") %&gt;%
+    float("left"),
+  p(
+    "Fusce commodo. Nullam tempus. Nunc rutrum turpis sed pede.",
+    "Phasellus lacus.  Cras placerat accumsan nulla.",
+    "Fusce sagittis, libero non molestie mollis, ",
+    "magna orci ultrices dolor, at vulputate neque nulla lacinia eros."
+  ),
+  p(
+    "Nulla facilisis, risus a rhoncus fermentum, tellus tellus",
+    "lacinia purus, et dictum nunc justo sit amet elit."
+  ),
+  p(
+    "Proin neque massa, cursus ut, gravida ut, lobortis eget, lacus.",
+    "Aliquam posuere.",
+    "Sed id ligula quis est convallis tempor."
+  )
+)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

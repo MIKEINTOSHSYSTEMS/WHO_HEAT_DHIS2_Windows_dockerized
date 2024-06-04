@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on the Relationship between Class Attendance and...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.crede2010 {metadat}"><tr><td>dat.crede2010 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on the Relationship between Class Attendance and Grades in College Students</h2>
+
+<h3>Description</h3>
+
+<p>Results from 68 studies on the relationship between class attendence and class performance and/or grade point average in college students.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.crede2010
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>studyid</b>   </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> study number </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>year</b>      </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> publication year </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>source</b>    </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> study source (journal, dissertation, other) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>sampleid</b>  </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> sample within study number </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>criterion</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> criterion variable (grade, gpa) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>class</b>     </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> class type (science, nonscience) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ni</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> sample size </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ri</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> observed correlation
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>The 68 studies included in this dataset provide information about the relationship between class attendance of college students and their performance (i.e., grade) in the class and/or their overall grade point average. Some studies included multiple samples and hence the dataset actually contains 97 correlation coefficients.
+</p>
+<p>The dataset was obtained via personal communication. Note that this dataset differs just slightly from the one used by Credé et al. (2010).
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>education, correlation coefficients, multilevel models
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Personal communication.
+</p>
+
+
+<h3>References</h3>
+
+<p>Credé, M., Roch, S. G., &amp; Kieszczynka, U. M. (2010). Class attendance in college: A meta-analytic review of the relationship of class attendance with grades and student characteristics. <em>Review of Educational Research</em>, <b>80</b>(2), 272&ndash;295. <code style="white-space: pre;">https://doi.org/10.3102/0034654310362998</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.crede2010
+head(dat, 18)
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### calculate r-to-z transformed correlations and corresponding sampling variances
+dat &lt;- escalc(measure="ZCOR", ri=ri, ni=ni, data=dat)
+
+############################################################################
+
+### meta-analysis for the relationship between attendance and grades
+res &lt;- rma(yi, vi, data=dat, subset=criterion=="grade")
+res
+
+### estimated average correlation with 95% CI/PI
+predict(res, transf=transf.ztor, digits=2)
+
+### examine if relationship between attendance and grades differs for nonscience/science classes
+res &lt;- rma(yi, vi, mods = ~ class, data=dat, subset=criterion=="grade")
+res
+
+### estimated average correlations for nonscience and science classes
+predict(res, newmods=c(0,1), transf=transf.ztor, digits=2)
+
+### examine if relationship between attendance and grades has changed over time
+res &lt;- rma(yi, vi, mods = ~ year, data=dat, subset=criterion=="grade")
+res
+
+############################################################################
+
+### meta-analysis for the relationship between attendance and GPA
+res &lt;- rma(yi, vi, data=dat, subset=criterion=="gpa")
+res
+
+### estimated average correlation with 95% CI/PI
+predict(res, transf=transf.ztor, digits=2)
+
+### examine if relationship between attendance and GPA has changed over time
+res &lt;- rma(yi, vi, mods = ~ year, data=dat, subset=criterion=="gpa")
+res
+
+############################################################################
+
+### use a multilevel model to examine the relationship between attendance and grades
+res &lt;- rma.mv(yi, vi, random = ~ 1 | studyid/sampleid, data=dat, subset=criterion=="grade")
+res
+predict(res, transf=transf.ztor, digits=2)
+
+### use a multilevel model to examine the relationship between attendance and gpa
+res &lt;- rma.mv(yi, vi, random = ~ 1 | studyid/sampleid, data=dat, subset=criterion=="gpa")
+res
+predict(res, transf=transf.ztor, digits=2)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

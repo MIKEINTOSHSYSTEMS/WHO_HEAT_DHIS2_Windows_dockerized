@@ -1,0 +1,51 @@
+active                  Selected choice color
+affix                   Position
+alert                   Alert boxes
+background              Background color
+badge                   Badges
+blockquote              Blockquotes
+border                  Border color
+buttonGroupInput        Button group inputs
+buttonInput             Button and link inputs
+card                    Cards, blocks of content
+checkbarInput           Checkbar input
+checkboxInput           Checkbox and switch inputs
+chipInput               Chip inputs
+collapsePane            Collapsible panes
+column                  Grid layout
+d1                      Headings
+display                 Display property
+dropdown                Dropdown menus
+fieldset                Group and label multiple inputs
+fileInput               File inputs
+flex                    Flex layout
+float                   Float
+font                    Font color, size, weight
+formGroup               Input labels, help text, and formatting to
+                        inputs
+formInput               Form inputs
+height                  Height
+img                     Responsive images and figures
+jumbotron               Jumbotron
+listGroupInput          List group inputs
+menuInput               Menu inputs
+modal                   Modal dialogs
+navContent              Navigation panes
+navInput                Page navigation inputs
+navbar                  Navigation bar
+padding                 Margin and padding
+popover                 Popovers
+pre                     Scrollable code snippets
+radioInput              Radio inputs
+radiobarInput           Radiobar inputs
+rangeInput              Range input
+replaceContent          Dynamic content
+responsive              Understanding responsive arguments
+scroll                  Vertical and horizontal scroll
+selectInput             Select inputs
+shadow                  Shadows
+textInput               Text inputs
+toast                   Toasts
+webpage                 User interface
+width                   Width
+yonder-package          An opinionated shiny framework

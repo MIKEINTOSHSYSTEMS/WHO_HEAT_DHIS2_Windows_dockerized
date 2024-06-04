@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Border color</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for border {yonder}"><tr><td>border {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Border color</h2>
+
+<h3>Description</h3>
+
+<p>Use <code>border()</code> to add or modify tag element borders.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+border(tag, color = NULL, sides = "all", round = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>tag</code></td>
+<td>
+<p>A tag element.</p>
+</td></tr>
+<tr valign="top"><td><code>color</code></td>
+<td>
+<p>One of &quot;<code>red</code>&quot;, &quot;<code>purple</code>&quot;, &quot;<code>indigo</code>&quot;, &quot;<code>blue</code>&quot;, &quot;<code>cyan</code>&quot;, &quot;<code>teal</code>&quot;, &quot;<code>green</code>&quot;, &quot;<code>yellow</code>&quot;, &quot;<code>amber</code>&quot;, &quot;<code>orange</code>&quot;, &quot;<code>grey</code>&quot;, &quot;<code>black</code>&quot; or &quot;<code>white</code>&quot; specifying the border color of the tag element, defaults to <code>NULL</code></p>
+</td></tr>
+<tr valign="top"><td><code>sides</code></td>
+<td>
+<p>One or more of <code>"top"</code>, <code>"right"</code>, <code>"bottom"</code>, <code>"left"</code> or
+<code>"all"</code> or <code>"none"</code> specifying which sides to add a border to, defaults to
+<code>"all"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>round</code></td>
+<td>
+<p>One or more of <code>"top"</code>, <code>"right"</code>, <code>"bottom"</code>, <code>"left"</code>,
+<code>"circle"</code>, <code>"all"</code>, or <code>"none"</code> specifying how to round the border(s) of a
+tag element, defaults to <code>NULL</code>, in which case the argument is ignored.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p>Other design utilities: 
+<code><a href="../../yonder/help/active.html">active</a>()</code>,
+<code><a href="../../yonder/help/affix.html">affix</a>()</code>,
+<code><a href="../../yonder/help/background.html">background</a>()</code>,
+<code><a href="../../yonder/help/display.html">display</a>()</code>,
+<code><a href="../../yonder/help/float.html">float</a>()</code>,
+<code><a href="../../yonder/help/font.html">font</a>()</code>,
+<code><a href="../../yonder/help/height.html">height</a>()</code>,
+<code><a href="../../yonder/help/padding.html">padding</a>()</code>,
+<code><a href="../../yonder/help/scroll.html">scroll</a>()</code>,
+<code><a href="../../yonder/help/shadow.html">shadow</a>()</code>,
+<code><a href="../../yonder/help/width.html">width</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+### Change border color
+
+div(
+  div() %&gt;%
+    height(3) %&gt;%
+    width(3) %&gt;%
+    border("green"),
+  div() %&gt;%
+    height(3) %&gt;%
+    width(3) %&gt;%
+    border(
+      color = "blue",
+      sides = c("left", "right")
+    )
+)
+
+### Round sides
+
+sides &lt;- c("top", "right", "bottom", "left", "circle", "all")
+
+div(
+  lapply(
+    sides,
+    border,
+    tag = div() %&gt;%
+      height(3) %&gt;%
+      width(3),
+    color = "black"
+  )
+) %&gt;%
+  display("flex") %&gt;%
+  flex(wrap = TRUE)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

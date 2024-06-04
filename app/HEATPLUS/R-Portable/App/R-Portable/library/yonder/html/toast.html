@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Toasts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for toast {yonder}"><tr><td>toast {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Toasts</h2>
+
+<h3>Description</h3>
+
+<p>Send notifications to the user. Create notification elements, toasts, with
+the <code>toast()</code> function. Display toasts with <code>showToast()</code> and remove all
+active toasts with <code>closeToast()</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+toast(header, ...)
+
+showToast(
+  toast,
+  duration = 4,
+  action = NULL,
+  session = getDefaultReactiveDomain()
+)
+
+closeToast(session = getDefaultReactiveDomain())
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>header</code></td>
+<td>
+<p>A character string or tag element specifying a header for the
+toast, defaults to <code>NULL</code>. A close button is always included in the
+header.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Any number of character strings or tag elements to include in the
+body of the toast.
+</p>
+<p>Any number of named arguments passed as HTML attributes to the parent
+element.</p>
+</td></tr>
+<tr valign="top"><td><code>toast</code></td>
+<td>
+<p>A toast element, typically built with <code>toast()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>duration</code></td>
+<td>
+<p>A positive integer or <code>NULL</code> specifying the duration of the
+toast in seconds by default a toast is removed after 4 seconds. If <code>NULL</code>
+the toast is not automatically removed.</p>
+</td></tr>
+<tr valign="top"><td><code>action</code></td>
+<td>
+<p>A character string specifying a reactive id. If specified, the
+hiding or closing of the toast will set the reactive id <code>action</code> to <code>TRUE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>session</code></td>
+<td>
+<p>A reactive context, defaults to <code><a href="../../crosstalk/html/getDefaultReactiveDomain.html">getDefaultReactiveDomain()</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Showing notifications</h3>
+
+<div class="R"><pre>ui &lt;- container(
+  buttonInput(
+    id = "show",
+    label = "Show notification"
+  ) %&gt;%
+    margin(3)
+)
+
+server &lt;- function(input, output) {
+  observeEvent(input$show, {
+    showToast(
+      toast(
+        list(
+          span("Notification") %&gt;%
+            margin(right = "4"),
+          span(strftime(Sys.time(), "%H:%M")) %&gt;%
+            margin(right = 1)
+        ),
+        "This is notification ", input$show
+      ) %&gt;%
+        margin(right = 2, top = 2)
+    )
+  })
+}
+
+shinyApp(ui, server)
+</pre></div>
+
+
+<h3>Reacting to notifications</h3>
+
+<p>When a notification is not automatically closed you may want to know
+when the notification is manually closed.<div class="R"></p>
+<pre>ui &lt;- container(
+  buttonInput(
+    id = "show",
+    label = "Show notification"
+  ) %&gt;%
+    margin(3)
+)
+
+server &lt;- function(input, output) {
+  observeEvent(input$show, {
+    showToast(
+      action = "undo",
+      duration = NULL,
+      toast(
+        tags$strong("Close") %&gt;%
+          margin(right = "auto"),
+        "When closing this notification, see the console"
+      ) %&gt;%
+        margin(right = 2, top = 2)
+    )
+  })
+
+  observeEvent(input$undo, {
+    print("The notification was closed")
+  })
+}
+
+shinyApp(ui, server)
+</pre></div>
+
+
+<h3>See Also</h3>
+
+<p>Other components: 
+<code><a href="../../yonder/help/alert.html">alert</a>()</code>,
+<code><a href="../../yonder/help/badge.html">badge</a>()</code>,
+<code><a href="../../yonder/help/blockquote.html">blockquote</a>()</code>,
+<code><a href="../../yonder/help/card.html">card</a>()</code>,
+<code><a href="../../yonder/help/collapsePane.html">collapsePane</a>()</code>,
+<code><a href="../../yonder/help/d1.html">d1</a>()</code>,
+<code><a href="../../yonder/help/dropdown.html">dropdown</a>()</code>,
+<code><a href="../../yonder/help/img.html">img</a>()</code>,
+<code><a href="../../yonder/help/jumbotron.html">jumbotron</a>()</code>,
+<code><a href="../../yonder/help/modal.html">modal</a>()</code>,
+<code><a href="../../yonder/help/navContent.html">navContent</a>()</code>,
+<code><a href="../../yonder/help/popover.html">popover</a>()</code>,
+<code><a href="../../yonder/help/pre.html">pre</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+### A simple toast
+
+# The `"fade"` and `"show"` classes have been added for the sake of
+# these examples.
+
+toast(
+  class = "fade show",
+  header = div("Header") %&gt;%
+    margin(right = "auto"),
+  "Hello, world!"
+)
+
+### Styling pieces of a toast
+
+toast(
+  class = "fade show",
+  list(
+    div("Notification") %&gt;%
+      font(weight = "bold") %&gt;%
+      margin(right = "auto"),
+    tags$small("1 min ago")
+  ),
+  "Hello, world!"
+)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

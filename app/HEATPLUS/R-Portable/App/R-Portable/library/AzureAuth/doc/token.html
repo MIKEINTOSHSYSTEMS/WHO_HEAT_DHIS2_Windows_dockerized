@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Hong Ooi" />
+
+
+<title>Acquire an OAuth token</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Acquire an OAuth token</h1>
+<h4 class="author">Hong Ooi</h4>
+
+
+
+<p>This is a short introduction to authenticating with Azure Active Directory (AAD) with AzureAuth.</p>
+<div id="the-get_azure_token-function" class="section level2">
+<h2>The <code>get_azure_token</code> function</h2>
+<p>The main function in AzureAuth is <code>get_azure_token</code>, which obtains an OAuth token from AAD:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(AzureAuth)</span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a>token &lt;-<span class="st"> </span><span class="kw">get_azure_token</span>(<span class="dt">resource=</span><span class="st">&quot;myresource&quot;</span>, <span class="dt">tenant=</span><span class="st">&quot;mytenant&quot;</span>, <span class="dt">app=</span><span class="st">&quot;app_id&quot;</span>,</span>
+<span id="cb1-4"><a href="#cb1-4"></a>    <span class="dt">password=</span><span class="st">&quot;mypassword&quot;</span>, <span class="dt">username=</span><span class="st">&quot;username&quot;</span>, <span class="dt">certificate=</span><span class="st">&quot;encoded_cert&quot;</span>, <span class="dt">version=</span><span class="dv">1</span>, ...)</span></code></pre></div>
+<p>The function has the following arguments:</p>
+<ul>
+<li><code>resource</code>: The resource or scope for which you want a token. For AAD v1.0, this should be a single URL (eg “<a href="https://example.com">https://example.com</a>”) or a GUID. For AAD v2.0, this should be a vector of scopes (see below).</li>
+<li><code>tenant</code>: The AAD tenant.</li>
+<li><code>app</code>: The app ID or service principal ID to authenticate with.</li>
+<li><code>username</code>, <code>password</code>, <code>certificate</code>: Your authentication credentials.</li>
+<li><code>auth_type</code>: The OAuth authentication method to use. See the next section.</li>
+<li><code>version</code>: The version of AAD for which you want a token, either 1 or 2. The default is version 1. Note that the <em>OAuth scheme</em> is always 2.0.</li>
+</ul>
+<p>Scopes in AAD v2.0 consist of a URL or a GUID, along with a path that designates the scope. If a scope doesn’t have a path, <code>get_azure_token</code> will append the <code>/.default</code> path with a warning. A special scope is <code>offline_access</code>, which requests a refresh token from AAD along with the access token: without this, you will have to reauthenticate if you want to refresh the token.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># request an AAD v1.0 token for Resource Manager</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>token1 &lt;-<span class="st"> </span><span class="kw">get_azure_token</span>(<span class="st">&quot;https://management.azure.com/&quot;</span>, <span class="st">&quot;mytenant&quot;</span>, <span class="st">&quot;app_id&quot;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># same request to AAD v2.0, along with a refresh token</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>token2 &lt;-<span class="st"> </span><span class="kw">get_azure_token</span>(<span class="kw">c</span>(<span class="st">&quot;https://management.azure.com/.default&quot;</span>, <span class="st">&quot;offline_access&quot;</span>),</span>
+<span id="cb2-6"><a href="#cb2-6"></a>    <span class="st">&quot;mytenant&quot;</span>, <span class="st">&quot;app_id&quot;</span>, <span class="dt">version=</span><span class="dv">2</span>)</span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co"># requesting multiple scopes in AAD v2.0 (Microsoft Graph)</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>scopes &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;https://graph.microsoft.com/User.Read&quot;</span>,</span>
+<span id="cb2-10"><a href="#cb2-10"></a>            <span class="st">&quot;https://graph.microsoft.com/Files.Read&quot;</span>,</span>
+<span id="cb2-11"><a href="#cb2-11"></a>            <span class="st">&quot;https://graph.microsoft.com/Mail.Read&quot;</span>,</span>
+<span id="cb2-12"><a href="#cb2-12"></a>            <span class="st">&quot;offline_access&quot;</span>)</span>
+<span id="cb2-13"><a href="#cb2-13"></a>token3 &lt;-<span class="st"> </span><span class="kw">get_azure_token</span>(scopes, <span class="st">&quot;mytenant&quot;</span>, <span class="st">&quot;app_id&quot;</span>, <span class="dt">version=</span><span class="dv">2</span>)</span></code></pre></div>
+</div>
+<div id="authentication-methods" class="section level2">
+<h2>Authentication methods</h2>
+<p>AzureAuth supports the following methods for authenticating with AAD: <strong>authorization_code</strong>, <strong>device_code</strong>, <strong>client_credentials</strong>, <strong>resource_owner</strong> and <strong>on_behalf_of</strong>.</p>
+<ol style="list-style-type: decimal">
+<li>Using the <strong>authorization_code</strong> method is a multi-step process. First, <code>get_azure_token</code> opens a login window in your browser, where you can enter your AAD credentials. In the background, it loads the <a href="https://github.com/rstudio/httpuv">httpuv</a> package to listen on a local port. Once you have logged in, the AAD server redirects your browser to a local URL that contains an authorization code. <code>get_azure_token</code> retrieves this authorization code and sends it to the AAD access endpoint, which returns the OAuth token.
+</p>
+The httpuv package must be installed to use this method, as it requires a web server to listen on the (local) redirect URI. Since it opens a browser to load the AAD authorization page, your machine must also have an Internet browser installed that can be run from inside R. In particular, if you are using a Linux <a href="https://azure.microsoft.com/en-us/services/virtual-machines/data-science-virtual-machines/">Data Science Virtual Machine</a> in Azure, you may run into difficulties; use one of the other methods instead.</li>
+</ol>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># obtain a token using authorization_code</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co"># no user credentials needed</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="kw">get_azure_token</span>(<span class="st">&quot;myresource&quot;</span>, <span class="st">&quot;mytenant&quot;</span>, <span class="st">&quot;app_id&quot;</span>, <span class="dt">auth_type=</span><span class="st">&quot;authorization_code&quot;</span>)</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>The <strong>device_code</strong> method is similar in concept to authorization_code, but is meant for situations where you are unable to browse the Internet – for example if you don’t have a browser installed or your computer has input constraints. First, <code>get_azure_token</code> contacts the AAD devicecode endpoint, which responds with a login URL and an access code. You then visit the URL and enter the code, possibly using a different computer. Meanwhile, <code>get_azure_token</code> polls the AAD access endpoint for a token, which is provided once you have entered the code.</li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># obtain a token using device_code</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co"># no user credentials needed</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="kw">get_azure_token</span>(<span class="st">&quot;myresource&quot;</span>, <span class="st">&quot;mytenant&quot;</span>, <span class="st">&quot;app_id&quot;</span>, <span class="dt">auth_type=</span><span class="st">&quot;device_code&quot;</span>)</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>The <strong>client_credentials</strong> method is much simpler than the above methods, requiring only one step. <code>get_azure_token</code> contacts the access endpoint, passing it the credentials. This can be either a client secret or a certificate, which you supply in the <code>password</code> or <code>certificate</code> argument respectively. Once the credentials are verified, the endpoint returns the token. This is the method typically used by service accounts.</li>
+</ol>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># obtain a token using client_credentials</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="co"># supply credentials in password arg</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">get_azure_token</span>(<span class="st">&quot;myresource&quot;</span>, <span class="st">&quot;mytenant&quot;</span>, <span class="st">&quot;app_id&quot;</span>,</span>
+<span id="cb5-4"><a href="#cb5-4"></a>                <span class="dt">password=</span><span class="st">&quot;client_secret&quot;</span>, <span class="dt">auth_type=</span><span class="st">&quot;client_credentials&quot;</span>)</span>
+<span id="cb5-5"><a href="#cb5-5"></a></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co"># can also supply a client certificate as a PEM/PFX file...</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="kw">get_azure_token</span>(<span class="st">&quot;myresource&quot;</span>, <span class="st">&quot;mytenant&quot;</span>, <span class="st">&quot;app_id&quot;</span>,</span>
+<span id="cb5-8"><a href="#cb5-8"></a>                <span class="dt">certificate=</span><span class="st">&quot;mycert.pem&quot;</span>, <span class="dt">auth_type=</span><span class="st">&quot;client_credentials&quot;</span>)</span>
+<span id="cb5-9"><a href="#cb5-9"></a></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="co"># ... or as an object in Azure Key Vault</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a>cert &lt;-<span class="st"> </span>AzureKeyVault<span class="op">::</span><span class="kw">key_vault</span>(<span class="st">&quot;myvault&quot;</span>)<span class="op">$</span>certificates<span class="op">$</span><span class="kw">get</span>(<span class="st">&quot;mycert&quot;</span>)</span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="kw">get_azure_token</span>(<span class="st">&quot;myresource&quot;</span>, <span class="st">&quot;mytenant&quot;</span>, <span class="st">&quot;app_id&quot;</span>,</span>
+<span id="cb5-13"><a href="#cb5-13"></a>                <span class="dt">certificate=</span>cert, <span class="dt">auth_type=</span><span class="st">&quot;client_credentials&quot;</span>)</span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>The <strong>resource_owner</strong> method also requires only one step. In this method, <code>get_azure_token</code> passes your (personal) username and password to the AAD access endpoint, which validates your credentials and returns the token.</li>
+</ol>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># obtain a token using resource_owner</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co"># supply credentials in username and password args</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="kw">get_azure_token</span>(<span class="st">&quot;myresource&quot;</span>, <span class="st">&quot;mytenant&quot;</span>, <span class="st">&quot;app_id&quot;</span>,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>                <span class="dt">username=</span><span class="st">&quot;myusername&quot;</span>, <span class="dt">password=</span><span class="st">&quot;mypassword&quot;</span>, <span class="dt">auth_type=</span><span class="st">&quot;resource_owner&quot;</span>)</span></code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>The <strong>on_behalf_of</strong> method is used to authenticate with an Azure resource by passing a token obtained beforehand. It is mostly used by intermediate apps to authenticate for users. In particular, you can use this method to obtain tokens for multiple resources, while only requiring the user to authenticate once.</li>
+</ol>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># obtaining multiple tokens: authenticate (interactively) once...</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>tok0 &lt;-<span class="st"> </span><span class="kw">get_azure_token</span>(<span class="st">&quot;serviceapp_id&quot;</span>, <span class="st">&quot;mytenant&quot;</span>, <span class="st">&quot;clientapp_id&quot;</span>, <span class="dt">auth_type=</span><span class="st">&quot;authorization_code&quot;</span>)</span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="co"># ...then get tokens for each resource with on_behalf_of</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>tok1 &lt;-<span class="st"> </span><span class="kw">get_azure_token</span>(<span class="st">&quot;resource1&quot;</span>, <span class="st">&quot;mytenant,&quot;</span> <span class="st">&quot;serviceapp_id&quot;</span>,</span>
+<span id="cb7-5"><a href="#cb7-5"></a>                        <span class="dt">password=</span><span class="st">&quot;serviceapp_secret&quot;</span>, <span class="dt">auth_type=</span><span class="st">&quot;on_behalf_of&quot;</span>, <span class="dt">on_behalf_of=</span>tok0)</span>
+<span id="cb7-6"><a href="#cb7-6"></a>tok2 &lt;-<span class="st"> </span><span class="kw">get_azure_token</span>(<span class="st">&quot;resource2&quot;</span>, <span class="st">&quot;mytenant,&quot;</span> <span class="st">&quot;serviceapp_id&quot;</span>,</span>
+<span id="cb7-7"><a href="#cb7-7"></a>                        <span class="dt">password=</span><span class="st">&quot;serviceapp_secret&quot;</span>, <span class="dt">auth_type=</span><span class="st">&quot;on_behalf_of&quot;</span>, <span class="dt">on_behalf_of=</span>tok0)</span></code></pre></div>
+<p>If you don’t specify the method, <code>get_azure_token</code> makes a best guess based on the presence or absence of the other authentication arguments, and whether httpuv is installed.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># this will default to authorization_code if httpuv is installed, and device_code if not</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="kw">get_azure_token</span>(<span class="st">&quot;myresource&quot;</span>, <span class="st">&quot;mytenant&quot;</span>, <span class="st">&quot;app_id&quot;</span>)</span>
+<span id="cb8-3"><a href="#cb8-3"></a></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co"># this will use client_credentials method</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="kw">get_azure_token</span>(<span class="st">&quot;myresource&quot;</span>, <span class="st">&quot;mytenant&quot;</span>, <span class="st">&quot;app_id&quot;</span>,</span>
+<span id="cb8-6"><a href="#cb8-6"></a>                <span class="dt">password=</span><span class="st">&quot;client_secret&quot;</span>)</span>
+<span id="cb8-7"><a href="#cb8-7"></a></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="co"># this will use on_behalf_of method</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="kw">get_azure_token</span>(<span class="st">&quot;myresource&quot;</span>, <span class="st">&quot;mytenant&quot;</span>, <span class="st">&quot;app_id&quot;</span>,</span>
+<span id="cb8-10"><a href="#cb8-10"></a>                <span class="dt">password=</span><span class="st">&quot;client_secret&quot;</span>, <span class="dt">on_behalf_of=</span>token)</span></code></pre></div>
+<div id="managed-identities" class="section level3">
+<h3>Managed identities</h3>
+<p>AzureAuth provides <code>get_managed_token</code> to obtain tokens from within a managed identity. This is a VM, service or container in Azure that can authenticate as itself, which removes the need to save secret passwords or certificates.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># run this from within an Azure VM or container for which an identity has been setup</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="kw">get_managed_token</span>(<span class="st">&quot;myresource&quot;</span>)</span></code></pre></div>
+</div>
+<div id="inside-a-web-app" class="section level3">
+<h3>Inside a web app</h3>
+<p>Using the interactive flows (authorization_code and device_code) from within a Shiny app requires separating the authorization (logging in to Azure) step from the token acquisition step. For this purpose, AzureAuth provides the <code>build_authorization_uri</code> and <code>get_device_creds</code> functions. You can use these from within your app to carry out the authorization, and then pass the resulting credentials to <code>get_azure_token</code> itself. See the “Authenticating from Shiny” vignette for an example app.</p>
+</div>
+</div>
+<div id="authentication-vs-authorization" class="section level2">
+<h2>Authentication vs authorization:</h2>
+<p>Azure Active Directory can be used for two purposes: <em>authentication</em> (verifying that a user is who they claim they are) and <em>authorization</em> (granting a user permission to access a resource). In AAD, a successful authorization process concludes with the granting of an OAuth 2.0 access token, as discussed above. Authentication uses the same process but concludes by granting an ID token, as defined in the OpenID Connect protocol.</p>
+<p>You can use <code>get_azure_token</code> to obtain ID tokens, in addition to access tokens.</p>
+<p>With AAD v1.0, using an interactive authentication flow (authorization_code or device_code) will return an ID token by default – you don’t have to do anything extra. However, AAD v1.0 will <em>not</em> refresh the ID token when it expires (only the access token). Because of this, specify <code>use_cache=FALSE</code> to avoid picking up cached token credentials which may have been refreshed previously.</p>
+<p>AAD v2.0 does not return an ID token by default, but you can get one by specifying <code>openid</code> as a scope. Again, this applies only to interactive authentication. If you only want an ID token, it’s recommended to use AAD v2.0.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># ID token with AAD v1.0</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="co"># if you only want an ID token, set the resource to blank (&quot;&quot;)</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>tok &lt;-<span class="st"> </span><span class="kw">get_azure_token</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;mytenant&quot;</span>, <span class="st">&quot;app_id&quot;</span>)</span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="kw">extract_token</span>(tok, <span class="st">&quot;id&quot;</span>)</span>
+<span id="cb10-5"><a href="#cb10-5"></a></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="co"># ID token with AAD v2.0</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a>tok2 &lt;-<span class="st"> </span><span class="kw">get_azure_token</span>(<span class="kw">c</span>(<span class="st">&quot;openid&quot;</span>, <span class="st">&quot;offline_access&quot;</span>), <span class="st">&quot;mytenant&quot;</span>, <span class="st">&quot;app_id&quot;</span>, <span class="dt">version=</span><span class="dv">2</span>)</span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="kw">extract_token</span>(tok2, <span class="st">&quot;id&quot;</span>)</span></code></pre></div>
+</div>
+<div id="caching" class="section level2">
+<h2>Caching</h2>
+<p>AzureAuth caches tokens based on all the inputs to <code>get_azure_token</code>, as listed above. It defines its own directory for cached tokens, using the rappdirs package. On recent Windows versions, this will usually be in the location <code>C:\Users\(username)\AppData\Local\AzureR</code>. On Linux, it will be in <code>~/.local/share/AzureR</code>, and on MacOS, it will be in <code>~/Library/Application Support/AzureR</code>. Note that a single directory is used for all tokens, and the working directory is not touched (which significantly lessens the risk of accidentally introducing cached tokens into source control).</p>
+<p>For reasons of CRAN policy, the first time that AzureAuth is loaded, it will prompt you for permission to create this directory. Unless you have a specific reason otherwise, it’s recommended that you allow the directory to be created. Note that most other cloud engineering tools save credentials in this way, including Docker, Kubernetes, and the Azure CLI itself. The prompt only appears in an interactive session; if AzureAuth is loaded in a batch script, the directory is not created if it doesn’t already exist.</p>
+<p>To list all cached tokens on disk, use <code>list_azure_tokens</code>. This returns a list of token objects, named according to their MD5 hashes.</p>
+<p>To load a token from the cache using its MD5 hash, use <code>load_azure_token</code>. To delete a cached token, use <code>delete_azure_token</code>. This takes the same inputs as <code>get_azure_token</code>, or you can supply an MD5 hash via the <code>hash</code> argument. To delete <em>all</em> cached tokens, use <code>clean_token_directory</code>.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># list all tokens</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="kw">list_azure_tokens</span>()</span>
+<span id="cb11-3"><a href="#cb11-3"></a></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="co"># &lt;... list of token objects ...&gt;</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="co"># delete a token</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="kw">delete_azure_token</span>(<span class="st">&quot;myresource&quot;</span>, <span class="st">&quot;mytenant&quot;</span>, <span class="st">&quot;app_id&quot;</span>,</span>
+<span id="cb11-8"><a href="#cb11-8"></a>                   <span class="dt">password=</span><span class="st">&quot;client_credentials&quot;</span>, <span class="dt">auth_type=</span><span class="st">&quot;client_credentials&quot;</span>)</span></code></pre></div>
+<p>If you want to bypass the cache, specify <code>use_cache=FALSE</code> in the call to <code>get_azure_token</code>. This will always obtain a new token from AAD, and also prevent it being saved to the cache.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">get_azure_token</span>(<span class="st">&quot;myresource&quot;</span>, <span class="st">&quot;mytenant&quot;</span>, <span class="st">&quot;app_id&quot;</span>, <span class="dt">use_cache=</span><span class="ot">FALSE</span>)</span></code></pre></div>
+</div>
+<div id="refreshing" class="section level2">
+<h2>Refreshing</h2>
+<p>A token object can be refreshed by calling its <code>refresh()</code> method. If the token’s credentials contain a refresh token, this is used; otherwise a new access token is obtained by reauthenticating. In most situations you don’t need to worry about this, as the AzureR packages will check if the credentials have expired and automatically refresh them for you.</p>
+<p>One scenario where you might want to refresh manually is using a token for one resource to obtain a token for another resource. Note that in AAD, a refresh token can be used to obtain an access token for any resource or scope that you have permissions for. Thus, for example, you could use a refresh token issued on a request for <code>https://management.azure.com</code> to obtain a new access token for <code>https://graph.microsoft.com</code> (assuming you’ve been granted permission).</p>
+<p>To obtain an access token for a new resource, change the object’s <code>resource</code> (for an AAD v1.0 token) or <code>scope</code> field (for an AAD v2.0 token) before calling <code>refresh()</code>. If you <em>also</em> want to retain the token for the old resource, you should call the <code>clone()</code> method first to create a copy.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># use a refresh token from one resource to get an access token for another resource</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>tok &lt;-<span class="st"> </span><span class="kw">get_azure_token</span>(<span class="st">&quot;https://myresource&quot;</span>, <span class="st">&quot;mytenant&quot;</span>, <span class="st">&quot;app_id&quot;</span>)</span>
+<span id="cb13-3"><a href="#cb13-3"></a>tok2 &lt;-<span class="st"> </span>tok<span class="op">$</span><span class="kw">clone</span>()</span>
+<span id="cb13-4"><a href="#cb13-4"></a>tok2<span class="op">$</span>resource &lt;-<span class="st"> &quot;https://anotherresource&quot;</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a>tok2<span class="op">$</span><span class="kw">refresh</span>()</span>
+<span id="cb13-6"><a href="#cb13-6"></a></span>
+<span id="cb13-7"><a href="#cb13-7"></a><span class="co"># same for AAD v2.0</span></span>
+<span id="cb13-8"><a href="#cb13-8"></a>tok &lt;-<span class="st"> </span><span class="kw">get_azure_token</span>(<span class="kw">c</span>(<span class="st">&quot;https://myresource/.default&quot;</span>, <span class="st">&quot;offline_access&quot;</span>),</span>
+<span id="cb13-9"><a href="#cb13-9"></a>    <span class="st">&quot;mytenant&quot;</span>, <span class="st">&quot;app_id&quot;</span>, <span class="dt">version=</span><span class="dv">2</span>)</span>
+<span id="cb13-10"><a href="#cb13-10"></a>tok2 &lt;-<span class="st"> </span>tok<span class="op">$</span><span class="kw">clone</span>()</span>
+<span id="cb13-11"><a href="#cb13-11"></a>tok2<span class="op">$</span>scope &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;https://anotherresource/.default&quot;</span>, <span class="st">&quot;offline_access&quot;</span>)</span>
+<span id="cb13-12"><a href="#cb13-12"></a>tok2<span class="op">$</span><span class="kw">refresh</span>()</span></code></pre></div>
+</div>
+<div id="more-information" class="section level2">
+<h2>More information</h2>
+<p>For the details on Azure Active Directory, consult the <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/">Microsoft documentation</a>.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

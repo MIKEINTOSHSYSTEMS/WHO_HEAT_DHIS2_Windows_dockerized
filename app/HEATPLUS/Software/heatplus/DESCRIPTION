@@ -1,0 +1,41 @@
+Package: heatplus
+Title: WHO HEAT Plus Application
+Version: 0.2.0
+Authors@R: c(
+   person("Zev", "Ross", role = c("aut", "cre"), email = "zev@zevross.com"),
+   person("Ahmadreza", "Hosseinpoor", role = c("aut", "ctb")), 
+   person("Anne", "Schlotheuber", role = c("aut", "ctb")), 
+   person("Nate", "Teetor", role = "ctb", email = "nate@zevross.com"),
+   person(family = "World Health Organization", role = "cph")
+   )
+Description: Enables the exploration and comparison of within-country health 
+   inequalities.
+License: GPL-2 | file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.2
+Remotes: WHOequity/HEAT, WHOequity/HEAT-Data, WHOequity/HEAT-Measures,
+        johncoene/waiter
+Imports: shiny, yonder, highcharter, waiter, config, glue, httr, fs,
+        processx, jsonlite, readxl, readr, heat, heatdata,
+        heatmeasures, AzureAuth, AzureGraph
+Depends: heat
+RemoteType: github
+RemoteHost: api.github.com
+RemoteRepo: HEAT-Plus-development
+RemoteUsername: WHOequity
+RemoteRef: zr/git905/determinants
+RemoteSha: f7af42c5f242dad475c526e1f7706a1c66124797
+GithubRepo: HEAT-Plus-development
+GithubUsername: WHOequity
+GithubRef: zr/git905/determinants
+GithubSHA1: f7af42c5f242dad475c526e1f7706a1c66124797
+NeedsCompilation: no
+Packaged: 2024-05-10 08:27:53 UTC; antiportada
+Author: Zev Ross [aut, cre],
+  Ahmadreza Hosseinpoor [aut, ctb],
+  Anne Schlotheuber [aut, ctb],
+  Nate Teetor [ctb],
+  World Health Organization [cph]
+Maintainer: Zev Ross <zev@zevross.com>
+Built: R 4.4.0; ; 2024-05-10 08:27:58 UTC; windows

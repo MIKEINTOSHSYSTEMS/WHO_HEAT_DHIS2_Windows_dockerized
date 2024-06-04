@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on Safety of Inhaled Medications for Chronic...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.dong2013 {metadat}"><tr><td>dat.dong2013 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on Safety of Inhaled Medications for Chronic Obstructive Pulmonary Disease</h2>
+
+<h3>Description</h3>
+
+<p>Results from 41 trials examining the safety of inhaled medications in patients with chronic obstructive pulmonary disease.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.dong2013
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>id</b>         </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> study ID </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>treatment</b>  </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> treatment </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>death</b>      </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> mortality </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>randomized</b> </td><td style="text-align: left;"> <code>integer</code>   </td><td style="text-align: left;"> number of individuals
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>This network meta-analysis compared the safety of inhaled medications in patients with chronic obstructive pulmonary disease (Dong et al., 2013).
+</p>
+<p>Mortality was reported in 41 randomized trials, with a total of 52 462 patients. Mortality was low, with 2 408 deaths (4.6%) reported across all studies. There were nine studies that reported zero events in at least one of the treatment arms and three additional studies had zero events in all treatment arms.
+</p>
+<p>This data set was used in Efthimiou et al. (2019) to illustrate the Mantel-Haenszel method for network meta-analysis.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>medicine, odds ratios, network meta-analysis, Mantel-Haenszel method
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Guido Schwarzer, <a href="mailto:sc@imbi.uni-freiburg.de">sc@imbi.uni-freiburg.de</a>, <a href="https://github.com/guido-s/">https://github.com/guido-s/</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Dong, Y.-H., Lin, H.-H., Shau, W.-Y., Wu, Y.-C., Chang, C.-H., &amp; Lai, M.-S. (2013). Comparative safety of inhaled medications in patients with chronic obstructive pulmonary disease: Systematic review and mixed treatment comparison meta-analysis of randomised controlled trials. <em>Thorax</em>, <b>68</b>(1), 48&ndash;56. <code style="white-space: pre;">https://doi.org/10.1136/thoraxjnl-2012-201926</code>
+</p>
+
+
+<h3>References</h3>
+
+<p>Efthimiou, O., Rücker, G., Schwarzer, G., Higgins, J., Egger, M., &amp; Salanti, G. (2019). A Mantel-Haenszel model for network meta-analysis of rare events. <em>Statistics in Medicine</em>, <b>38</b>(16), 2992&ndash;3012. <code style="white-space: pre;">https://doi.org/10.1002/sim.8158</code>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../netmeta/help/pairwise.html">pairwise</a></code>, <code><a href="../../meta/help/metabin.html">metabin</a></code>, <code><a href="../../netmeta/help/netmetabin.html">netmetabin</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### Show first 6 rows / 3 studies of the dataset
+head(dat.dong2013)
+
+## Not run: 
+
+### Load netmeta package
+suppressPackageStartupMessages(library(netmeta))
+
+### Print odds ratios and confidence limits with two digits
+settings.meta(digits = 2)
+
+### Change appearance of confidence intervals
+cilayout("(", "-")
+
+### Transform data from long arm-based format to contrast-based
+### format. Argument 'sm' has to be used for odds ratio as summary
+### measure; by default the risk ratio is used in the metabin function
+### called internally.
+pw &lt;- pairwise(treatment, death, randomized, studlab = id,
+  data = dat.dong2013, sm = "OR")
+
+### Calculated log odds ratios (TE) and standard errors (seTE)
+pw[1:3, 1:9]
+
+### Conduct Mantel-Haenszel network meta-analysis (NMA)
+net &lt;- netmetabin(pw, ref = "plac")
+
+### Network graph
+netgraph(net, seq = "optimal", col = "black", plastic = FALSE,
+  points = TRUE, pch = 21, cex.points = 3, col.points = "black",
+  bg.points = "gray", thickness = "se.fixed",
+  number.of.studies = TRUE)
+
+### Show results for Mantel-Haenszel NMA
+net
+forest(net)
+
+### League table with network estimates in lower triangle and direct
+### estimates in upper triangle
+netleague(net)
+
+### Assess inconsistency
+print(netsplit(net), show = "both", ci = TRUE, overall = FALSE,
+  nchar.trts = 6)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

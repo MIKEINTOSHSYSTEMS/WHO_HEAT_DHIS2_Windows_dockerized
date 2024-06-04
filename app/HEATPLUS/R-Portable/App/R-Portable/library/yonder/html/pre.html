@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Scrollable code snippets</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for pre {yonder}"><tr><td>pre {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Scrollable code snippets</h2>
+
+<h3>Description</h3>
+
+<p>The <code>pre</code> function adds a maximum height and scroll bar to the standard
+<code style="white-space: pre;">&lt;pre&gt;</code> element.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+pre(...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Text, tag elements, or named arguments passed as HTML attributes
+to the tag.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p>Other components: 
+<code><a href="../../yonder/help/alert.html">alert</a>()</code>,
+<code><a href="../../yonder/help/badge.html">badge</a>()</code>,
+<code><a href="../../yonder/help/blockquote.html">blockquote</a>()</code>,
+<code><a href="../../yonder/help/card.html">card</a>()</code>,
+<code><a href="../../yonder/help/collapsePane.html">collapsePane</a>()</code>,
+<code><a href="../../yonder/help/d1.html">d1</a>()</code>,
+<code><a href="../../yonder/help/dropdown.html">dropdown</a>()</code>,
+<code><a href="../../yonder/help/img.html">img</a>()</code>,
+<code><a href="../../yonder/help/jumbotron.html">jumbotron</a>()</code>,
+<code><a href="../../yonder/help/modal.html">modal</a>()</code>,
+<code><a href="../../yonder/help/navContent.html">navContent</a>()</code>,
+<code><a href="../../yonder/help/popover.html">popover</a>()</code>,
+<code><a href="../../yonder/help/toast.html">toast</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+### Simple example
+
+pre(
+  "shinyApp(",
+  "  ui = container(",
+  "    columns(",
+  "      column(",
+  "      ",
+  "      )",
+  "    )",
+  "  )",
+  "  server = function(input, output) {",
+  "  ",
+  "  }",
+  ")"
+)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

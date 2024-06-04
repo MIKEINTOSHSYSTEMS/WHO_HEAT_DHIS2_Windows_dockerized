@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on the Relationship between Sexual Signal Expression...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.white2020 {metadat}"><tr><td>dat.white2020 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on the Relationship between Sexual Signal Expression and Individual Quality</h2>
+
+<h3>Description</h3>
+
+<p>Results from 41 studies examining the relationship between measures of individual quality and the expression of structurally coloured sexual signals.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.white2020
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The object is a data frame which contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>study_id</b>        </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> study-level ID </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>obs</b>             </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> observation-level ID </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>exp_obs</b>         </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> whether the study is observational or experimental </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>control</b>         </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> whether the study did (1) or did not (0) include a non-sexual control trait </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>class</b>           </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> class of the study organisms </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>genus</b>           </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> class of the study organisms </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>species</b>         </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> species of the study organisms </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>sex</b>             </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> sex of the study organisms </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>iridescent</b>      </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> whether the colour signals were iridescent (1) or not (0) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>col_var</b>         </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> the colour variable quantified </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>col_component</b>   </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> whether the colour variable is chromatic or achromatic </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>quality_measure</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> the measure of individual quality used </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>region</b>          </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> the body region from which colour was sampled </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n</b>               </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> study sample size </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>r</b>               </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> Pearson's correlation coefficient </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>The 186 rows in this dataset come from 41 experimental and observational studies reporting on the correlation between measures of individual quality (age, body condition, immune function, parasite resistance) and the expression of structurally coloured sexual signals across 28 species. The purpose of this meta-analysis was to test whether structural colour signals show heightened condition-dependent expression, as predicted by evolutionary models of 'honest' signalling.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>ecology, evolution, correlation coefficients
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Thomas E. White, <a href="mailto:thomas.white@sydney.edu.au">thomas.white@sydney.edu.au</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>White, T. E. (2020). Structural colours reflect individual quality: A meta-analysis. <em>Biology Letters</em>, <b>16</b>(4), 20200001. <code style="white-space: pre;">https://doi.org/10.1098/rsbl.2020.0001</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.white2020
+head(dat, 10)
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### calculate r-to-z transformed correlations and corresponding sampling variances
+dat &lt;- escalc(measure="ZCOR", ri=r, ni=n, data=dat)
+
+### fit multilevel meta-analytic model
+res &lt;- rma.mv(yi, vi, random = list(~ 1 | study_id, ~ 1 | obs), data=dat)
+res
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

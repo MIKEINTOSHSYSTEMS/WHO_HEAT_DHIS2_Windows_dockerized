@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on the Length of Hospital Stay of Stroke Patients</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.normand1999 {metadat}"><tr><td>dat.normand1999 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on the Length of Hospital Stay of Stroke Patients</h2>
+
+<h3>Description</h3>
+
+<p>Results from 9 studies on the length of the hospital stay of stroke patients under specialized care and under conventional/routine (non-specialist) care.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.normand1999
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>study</b>    </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> study number </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>source</b>   </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> source of data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n1i</b>      </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of patients under specialized care </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>m1i</b>      </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> mean length of stay (in days) under specialized care </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>sd1i</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> standard deviation of the length of stay under specialized care </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>n2i</b>      </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of patients under routine care </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>m2i</b>      </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> mean length of stay (in days) under routine care </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>sd2i</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> standard deviation of the length of stay under routine care
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>The 9 studies provide data in terms of the mean length of the hospital stay (in days) of stroke patients under specialized care and under conventional/routine (non-specialist) care. The goal of the meta-analysis was to examine the hypothesis whether specialist stroke unit care will result in a shorter length of hospitalization compared to routine management.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>medicine, raw mean differences, standardized mean differences
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Normand, S. T. (1999). Meta-analysis: Formulating, evaluating, combining, and reporting. <em>Statistics in Medicine</em>, <b>18</b>(3), 321&ndash;359. <code style="white-space: pre;">https://doi.org/10.1002/(sici)1097-0258(19990215)18:3&lt;321::aid-sim28&gt;3.0.co;2-p</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.normand1999
+dat
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### calculate mean differences and corresponding sampling variances
+dat &lt;- escalc(measure="MD", m1i=m1i, sd1i=sd1i, n1i=n1i, m2i=m2i, sd2i=sd2i, n2i=n2i, data=dat)
+dat
+
+### meta-analysis of mean differences using a random-effects model
+res &lt;- rma(yi, vi, data=dat)
+res
+
+### meta-analysis of standardized mean differences using a random-effects model
+res &lt;- rma(measure="SMD", m1i=m1i, sd1i=sd1i, n1i=n1i, m2i=m2i, sd2i=sd2i, n2i=n2i,
+           data=dat, slab=source)
+res
+
+### draw forest plot
+forest(res, xlim=c(-7,5), alim=c(-3,1), header="Study/Source")
+
+### calculate (log transformed) ratios of means and corresponding sampling variances
+dat &lt;- escalc(measure="ROM", m1i=m1i, sd1i=sd1i, n1i=n1i, m2i=m2i, sd2i=sd2i, n2i=n2i, data=dat)
+dat
+
+### meta-analysis of the (log transformed) ratios of means using a random-effects model
+res &lt;- rma(yi, vi, data=dat)
+res
+predict(res, transf=exp, digits=2)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

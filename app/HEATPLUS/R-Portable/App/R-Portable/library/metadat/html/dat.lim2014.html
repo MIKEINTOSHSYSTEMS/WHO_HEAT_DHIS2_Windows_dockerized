@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on the Association Between Maternal Size, Offspring...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.lim2014 {metadat}"><tr><td>dat.lim2014 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on the Association Between Maternal Size, Offspring Size, and Number of Offsprings</h2>
+
+<h3>Description</h3>
+
+<p>Results from studies examining the association between maternal size, offspring size, and number of offsprings.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.lim2014
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The object is a list containing data frames <code>m_o_size</code>, <code>m_o_fecundity</code>, <code>o_o_unadj</code>, and <code>o_o_adj</code> that contain the following columns and the corresponding phylogenetic trees called <code>m_o_size_tree</code>, <code>m_o_fecundity_tree</code>, <code>o_o_unadj_tree</code>, and <code>o_o_adj_tree</code>:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>article</b>     </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> article id </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>author</b>      </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> study author(s) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>year</b>        </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> publication year </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>species</b>     </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> species </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>amniotes</b>    </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> whether the species was amniotic </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>environment</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> whether the species were wild or captive </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>reprounit</b>   </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> whether the data were based on lifetime reproductive output or a single reproductive event (only in <code>m_o_size</code> and <code>m_o_fecundity</code>) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ri</b>          </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> correlation coefficient </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ni</b>          </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> sample size
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>The object <code>dat.lim2014</code> includes 4 datasets:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+   <code>m_o_size</code>      </td><td style="text-align: left;"> on the correlation between maternal size and offspring size </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   <code>m_o_fecundity</code> </td><td style="text-align: left;"> on the correlation between maternal size and number of offsprings </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   <code>o_o_unadj</code>     </td><td style="text-align: left;"> on the correlation between offspring size and number of offsprings </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   <code>o_o_adj</code>       </td><td style="text-align: left;"> on the correlation between offspring size and number of offsprings adjusted for maternal size
+   </td>
+</tr>
+
+</table>
+
+<p>Objects <code>m_o_size_tree</code>, <code>m_o_fecundity_tree</code>, <code>o_o_unadj_tree</code>, and <code>o_o_adj_tree</code> are the corresponding phylogenetic trees for the species included in each of these datasets.
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>ecology, evolution, correlation coefficients, multilevel models, phylogeny
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Lim, J. N., Senior, A. M., &amp; Nakagawa, S. (2014). Heterogeneity in individual quality and reproductive trade-offs within species. <em>Evolution</em>, <b>68</b>(8), 2306&ndash;2318. <code style="white-space: pre;">https://doi.org/10.1111/evo.12446</code>
+</p>
+
+
+<h3>References</h3>
+
+<p>Cinar, O., Nakagawa, S., &amp; Viechtbauer, W. (in press). Phylogenetic multilevel meta-analysis: A simulation study on the importance of modelling the phylogeny. <em>Methods in Ecology and Evolution</em>. <code style="white-space: pre;">https://doi.org/10.1111/2041-210X.13760</code>
+</p>
+<p>Hadfield, J. D., &amp; Nakagawa, S. (2010). General quantitative genetic methods for comparative biology: Phylogenies, taxonomies and multi-trait models for continuous and categorical characters. <em>Journal of Evolutionary Biology</em>, <b>23</b>(3), 494&ndash;508. <code style="white-space: pre;">https://doi.org/10.1111/j.1420-9101.2009.01915.x</code>
+</p>
+<p>Nakagawa, S., &amp; Santos, E. S. A. (2012). Methodological issues and advances in biological meta-analysis. <em>Evolutionary Ecology</em>, <b>26</b>(5), 1253&ndash;1274. <code style="white-space: pre;">https://doi.org/10.1007/s10682-012-9555-5</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.lim2014$o_o_unadj
+dat[1:14, -c(2:3)]
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### load ape package
+library(ape, warn.conflicts=FALSE)
+
+### calculate r-to-z transformed correlations and corresponding sampling variances
+dat &lt;- escalc(measure="ZCOR", ri=ri, ni=ni, data=dat)
+
+### copy tree to 'tree'
+tree &lt;- dat.lim2014$o_o_unadj_tree
+
+### compute branch lengths
+tree &lt;- compute.brlen(tree)
+
+### compute phylogenetic correlation matrix
+A &lt;- vcv(tree, corr=TRUE)
+
+### make copy of the species variable
+dat$species.phy &lt;- dat$species
+
+### create effect size id variable
+dat$esid &lt;- 1:nrow(dat)
+
+### fit multilevel phylogenetic meta-analytic model
+res &lt;- rma.mv(yi, vi,
+   random = list(~ 1 | article, ~ 1 | esid, ~ 1 | species, ~ 1 | species.phy),
+   R=list(species.phy=A), data=dat)
+res
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

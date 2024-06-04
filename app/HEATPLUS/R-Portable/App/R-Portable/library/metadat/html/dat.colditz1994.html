@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studies on the Effectiveness of the BCG Vaccine Against...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dat.colditz1994 {metadat}"><tr><td>dat.colditz1994 {metadat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Studies on the Effectiveness of the BCG Vaccine Against Tuberculosis</h2>
+
+<h3>Description</h3>
+
+<p>Results from 13 studies examining the effectiveness of the Bacillus Calmette-Guerin (BCG) vaccine against tuberculosis. <script id="MathJax-script" async src="../../mathjaxr/doc/mathjax/es5/tex-chtml-full.js"></script></p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dat.colditz1994
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The data frame contains the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<b>trial</b>  </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> trial number </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>author</b> </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> author(s) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>year</b>   </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> publication year </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>tpos</b>   </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of TB positive cases in the treated (vaccinated) group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>tneg</b>   </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of TB negative cases in the treated (vaccinated) group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>cpos</b>   </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of TB positive cases in the control (non-vaccinated) group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>cneg</b>   </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> number of TB negative cases in the control (non-vaccinated) group </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>ablat</b>  </td><td style="text-align: left;"> <code>numeric</code>   </td><td style="text-align: left;"> absolute latitude of the study location (in degrees) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<b>alloc</b>  </td><td style="text-align: left;"> <code>character</code> </td><td style="text-align: left;"> method of treatment allocation (random, alternate, or systematic assignment)
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>The 13 studies provide data in terms of \(2 \times 2\) tables in the form:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+                    </td><td style="text-align: center;"> TB positive </td><td style="text-align: center;"> TB negative </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   vaccinated group </td><td style="text-align: center;"> <code>tpos</code> </td><td style="text-align: center;"> <code>tneg</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   control group    </td><td style="text-align: center;"> <code>cpos</code> </td><td style="text-align: center;"> <code>cneg</code>
+   </td>
+</tr>
+
+</table>
+<p> The goal of the meta-analysis was to examine the overall effectiveness of the BCG vaccine for preventing tuberculosis and to examine moderators that may potentially influence the size of the effect.
+</p>
+<p>The dataset has been used in several publications to illustrate meta-analytic methods (see &lsquo;References&rsquo;).
+</p>
+
+
+<h3>Concepts</h3>
+
+<p>medicine, risk ratios, meta-regression
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wolfgang Viechtbauer, <a href="mailto:wvb@metafor-project.org">wvb@metafor-project.org</a>, <a href="https://www.metafor-project.org">https://www.metafor-project.org</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>Colditz, G. A., Brewer, T. F., Berkey, C. S., Wilson, M. E., Burdick, E., Fineberg, H. V., &amp; Mosteller, F. (1994). Efficacy of BCG vaccine in the prevention of tuberculosis: Meta-analysis of the published literature. <em>Journal of the American Medical Association</em>, <b>271</b>(9), 698&ndash;702. <code style="white-space: pre;">https://doi.org/10.1001/jama.1994.03510330076038</code>
+</p>
+
+
+<h3>References</h3>
+
+<p>Berkey, C. S., Hoaglin, D. C., Mosteller, F., &amp; Colditz, G. A. (1995). A random-effects regression model for meta-analysis. <em>Statistics in Medicine</em>, <b>14</b>(4), 395&ndash;411. <code style="white-space: pre;">https://doi.org/10.1002/sim.4780140406</code>
+</p>
+<p>van Houwelingen, H. C., Arends, L. R., &amp; Stijnen, T. (2002). Advanced methods in meta-analysis: Multivariate approach and meta-regression. <em>Statistics in Medicine</em>, <b>21</b>(4), 589&ndash;624. <code style="white-space: pre;">https://doi.org/10.1002/sim.1040</code>
+</p>
+<p>Viechtbauer, W. (2010). Conducting meta-analyses in R with the metafor package. <em>Journal of Statistical Software</em>, <b>36</b>(3), 1&ndash;48. <code style="white-space: pre;">https://doi.org/10.18637/jss.v036.i03</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### copy data into 'dat' and examine data
+dat &lt;- dat.colditz1994
+dat
+
+## Not run: 
+
+### load metafor package
+library(metafor)
+
+### calculate log risk ratios and corresponding sampling variances
+dat &lt;- escalc(measure="RR", ai=tpos, bi=tneg, ci=cpos, di=cneg, data=dat)
+dat
+
+### random-effects model
+res &lt;- rma(yi, vi, data=dat)
+res
+
+### average risk ratio with 95% CI
+predict(res, transf=exp)
+
+### mixed-effects model with absolute latitude and publication year as moderators
+res &lt;- rma(yi, vi, mods = ~ ablat + year, data=dat)
+res
+
+### predicted average risk ratios for 10-60 degrees absolute latitude
+### holding the publication year constant at 1970
+predict(res, newmods=cbind(seq(from=10, to=60, by=10), 1970), transf=exp)
+
+### note: the interpretation of the results is difficult because absolute
+### latitude and publication year are strongly correlated (the more recent
+### studies were conducted closer to the equator)
+plot(ablat ~ year, data=dat, pch=19, xlab="Publication Year", ylab="Absolute Lattitude")
+cor(dat$ablat, dat$year)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>metadat</em> version 1.2-0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

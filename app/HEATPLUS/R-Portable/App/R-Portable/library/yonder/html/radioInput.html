@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Radio inputs</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for radioInput {yonder}"><tr><td>radioInput {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Radio inputs</h2>
+
+<h3>Description</h3>
+
+<p>A stylized radio input. A reactive input with multiple choices where only one
+choice and value at most may be selected.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+radioInput(
+  id,
+  choices = NULL,
+  values = choices,
+  selected = values[[1]],
+  ...,
+  inline = FALSE
+)
+
+updateRadioInput(
+  id,
+  choices = NULL,
+  values = choices,
+  selected = NULL,
+  inline = FALSE,
+  enable = NULL,
+  disable = NULL,
+  valid = NULL,
+  invalid = NULL,
+  session = getDefaultReactiveDomain()
+)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>id</code></td>
+<td>
+<p>A character string specifying the id of the reactive input.</p>
+</td></tr>
+<tr valign="top"><td><code>choices</code></td>
+<td>
+<p>A character vector or list of tag elements specifying the
+input's choices.</p>
+</td></tr>
+<tr valign="top"><td><code>values</code></td>
+<td>
+<p>A character vector, list of character strings, vector of values
+to coerce to character strings, or list of values to coerce to character
+strings specifying the values of the radio input's choices, defaults to
+<code>choices</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>selected</code></td>
+<td>
+<p>One of <code>values</code> indicating the default selected value of the
+radio input, defaults to <code>NULL</code>, in which case the first choice is
+selected by default.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional named arguments passed as HTML attributes to the
+parent element or tag elements passed as child elements to the parent
+element.</p>
+</td></tr>
+<tr valign="top"><td><code>inline</code></td>
+<td>
+<p>If <code>TRUE</code>, the radio input renders inline, defaults to <code>FALSE</code>,
+in which case the radio controls render on separate lines.</p>
+</td></tr>
+<tr valign="top"><td><code>enable</code></td>
+<td>
+<p>One of <code>values</code> specifying particular choices to enable or
+<code>TRUE</code> specifying the entire input is enabled, defaults to <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>disable</code></td>
+<td>
+<p>One of <code>values</code> specifying particular choices to disable or
+<code>TRUE</code> specifying the entire input is disabled, defaults to <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>valid</code></td>
+<td>
+<p>A character string specifying a message to the user indicating
+how the input's value is valid, defaults to <code>NULL.</code></p>
+</td></tr>
+<tr valign="top"><td><code>invalid</code></td>
+<td>
+<p>A character string specifying a message to the user
+indicating how the input's value is invalid, defaults to <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>session</code></td>
+<td>
+<p>A reactive context, defaults to <code><a href="../../crosstalk/html/getDefaultReactiveDomain.html">getDefaultReactiveDomain()</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p>Other inputs: 
+<code><a href="../../yonder/help/buttonGroupInput.html">buttonGroupInput</a>()</code>,
+<code><a href="../../yonder/help/buttonInput.html">buttonInput</a>()</code>,
+<code><a href="../../yonder/help/checkbarInput.html">checkbarInput</a>()</code>,
+<code><a href="../../yonder/help/checkboxInput.html">checkboxInput</a>()</code>,
+<code><a href="../../yonder/help/chipInput.html">chipInput</a>()</code>,
+<code><a href="../../yonder/help/fileInput.html">fileInput</a>()</code>,
+<code><a href="../../yonder/help/formInput.html">formInput</a>()</code>,
+<code><a href="../../yonder/help/listGroupInput.html">listGroupInput</a>()</code>,
+<code><a href="../../yonder/help/menuInput.html">menuInput</a>()</code>,
+<code><a href="../../yonder/help/navInput.html">navInput</a>()</code>,
+<code><a href="../../yonder/help/radiobarInput.html">radiobarInput</a>()</code>,
+<code><a href="../../yonder/help/rangeInput.html">rangeInput</a>()</code>,
+<code><a href="../../yonder/help/selectInput.html">selectInput</a>()</code>,
+<code><a href="../../yonder/help/textInput.html">textInput</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+### Out-of-the-box radios
+
+radioInput(
+  id = "radio1",
+  choices = c(
+    "Vehicula adipiscing mattis",
+    "Magna nullam",
+    "Aenean venenatis",
+    "Tristique quam porta"
+  )
+)
+
+### Inline radio input
+
+radioInput(
+  id = "radio2",
+  choices = c(
+    "Choice 1",
+    "Choice 2",
+    "Choice 3"
+  ),
+  inline = TRUE  # &lt;-
+)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

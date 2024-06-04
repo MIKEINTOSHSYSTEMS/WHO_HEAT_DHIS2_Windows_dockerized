@@ -1,0 +1,37 @@
+Type: Package
+Package: heatmeasures
+Title: A package to generate inequality measures
+Version: 0.0.1
+Authors@R: 
+    c(person(family = "ZevRoss Spatial Anaylsis",
+             role = "cre",
+             email = "info@zevross.com"),
+      person(given = "Zev",
+             family = "Ross",
+             role = "ctb"))
+Description: Generate inequality measures.
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+VignetteBuilder: knitr
+Suggests: testthat, knitr, rmarkdown, usethis, devtools
+Imports: metafor, msm, furrr, future, dplyr, tidyr, purrr,
+        marginaleffects, sandwich
+Depends: R (>= 2.10)
+RemoteType: github
+RemoteHost: api.github.com
+RemoteRepo: HEAT-Measures-development
+RemoteUsername: WHOequity
+RemoteRef: zr/newmeasures
+RemoteSha: 8f44282ecc446ef3bad6f3eb5eb70b8d4115c30f
+GithubRepo: HEAT-Measures-development
+GithubUsername: WHOequity
+GithubRef: zr/newmeasures
+GithubSHA1: 8f44282ecc446ef3bad6f3eb5eb70b8d4115c30f
+NeedsCompilation: no
+Packaged: 2024-05-10 08:26:20 UTC; antiportada
+Author: ZevRoss Spatial Anaylsis [cre],
+  Zev Ross [ctb]
+Maintainer: ZevRoss Spatial Anaylsis <info@zevross.com>
+Built: R 4.4.0; ; 2024-05-10 08:26:22 UTC; windows

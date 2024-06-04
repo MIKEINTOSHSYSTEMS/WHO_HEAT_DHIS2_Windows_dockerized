@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: File inputs</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for fileInput {yonder}"><tr><td>fileInput {yonder}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>File inputs</h2>
+
+<h3>Description</h3>
+
+<p>Upload files to the server.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+fileInput(
+  id,
+  placeholder = "Choose file",
+  browse = "Browse",
+  ...,
+  multiple = TRUE,
+  accept = NULL
+)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>id</code></td>
+<td>
+<p>A character string specifying the id of the reactive input.</p>
+</td></tr>
+<tr valign="top"><td><code>placeholder</code></td>
+<td>
+<p>A character string specifying the text inside the file
+input, defaults to <code>"Choose file"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>browse</code></td>
+<td>
+<p>A character string specifying the label of file input, defaults
+to <code>"Browse"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional named arguments passed as HTML attributes to the
+parent element or tag elements passed as child elements to the parent
+element.</p>
+</td></tr>
+<tr valign="top"><td><code>multiple</code></td>
+<td>
+<p>One of <code>TRUE</code> or <code>FALSE</code> specifying whether or not the user
+can upload multiple files at once, defaults to <code>TRUE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>accept</code></td>
+<td>
+<p>A character vector of possible MIME types or file extensions,
+defaults to <code>NULL</code>, in which case any file type may be selected.</p>
+</td></tr>
+</table>
+
+
+<h3><strong>Example</strong> uploading a file</h3>
+
+<div class="R"><pre>shinyApp(
+  ui = container(
+    fileInput("upload") %&gt;%
+      margin(0, "auto", 0, "auto")
+  ),
+  server = function(input, output) {
+    observe({
+      req(input$upload)
+
+      print(input$upload)
+    })
+  }
+)
+</pre></div>
+
+
+<h3>See Also</h3>
+
+<p>Other inputs: 
+<code><a href="../../yonder/help/buttonGroupInput.html">buttonGroupInput</a>()</code>,
+<code><a href="../../yonder/help/buttonInput.html">buttonInput</a>()</code>,
+<code><a href="../../yonder/help/checkbarInput.html">checkbarInput</a>()</code>,
+<code><a href="../../yonder/help/checkboxInput.html">checkboxInput</a>()</code>,
+<code><a href="../../yonder/help/chipInput.html">chipInput</a>()</code>,
+<code><a href="../../yonder/help/formInput.html">formInput</a>()</code>,
+<code><a href="../../yonder/help/listGroupInput.html">listGroupInput</a>()</code>,
+<code><a href="../../yonder/help/menuInput.html">menuInput</a>()</code>,
+<code><a href="../../yonder/help/navInput.html">navInput</a>()</code>,
+<code><a href="../../yonder/help/radioInput.html">radioInput</a>()</code>,
+<code><a href="../../yonder/help/radiobarInput.html">radiobarInput</a>()</code>,
+<code><a href="../../yonder/help/rangeInput.html">rangeInput</a>()</code>,
+<code><a href="../../yonder/help/selectInput.html">selectInput</a>()</code>,
+<code><a href="../../yonder/help/textInput.html">textInput</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+### Standard file input
+
+fileInput(id = "file1")
+
+### Adding a button
+
+fileInput(
+  id = "file2",
+  left = buttonInput("upload", "Upload") %&gt;%
+    background("green")
+)
+
+### Customizing text
+
+fileInput(
+  id = "file3",
+  placeholder = "Pick a file",
+  browse = "Go go go!"
+)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>yonder</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

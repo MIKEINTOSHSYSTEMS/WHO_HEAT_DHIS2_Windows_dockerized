@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Hong Ooi" />
+
+
+<title>Authentication basics</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Authentication basics</h1>
+<h4 class="author">Hong Ooi</h4>
+
+
+
+<p>There are a number of ways to authenticate to the Microsoft Graph API with AzureGraph. This vignette goes through the most common scenarios.</p>
+<div id="interactive-authentication" class="section level2">
+<h2>Interactive authentication</h2>
+<p>This is the scenario where you’re using R interactively, such as in your local desktop or laptop, or in a hosted RStudio Server, Jupyter notebook or ssh session. The first time you authenticate with AzureGraph, you run <code>create_graph_login()</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># on first use</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(AzureGraph)</span>
+<span id="cb1-3"><a href="#cb1-3"></a>gr &lt;-<span class="st"> </span><span class="kw">create_graph_login</span>()</span></code></pre></div>
+<p>Notice that you <em>don’t</em> enter your username and password.</p>
+<p>AzureGraph will attempt to detect which authentication flow to use, based on your session details. In most cases, it will bring up the Azure Active Directory (AAD) login page in your browser, which is where you enter your user credentials. This is also known as the “authorization code” flow.</p>
+<p>There are some complications to be aware of:</p>
+<ul>
+<li><p>If you are running R in a hosted session, trying to start a browser will usually fail. In this case, specify the device code authentication flow, with the <code>auth_type</code> argument:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>gr &lt;-<span class="st"> </span><span class="kw">create_graph_login</span>(<span class="dt">auth_type=</span><span class="st">&quot;device_code&quot;</span>)</span></code></pre></div></li>
+<li><p>If you have a personal account that is also a guest in an organisational tenant, you may have to specify your tenant explicitly:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>gr &lt;-<span class="st"> </span><span class="kw">create_graph_login</span>(<span class="dt">tenant=</span><span class="st">&quot;yourtenant&quot;</span>)</span></code></pre></div></li>
+<li><p>By default, AzureGraph identifies itself using the Azure CLI app registration ID. This is meant for working with the AAD part of the Graph API, so it has permissions which are relevant for this purpose. If you are using Graph for other purposes (eg to interact with Microsoft 365 services), you’ll need to supply your own app ID that has the correct permissions. On the client side, you supply the app ID via the <code>app</code> argument; see later for creating the app registration on the server side.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>gr &lt;-<span class="st"> </span><span class="kw">create_graph_login</span>(<span class="dt">app=</span><span class="st">&quot;yourappid&quot;</span>)</span></code></pre></div></li>
+</ul>
+<p>All of the above arguments can be combined, eg this will authenticate using the device code flow, with an explicit tenant name, and a custom app ID:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>gr &lt;-<span class="st"> </span><span class="kw">create_graph_login</span>(<span class="dt">tenant=</span><span class="st">&quot;yourtenant&quot;</span>, <span class="dt">app=</span><span class="st">&quot;yourappid&quot;</span>, <span class="dt">auth_type=</span><span class="st">&quot;device_code&quot;</span>)</span></code></pre></div>
+<p>If needed, you can also supply other arguments that will be passed to <code>AzureAuth::get_azure_token()</code>.</p>
+<p>Having created the login, in subsequent sessions you run <code>get_graph_login()</code>. This will load your previous authentication details, saving you from having to login again. If you specified the tenant in the <code>create_graph_login()</code> call, you’ll also need to specify it for <code>get_graph_login()</code>; the other arguments don’t have to be repeated.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>gr &lt;-<span class="st"> </span><span class="kw">get_graph_login</span>()</span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="co"># if you specified the tenant in create_graph_login</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>gr &lt;-<span class="st"> </span><span class="kw">get_graph_login</span>(<span class="dt">tenant=</span><span class="st">&quot;yourtenant&quot;</span>)</span></code></pre></div>
+</div>
+<div id="non-interactive-authentication" class="section level2">
+<h2>Non-interactive authentication</h2>
+<p>This is the scenario where you want to use AzureGraph as part of an automated script or unattended session, for example in a deployment pipeline. The appropriate authentication flow in this case is the client credentials flow.</p>
+<p>For this scenario, you must have a custom app ID and client secret. On the client side, these are supplied in the <code>app</code> and <code>password</code> arguments; see later for creating the app registration on the server side. You must also specify your tenant as AAD won’t be able to detect it from a user’s credentials.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>gr &lt;-<span class="st"> </span><span class="kw">create_graph_login</span>(<span class="dt">tenant=</span><span class="st">&quot;yourtenant&quot;</span>, <span class="dt">app=</span><span class="st">&quot;yourccappid&quot;</span>, <span class="dt">password=</span><span class="st">&quot;client_secret&quot;</span>)</span></code></pre></div>
+<p>In the non-interactive scenario, you don’t use <code>get_graph_login()</code>; instead, you simply call <code>create_graph_login()</code> as part of your script.</p>
+</div>
+<div id="creating-a-custom-app-registration" class="section level2">
+<h2>Creating a custom app registration</h2>
+<p>This part is meant mostly for Azure tenant administrators, or users who have the appropriate rights to create AAD app registrations.</p>
+<p>You can create a new app registration using any of the usual methods. For example to create an app registration in the Azure Portal (<code>https://portal.azure.com/</code>), click on “Azure Active Directory” in the menu bar down the left, go to “App registrations” and click on “New registration”. Name the app something suitable, eg “AzureGraph custom app”.</p>
+<ul>
+<li>If you want your users to be able to login with the authorization code flow, you must add a <strong>public client/native redirect URI</strong> of <code>http://localhost:1410</code>. This is appropriate if your users will be running R on their local PCs, with an Internet browser available.</li>
+<li>If you want your users to be able to login with the device code flow, you must <strong>enable the “Allow public client flows” setting</strong> for your app. In the Portal, you can find this setting in the “Authentication” pane once the app registration is complete. This is appropriate if your users are running R in a remote session.</li>
+<li>If the app is meant for non-interactive use, you must give the app a <strong>client secret</strong>, which is much the same as a password (and should similarly be kept secure). In the Portal, you can set this in the “Certificates and Secrets” pane for your app registration.</li>
+</ul>
+<p>Once the app registration has been created, note the app ID and, if applicable, the client secret. The latter can’t be viewed after app creation, so make sure you note its value now.</p>
+<p>It’s also possible to authenticate with a <strong>client certificate (public key)</strong>, but this is more complex and we won’t go into it here. For more details, see the <a href="https://docs.microsoft.com/en-au/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow">Azure Active Directory documentation</a> and the <a href="https://cran.r-project.org/package=AzureAuth/vignettes/token.html">AzureAuth intro vignette</a>.</p>
+<div id="set-the-app-permissions" class="section level3">
+<h3>Set the app permissions</h3>
+<p>For your app to be useful, you must give it the appropriate permisssions for the Microsoft Graph API. You can set this by going to the “API permissions” pane for your app registration, then clicking on “Add a permission”. Choose the Microsoft Graph API, and then enable the permissions that you need.</p>
+<ul>
+<li>For interactive use, make sure that you enable the <em>delegated</em> permissions. These apply when a logged-in user is present. <a href="https://docs.microsoft.com/en-us/graph/auth/auth-concepts#microsoft-graph-permissions">See the documentation</a> for how permissions and user roles interact; essentially, if a user wants to use AzureGraph to do an action, they must have the correct role <em>and</em> the app registration must have the correct permission.
+<ul>
+<li>It’s highly recommended to enable the “offline_access” permission for an interactive app, as this is necessary to obtain refresh tokens. Without these, a user must reauthenticate each time their access token expires, which by default is after one hour.</li>
+</ul></li>
+<li>For non-interactive use, enable the <em>application</em> permissions. These are more powerful since there is no user role that can moderate what AzureGraph can do, so assign application permissions with caution.</li>
+</ul>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
