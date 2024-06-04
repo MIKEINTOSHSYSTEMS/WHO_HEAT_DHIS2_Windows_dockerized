@@ -1,11 +1,13 @@
-# windows_dockerized
-Windows OS Dockerized
+# WHO HEAT DHIS2 Windows Dockerized
+WHO HEAT + Plus DHIS2 with Windows OS Dockerized and RStudio With Shiny Server
 
 
-<h1 align="center">Windows<br />
-<div align="center">
-<a href="https://github.com/dockur/windows"><img src="https://github.com/dockur/windows/raw/master/.github/logo.png" title="Logo" style="max-width:100%;" width="128" /></a>
-</div>
+<a href="https://github.com/dockur/windows"><img src="https://github.com/dockur/windows/raw/master/.github/logo.png" title="Logo" style="max-width:100%;" width="10%" /></a> <a href="https://github.com/dockur/windows"><img src="https://user-images.githubusercontent.com/947888/184329821-756d30c8-a6c6-4492-8168-53363d8aa714.png" title="Logo" style="max-width:100%;" width="30%" /></a> <a href="https://github.com/dockur/windows"><img src="https://avatars.githubusercontent.com/u/7739233?s=200&v=4" title="Logo" style="max-width:100%;" width="10%" /></a> <a href="https://github.com/dockur/windows"><img src="https://avatars.githubusercontent.com/u/513560?s=200&v=4" title="Logo" style="max-width:100%;" width="10%" /></a>  <a href="https://github.com/dockur/windows"><img src="https://github.com/rstudio/shiny/blob/main/man/figures/logo.png" title="Logo" style="max-width:100%;" width="10%" /></a> 
+
+<br>
+<br>
+<br>
+
 <div align="center">
 
 [![Build]][build_url]
