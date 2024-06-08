@@ -125,7 +125,7 @@
       "heat11a": "For more information about the World Health Organization’s work on health inequality monitoring, please visit the",
       "heat11b": "WHO Health Inequality Monitor",
       "heat11c": ".",
-      "heatplus1": "HEAT Plus enables the interactive exploration and comparison of health inequalities, using uploaded datasets.",
+      "heatplus1": "MERQ HEAT Plus enables the interactive exploration and comparison of health inequalities, using uploaded datasets.",
       "heatplus2a": "Use HEAT Plus to",
       "heatplus2b": "explore inequalities",
       "heatplus2c": "in one setting of interest to determine the latest situation of inequality and the change in inequality over time",
@@ -383,7 +383,7 @@
   "navigation": {
     "labels": {
       "heat": "Health Equity Assessment Toolkit (HEAT)",
-      "heatplus": "Health Equity Assessment Toolkit Plus (HEAT Plus)",
+      "heatplus": "MERQ-JSI DUP Health Equity Assessment Toolkit Plus (HEAT Plus)",
       "home": "Home",
       "explore": "Explore inequality",
       "compare": "Compare inequality",
