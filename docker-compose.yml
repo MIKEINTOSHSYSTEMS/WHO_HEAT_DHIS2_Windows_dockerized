@@ -2,9 +2,10 @@ version: "3.8"
 
 services:
   web:
-    image: "${DHIS2_IMAGE:-dhis2/core-dev:latest}"
+    #image: "${DHIS2_IMAGE:-dhis2/core-dev:latest}"
+    image: "${DHIS2_IMAGE:-dhis2/core:2.41.0.0}"
     ports:
-      - "8080:8080" # DHIS2
+      - "8008:8080" # DHIS2
       - "8081:8081" # Debugger
       - "9010:9010" # JMX port
     volumes:
@@ -47,7 +48,8 @@ services:
     image: busybox
     command: sh -c '[ -f dump.sql.gz ] && echo "dump.sql.gz exists" || wget --output-document dump.sql.gz $$DHIS2_DB_DUMP_URL'
     environment:
-      DHIS2_DB_DUMP_URL: "${DHIS2_DB_DUMP_URL:-https://databases.dhis2.org/sierra-leone/dev/dhis2-db-sierra-leone.sql.gz}"
+      #DHIS2_DB_DUMP_URL: "${DHIS2_DB_DUMP_URL:-https://databases.dhis2.org/sierra-leone/dev/dhis2-db-sierra-leone.sql.gz}"
+      DHIS2_DB_DUMP_URL: "${DHIS2_DB_DUMP_URL:-https://databases.dhis2.org/sierra-leone/2.41.0/dhis2-db-sierra-leone.sql.gz}"
     working_dir: /opt/dump
     volumes:
       - db-dump:/opt/dump
