@@ -128,11 +128,20 @@ a {
 .heat-plus-management-modal .modal-header {
   padding: .5rem 1rem;
 }
-
+/*
 .heat-plus-management-modal .heat-plus-management-upload {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+*/
+
+.heat-plus-management-modal .heat-plus-management-upload {
+  display: none;
+}
+
+.btn-green.disabled, .btn-green:disabled {
+  display:none
 }
 
 .heat-plus-management-modal .heat-plus-management-upload .custom-file-label {
@@ -292,12 +301,18 @@ a {
   background-color: #6c757d;
   border-color: #6c757d;
 }
-
+/*
 .heat-plus-management-modal .heat-plus-record__buttons button:last-child {
   color: #fff;
   background-color: #dc3545;
   border-color: #dc3545;
 }
+*/
+
+.heat-plus-management-modal .heat-plus-record__buttons button:last-child {
+  display: none;
+}
+
 
 .heat-plus-management-modal .tab-content {
   margin: 10px;

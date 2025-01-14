@@ -1,6 +1,6 @@
 {
     "themeInfo": {
-        "foreground": "rgb(197, 200, 198)",
-        "background": "rgb(29, 31, 33)"
+        "foreground": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)"
     }
 }

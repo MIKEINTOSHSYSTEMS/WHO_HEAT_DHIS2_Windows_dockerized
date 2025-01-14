@@ -1,0 +1,11 @@
+{
+    "quarto-new-proj": {
+        "type": "default",
+        "engine": "knitr",
+        "kernel": "python3",
+        "venv": "",
+        "condaenv": "",
+        "packages": "matplotlib pandas",
+        "editor": "visual"
+    }
+}

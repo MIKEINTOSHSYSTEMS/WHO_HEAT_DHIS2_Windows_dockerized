@@ -100,8 +100,8 @@
     },
     "labels": {
       "builtin": "Built-in database edition",
-      "upload": "Upload database edition",
-      "managedata": "Upload and manage data"
+      "upload": "Powered By: MERQ Consultancy",
+      "managedata": "Load and manage data"
     },
     "paragraphs": {
       "heat1": "This built-in database edition of the HEAT software uses data from the WHO Health Inequality Data Repository (2023 update).",
@@ -125,7 +125,7 @@
       "heat11a": "For more information about the World Health Organization’s work on health inequality monitoring, please visit the",
       "heat11b": "WHO Health Inequality Monitor",
       "heat11c": ".",
-      "heatplus1": "MERQ HEAT Plus enables the interactive exploration and comparison of health inequalities, using uploaded datasets.",
+      "heatplus1": "Ministry of Health ETHIOPIA - HEAT Plus enables the interactive exploration and comparison of health inequalities, using uploaded datasets.",
       "heatplus2a": "Use HEAT Plus to",
       "heatplus2b": "explore inequalities",
       "heatplus2c": "in one setting of interest to determine the latest situation of inequality and the change in inequality over time",
@@ -171,8 +171,8 @@
   },
   "manager": {
     "labels": {
-      "managedata": "Manage data",
-      "uploadnew": "Upload new database",
+      "managedata": "Fetch Data",
+      "uploadnew": "Upload database is Currently DISABLED",
       "select": "Select database",
       "disclaimer": "Datasets have to be in a specific format and stored as comma separated values (csv) or Microsoft Excel (xls or xlsx) files in order to be uploaded to HEAT Plus. The HEAT Plus template and validation tool helps you prepare your data according to the template and validate that your dataset has been formatted correctly. Please refer to the user manual for further information.",
       "choose": "Choose file",
@@ -182,14 +182,14 @@
       "downloadsa": "template and validation tool",
       "downloadsb": "and",
       "downloadsc": "user manual",
-      "saveas": "Save database as",
-      "choosename": "Choose filename",
+      "saveas": "Save",
+      "choosename": "Choose",
       "upload": "Upload database",
-      "open": "Open existing database",
-      "successopen": "Data successfully opened"
+      "open": "Load Data",
+      "successopen": "Data successfully Loaded"
     },
     "text": {
-      "or": "Or",
+      "or": "Select data you want to Fetch",
       "done": "Done"
     },
     "uploads": {
@@ -383,7 +383,7 @@
   "navigation": {
     "labels": {
       "heat": "Health Equity Assessment Toolkit (HEAT)",
-      "heatplus": "MERQ-JSI DUP Health Equity Assessment Toolkit Plus (HEAT Plus)",
+      "heatplus": "Ministry of Health Ethiopia - Health Equity Assessment Toolkit Plus (HEAT+)",
       "home": "Home",
       "explore": "Explore inequality",
       "compare": "Compare inequality",
@@ -400,7 +400,7 @@
       "license": "License",
       "feedback": "Feedback",
       "acknowledgements": "Acknowledgements",
-      "managedata": "Manage data",
+      "managedata": "Fetch Data",
       "account": "Go to account",
       "logout": "Logout",
       "choose_dataset": "Choose dataset",

@@ -1,5 +1,8 @@
 {
     "initial_working_directory": "~",
     "editor_theme": "Tomorrow Night Blue",
-    "posix_terminal_shell": "bash"
+    "posix_terminal_shell": "bash",
+    "show_hidden_files": true,
+    "jobs_tab_visibility": "shown",
+    "shiny_viewer_type": "browser"
 }

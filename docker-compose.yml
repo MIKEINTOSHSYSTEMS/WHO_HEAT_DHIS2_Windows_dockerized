@@ -1,59 +1,6 @@
-version: "3.8"
+version: "3.7"
 
 services:
-  web:
-    #image: "${DHIS2_IMAGE:-dhis2/core-dev:latest}"
-    image: "${DHIS2_IMAGE:-dhis2/core:2.41.0.0}"
-    ports:
-      - "8008:8080" # DHIS2
-      - "8081:8081" # Debugger
-      - "9010:9010" # JMX port
-    volumes:
-      - ./docker/dhis.conf:/opt/dhis2/dhis.conf:ro
-      - ./docker/log4j2.xml:/opt/dhis2/log4j2.xml:ro
-    environment:
-      JAVA_OPTS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8081 \
-              -Dlog4j2.configurationFile=/opt/dhis2/log4j2.xml \
-              -Dcom.sun.management.jmxremote \
-              -Dcom.sun.management.jmxremote.port=9010 \
-              -Dcom.sun.management.jmxremote.local.only=false \
-              -Dcom.sun.management.jmxremote.authenticate=false \
-              -Dcom.sun.management.jmxremote.ssl=false"
-    depends_on:
-      db:
-        condition: service_healthy
-
-  db:
-    image: ghcr.io/baosystems/postgis:13-3.4
-    ports:
-      - "5432:5432"
-    volumes:
-      - db-dump:/docker-entrypoint-initdb.d/
-    environment:
-      POSTGRES_USER: dhis
-      POSTGRES_DB: dhis
-      POSTGRES_PASSWORD: &postgres_password dhis
-      PGPASSWORD: *postgres_password # needed by psql in healthcheck
-    healthcheck:
-      test: [ "CMD-SHELL", "psql --no-password --quiet --username $$POSTGRES_USER postgres://127.0.0.1/$$POSTGRES_DB -p 5432 --command \"SELECT 'ok'\" > /dev/null" ]
-      start_period: 120s
-      interval: 1s
-      timeout: 3s
-      retries: 5
-    depends_on:
-      db-dump:
-        condition: service_completed_successfully # make sure the DB dump has been downloaded
-
-  db-dump:
-    image: busybox
-    command: sh -c '[ -f dump.sql.gz ] && echo "dump.sql.gz exists" || wget --output-document dump.sql.gz $$DHIS2_DB_DUMP_URL'
-    environment:
-      #DHIS2_DB_DUMP_URL: "${DHIS2_DB_DUMP_URL:-https://databases.dhis2.org/sierra-leone/dev/dhis2-db-sierra-leone.sql.gz}"
-      DHIS2_DB_DUMP_URL: "${DHIS2_DB_DUMP_URL:-https://databases.dhis2.org/sierra-leone/2.41.0/dhis2-db-sierra-leone.sql.gz}"
-    working_dir: /opt/dump
-    volumes:
-      - db-dump:/opt/dump
-
   pgadmin:
     image: dpage/pgadmin4:latest
     ports:
@@ -61,20 +8,24 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: admin
-    depends_on:
-      - db
     volumes:
       - pgadmin_data:/var/lib/pgadmin
+    networks:
+      heatp_moh:
+        ipv4_address: 192.168.17.2
 
   rstudio:
     image: rocker/rstudio:latest
     ports:
-      - "8787:8787"
+      - "8789:8787"
     environment:
       USER: rstudio
       PASSWORD: rstudio_password
     volumes:
       - ./app/rstudio:/home/rstudio
+    networks:
+      heatp_moh:
+        ipv4_address: 192.168.17.3
 
   shiny:
     image: rocker/shiny:latest
@@ -85,6 +36,9 @@ services:
       PASSWORD: shiny_password
     volumes:
       - ./app/shiny:/srv/shiny-server
+    networks:
+      heatp_moh:
+        ipv4_address: 192.168.17.4
 
   windows:
     image: dockurr/windows
@@ -94,7 +48,6 @@ services:
       RAM_SIZE: "4G"
       CPU_CORES: "4"
       DISK_SIZE: "64G"
-      #DISK2_SIZE: "32G"
       USERNAME: "heatplus"
       PASSWORD: "heatplus"
     devices:
@@ -109,9 +62,17 @@ services:
     stop_grace_period: 2m
     restart: on-failure
     volumes:
-      #- ./MERQ:/storage2
       - ./app:/shared
+    networks:
+      heatp_moh:
+        ipv4_address: 192.168.17.5
 
 volumes:
-  db-dump: {}
   pgadmin_data: {}
+
+networks:
+  heatp_moh:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.17.0/24

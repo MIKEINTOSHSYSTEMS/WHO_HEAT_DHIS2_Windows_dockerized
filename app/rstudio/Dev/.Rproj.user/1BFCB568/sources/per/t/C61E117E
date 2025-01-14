@@ -1,0 +1,26 @@
+{
+    "id": "C61E117E",
+    "path": "~/Dev/UI/app.R",
+    "project_path": "UI/app.R",
+    "type": "r_source",
+    "hash": "2285572295",
+    "contents": "",
+    "dirty": false,
+    "created": 1736798435982.0,
+    "source_on_save": false,
+    "relative_order": 11,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "361,2",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1736863164,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1736863164259,
+    "read_only": false,
+    "read_only_alternatives": []
+}
