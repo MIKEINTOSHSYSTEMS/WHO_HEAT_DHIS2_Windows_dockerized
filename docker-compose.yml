@@ -3,6 +3,7 @@ version: "3.7"
 services:
   pgadmin:
     image: dpage/pgadmin4:latest
+    container_name: moheatp_pgadmin
     ports:
       - "5050:80"
     environment:
@@ -16,6 +17,7 @@ services:
 
   rstudio:
     image: rocker/rstudio:latest
+    container_name: moheatp_rstudio
     ports:
       - "8789:8787"
     environment:
@@ -28,7 +30,10 @@ services:
         ipv4_address: 192.168.17.3
 
   shiny:
-    image: rocker/shiny:latest
+    container_name: moheatp_shinydhis2
+    build:
+      context: ./app/shiny
+      dockerfile: Dockerfile.shiny
     ports:
       - "3838:3838"
     environment:
@@ -42,7 +47,7 @@ services:
 
   windows:
     image: dockurr/windows
-    container_name: heatplus_windows
+    container_name: moheatp_windows
     environment:
       VERSION: "win11"
       RAM_SIZE: "4G"

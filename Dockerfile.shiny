@@ -1,0 +1,19 @@
+FROM rocker/shiny:latest
+
+# Install R packages required by the Shiny app
+RUN R -e "install.packages(c('shiny', 'shinyjs', 'shinyWidgets', 'shinycssloaders', 'DT', 'httr', 'jsonlite', 'openxlsx'), dependencies = TRUE, repos = 'https://cran.r-project.org/')"
+
+# Set working directory for the Shiny app
+WORKDIR /srv/shiny-server/UI
+
+# Copy app files to the container
+COPY ./UI /srv/shiny-server/UI
+
+# Ensure correct permissions
+RUN chown -R shiny:shiny /srv/shiny-server
+
+# Expose port 3838 for Shiny Server
+EXPOSE 3838
+
+# Start Shiny Server
+CMD ["/usr/bin/shiny-server"]

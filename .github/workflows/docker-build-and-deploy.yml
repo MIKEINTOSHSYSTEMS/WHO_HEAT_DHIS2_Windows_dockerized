@@ -1,0 +1,58 @@
+name: Docker Build and Push
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow on push to the 'main' branch (adjust as necessary)
+  pull_request:
+    branches:
+      - main  # Trigger the workflow on pull requests to the 'main' branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository code
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Set up Docker Buildx (enables advanced features like multi-platform builds)
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Cache Docker layers to speed up build process
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      # Log into DockerHub (you can replace this with other registries if needed)
+      - name: Log in to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}  # Set this secret in your repository settings
+          password: ${{ secrets.DOCKER_PASSWORD }}  # Set this secret in your repository settings
+
+      # Build the Docker images
+      - name: Build Docker images
+        run: |
+          # Build shiny image
+          docker build -f ./app/shiny/Dockerfile.shiny -t mikeintosh/dhis2fetcher4heatplus:latest ./app/shiny
+          
+          # Optionally, build other images like windows container
+          docker build -f Dockerfile -t mikeintosh/heatpluswindows:latest ./app/windows
+
+      # Push Docker images to DockerHub (replace with your own registry if necessary)
+      - name: Push Docker images
+        run: |
+          docker push mikeintosh/dhis2fetcher4heatplus:latest
+          docker push mikeintosh/heatpluswindows:latest
+
+      # Optionally, clean up Docker images to free space (can be removed if not needed)
+      - name: Docker image cleanup
+        run: |
+          docker image prune -f
