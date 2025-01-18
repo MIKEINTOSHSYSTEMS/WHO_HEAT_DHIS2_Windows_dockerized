@@ -12,12 +12,11 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     && apt-get clean
 
-# Copy Shiny app files to the container   
-COPY ./app/shiny /srv/shiny-server/    
+# Copy Shiny app files to the container
+COPY app/shiny /srv/shiny-server/
 
 # Add the deployment script
-COPY ./app/shiny/deploy_shiny_app.sh /srv/shiny-server/deploy_shiny_app.sh
-#RUN chmod +x /srv/shiny-server/UI/deploy_shiny_app.sh
+COPY app/shiny/deploy_shiny_app.sh /srv/shiny-server/deploy_shiny_app.sh
 RUN chmod +x /srv/shiny-server/deploy_shiny_app.sh
 
 # Set working directory for the Shiny app
@@ -31,4 +30,3 @@ EXPOSE 3838
 
 # Start Shiny Server
 CMD ["./deploy_shiny_app.sh"]
-
