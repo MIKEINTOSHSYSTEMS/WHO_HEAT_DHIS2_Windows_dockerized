@@ -136,9 +136,15 @@ a {
 }
 */
 
+/*
+to hide upload button uncomment the css rule below and comment the above rule
+to show upload button commen the css rule below and uncomment the above rule
+*/
+
 .heat-plus-management-modal .heat-plus-management-upload {
   display: none;
 }
+
 
 .btn-green.disabled, .btn-green:disabled {
   display:none

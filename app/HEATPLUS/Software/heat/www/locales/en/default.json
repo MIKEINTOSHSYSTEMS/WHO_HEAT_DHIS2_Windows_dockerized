@@ -171,7 +171,7 @@
   },
   "manager": {
     "labels": {
-      "managedata": "Fetch Data",
+      "managedata": "Manage Data",
       "uploadnew": "Upload database is Currently DISABLED",
       "select": "Select database",
       "disclaimer": "Datasets have to be in a specific format and stored as comma separated values (csv) or Microsoft Excel (xls or xlsx) files in order to be uploaded to HEAT Plus. The HEAT Plus template and validation tool helps you prepare your data according to the template and validate that your dataset has been formatted correctly. Please refer to the user manual for further information.",
@@ -400,7 +400,7 @@
       "license": "License",
       "feedback": "Feedback",
       "acknowledgements": "Acknowledgements",
-      "managedata": "Fetch Data",
+      "managedata": "Manage Data",
       "account": "Go to account",
       "logout": "Logout",
       "choose_dataset": "Choose dataset",

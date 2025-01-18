@@ -2,14 +2,22 @@
   <section class="heat-sections-16vw bg-white" id="heat-section-one">
     <div class="container-fluid">
       <div class="row">
+        <div class="col-12 my-auto text-center">
+        <img src="//upload.wikimedia.org/wikipedia/commons/thumb/4/47/Health_Ministry_Ethiopia_Logo.png/150px-Health_Ministry_Ethiopia_Logo.png" decoding="async" width="150" height="150" class="mw-file-element" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/4/47/Health_Ministry_Ethiopia_Logo.png/225px-Health_Ministry_Ethiopia_Logo.png 1.5x, //upload.wikimedia.org/wikipedia/commons/4/47/Health_Ministry_Ethiopia_Logo.png 2x" data-file-width="300" data-file-height="300">
+        </div>
+        <!--
         <div class="col-12 margin-bottom-25 text-right">
+        -->
+        <div class="col-12 margin-bottom-25 text-center">
           <h1 data-i18n="navigation.labels.heatplus"></h1>
           <!--<h1>Health Equity<br />Assessment Toolkit Plus<br />(HEAT Plus)</h1>-->
+          <div class="col-12 margin-bottom-25 text-right">
           <a href="https://merqconsultancy.org">
           <p id="upload-database-edition mb-0" data-i18n="home.labels.upload">
             Powered By: MERQ Consultancy
           </p>
           </a>
+          </div>
           <button
             id="home-open_manage_data"
             class="yonder-button btn btn-green btn-lg text-white font-size-xl"
@@ -17,6 +25,12 @@
           >
             Load and Manage Data<i class="fas fa-folder-open ml-2"></i>
           </button>
+
+          <button class="yonder-button btn btn-blue btn-lg text-white font-size-xl" id="dhis2-data-fetcher">
+            <i class="fas fa-layer-group ml-2"> </i>
+            DHIS2 Data Fetcher
+          </button>
+
           <!--<a class="heat-btn-scroll heat-js-btn-scroll" href="#heat-section-2"><img alt="Arrow Down Icon" src="heatplus-landing-page/ios-arrow-dropdown-circle.svg" class="arrow-down"></a>-->
         </div>
       </div>
@@ -219,3 +233,68 @@
     </div>
   </section>
 </div>
+<script>
+  document.getElementById('dhis2-data-fetcher').addEventListener('click', function() {
+    // Create the iframe element
+    var iframe = document.createElement('iframe');
+    iframe.src = 'http://157.245.133.124:3838';
+    iframe.style.width = '100%';
+    iframe.style.height = '100%';
+    iframe.style.border = 'none';
+
+    // Create a container for the iframe
+    var iframeContainer = document.createElement('div');
+    iframeContainer.style.position = 'fixed';
+    iframeContainer.style.top = '47px';
+    iframeContainer.style.left = '0';
+    iframeContainer.style.width = '100%';
+    iframeContainer.style.height = '100vh';
+    //iframeContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+    iframeContainer.style.backgroundColor = 'rgb(255 255 255 / 7%)';
+    iframeContainer.style.zIndex = '1000';
+    iframeContainer.style.display = 'flex';
+    iframeContainer.style.alignItems = 'center';
+    iframeContainer.style.justifyContent = 'center';
+
+    // Create a frame for the iframe with a border
+    var iframeFrame = document.createElement('div');
+    iframeFrame.style.position = 'relative';
+    iframeFrame.style.width = '80%';
+    iframeFrame.style.height = '80%';
+    iframeFrame.style.backgroundColor = '#fff';
+    //iframeFrame.style.border = '2px solid #000';
+    iframeFrame.style.border = '1px solid rgba(0,0,0,.2)';
+    iframeFrame.style.borderRadius = '10px';
+    iframeFrame.style.overflow = 'hidden';
+    iframeFrame.appendChild(iframe);
+
+    // Create the Close button
+    var closeButton = document.createElement('button');
+    closeButton.innerText = 'X';
+    closeButton.style.position = 'absolute';
+    closeButton.style.top = '3px';
+    closeButton.style.right = '3px';
+    closeButton.style.backgroundColor = '#f44336';
+    closeButton.style.color = '#fff';
+    closeButton.style.border = 'none';
+    closeButton.style.padding = '10px 15px';
+    closeButton.style.cursor = 'pointer';
+    closeButton.style.fontSize = '11px';
+    closeButton.style.borderRadius = '7px';
+
+    // Append the Close button to the iframe frame
+    iframeFrame.appendChild(closeButton);
+
+    // Append the iframe frame to the container
+    iframeContainer.appendChild(iframeFrame);
+
+    // Append the container to the body
+    document.body.appendChild(iframeContainer);
+
+    // Add event listener to Close button to remove the iframe
+    closeButton.addEventListener('click', function() {
+      document.body.removeChild(iframeContainer);
+    });
+  });
+</script>
+
