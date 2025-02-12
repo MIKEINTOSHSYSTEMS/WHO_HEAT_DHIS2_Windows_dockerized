@@ -36,6 +36,7 @@ services:
       dockerfile: Dockerfile.shiny
     ports:
       - "3838:3838"
+      - "3939:3939"
     environment:
       USER: shiny
       PASSWORD: shiny_password

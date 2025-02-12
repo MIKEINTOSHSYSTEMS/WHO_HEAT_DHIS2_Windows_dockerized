@@ -78,17 +78,22 @@ fetch_indicator_data <- function(indicator_ids, org_unit_ids, periods) {
 }
 
 # Function to fetch population data
-fetch_population_data <- function(org_unit_ids, periods, zone_ids = NULL) {
+fetch_population_data <- function(org_unit_ids, periods, zone_ids = NULL, woreda_ids = NULL) {
   cat("Fetching population data...\n")
   
   population_indicator <- "cpItyCYXKPd" # population indicator ID
   cat("Using population Indicator ID:", population_indicator, "\n")
   
-  # If zone_ids are provided, fetch population based on zone dimension
   if (!is.null(zone_ids)) {
     population_data <- fetch_indicator_data(
       indicator_ids = population_indicator,
       org_unit_ids = zone_ids,
+      periods = periods
+    )
+  } else if (!is.null(woreda_ids)) {
+    population_data <- fetch_indicator_data(
+      indicator_ids = population_indicator,
+      org_unit_ids = woreda_ids,
       periods = periods
     )
   } else {
@@ -170,6 +175,9 @@ format_analytics_data <- function(analytics_data, indicators, org_units, populat
   rows$indicator_name <- as.character(rows$indicator_name)
   rows$indicator_abbr <- as.character(rows$indicator_abbr)
   
+  # Initialize favourable_indicator column with zeros
+  rows$favourable_indicator <- as.integer(0)
+  
   # Calculate standard error (se), confidence intervals
   rows$se <- sqrt((rows$Value * (100 - rows$Value)) / rows$population)
   
@@ -182,9 +190,18 @@ format_analytics_data <- function(analytics_data, indicators, org_units, populat
   rows$ci_ub <- pmax(rows$ci_ub, 0)
   
   # Additional required columns
-  rows$setting <- "Ethiopia"
+  # Load source settings
+  if (file.exists("./saved_setting/source_settings.rds")) {
+    source_settings <- readRDS("./saved_setting/source_settings.rds")
+    rows$setting <- source_settings$setting
+    rows$source <- source_settings$source
+    rows$iso3 <- source_settings$iso3
+  } else {
+    rows$setting <- "Ethiopia"
+    rows$source <- "DHIS_2"
+    rows$iso3 <- "ETH"
+  }
   rows$date <- as.integer(rows$Period)
-  rows$source <- "DHIS_2"
   rows$subgroup <- rows$Organisation_Unit
   rows$estimate <- rows$Value
   
@@ -215,8 +232,6 @@ format_analytics_data <- function(analytics_data, indicators, org_units, populat
     cat("Warning: Inconsistent setting averages detected for unique combinations.\n")
   }
   
-  rows$iso3 <- "ETH"
-  rows$favourable_indicator <- as.integer(1)
   rows$indicator_scale <- as.integer(100)
   rows$ordered_dimension <- as.integer(0)
   rows$subgroup_order <- as.integer(0)
@@ -252,7 +267,12 @@ cat("Fetching metadata...\n")
 indicators_metadata <- get_dhis2_data("/api/indicators?paging=false")$indicators
 org_units_metadata <- get_dhis2_data("/api/organisationUnits?paging=false")$organisationUnits
 
+# Fetch Zones and Woredas metadata
+zones_metadata <- get_dhis2_data("/api/organisationUnits?fields=id,displayName&level=3&paging=false")$organisationUnits
+woredas_metadata <- get_dhis2_data("/api/organisationUnits?fields=id,displayName&level=4&paging=true&pageSize=600")$organisationUnits
+
 cat("Fetched metadata. Indicators:", length(indicators_metadata), "Organisation Units:", length(org_units_metadata), "\n")
+cat("Zones:", length(zones_metadata), "Woredas:", length(woredas_metadata), "\n")
 
 # Define specific indicators, organisation units, and periods
 # Testing
@@ -290,7 +310,7 @@ formatted_data_zone <- format_analytics_data(analytics_data_zone, indicators_met
 # Fetch Woreda data (first 600 & or 200)
 woreda_data <- get_dhis2_data("/api/organisationUnits?fields=id,displayName&level=4&paging=true&pageSize=600")
 specific_woredas <- woreda_data$organisationUnits$id
-population_data_woreda <- fetch_population_data(NULL, periods, zone_ids = specific_woredas) # Pass Woreda IDs for population data
+population_data_woreda <- fetch_population_data(NULL, periods, woreda_ids = specific_woredas) # Pass Woreda IDs for population data
 analytics_data_woreda <- fetch_indicator_data(specific_indicators, specific_woredas, periods)
 formatted_data_woreda <- format_analytics_data(analytics_data_woreda, indicators_metadata, org_units_metadata, population_data_woreda, indicator_map, dimension = "Woreda")
 
@@ -300,7 +320,7 @@ combined_data <- rbind(formatted_data_region, formatted_data_zone, formatted_dat
 if (nrow(combined_data) > 0) {
   cat("Writing combined data to Excel...\n")
   timestamp <- format(Sys.time(), "%Y%m%d_%H%M%S")
-  file_name <- paste0("UI/fetched_data/DHIS2_DATA_", timestamp, ".xlsx")
+  file_name <- paste0("./UI/fetched_data/DHIS2_DATA_", timestamp, ".xlsx")
   write.xlsx(combined_data,
              file = file_name,
              sheetName = "Indicators_Data", rowNames = FALSE

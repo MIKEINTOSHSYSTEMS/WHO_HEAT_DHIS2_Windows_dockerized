@@ -1,4 +1,16 @@
 .GlobalEnv
+package:openxlsx
+package:jsonlite
+package:httr
+package:DT
+package:bslib
+package:gridlayout
+package:plotly
+package:ggplot2
+package:shinycssloaders
+package:shinyWidgets
+package:shinyjs
+package:shiny
 tools:rstudio
 package:stats
 package:graphics

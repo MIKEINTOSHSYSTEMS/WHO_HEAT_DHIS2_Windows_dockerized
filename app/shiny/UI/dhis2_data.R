@@ -78,17 +78,22 @@ fetch_indicator_data <- function(indicator_ids, org_unit_ids, periods) {
 }
 
 # Function to fetch population data
-fetch_population_data <- function(org_unit_ids, periods, zone_ids = NULL) {
+fetch_population_data <- function(org_unit_ids, periods, zone_ids = NULL, woreda_ids = NULL) {
     cat("Fetching population data...\n")
 
     population_indicator <- "cpItyCYXKPd" # population indicator ID
     cat("Using population Indicator ID:", population_indicator, "\n")
 
-    # If zone_ids are provided, fetch population based on zone dimension
     if (!is.null(zone_ids)) {
         population_data <- fetch_indicator_data(
             indicator_ids = population_indicator,
             org_unit_ids = zone_ids,
+            periods = periods
+        )
+    } else if (!is.null(woreda_ids)) {
+        population_data <- fetch_indicator_data(
+            indicator_ids = population_indicator,
+            org_unit_ids = woreda_ids,
             periods = periods
         )
     } else {
@@ -113,7 +118,7 @@ fetch_population_data <- function(org_unit_ids, periods, zone_ids = NULL) {
     return(population_rows)
 }
 
-format_analytics_data <- function(analytics_data, indicators, org_units, population_data, indicator_map, dimension = "Region", settings_abbr = NULL) {
+format_analytics_data <- function(analytics_data, indicators, org_units, population_data, indicator_map, dimension = "Region", settings_abbr = NULL, custom_scales = NULL) {
     cat("Formatting analytics data...\n")
 
     if (!"rows" %in% names(analytics_data)) {
@@ -129,21 +134,38 @@ format_analytics_data <- function(analytics_data, indicators, org_units, populat
     # Debug: Print unique Indicator_IDs
     cat("Unique Indicator_IDs in data:", unique(rows$Indicator_ID), "\n")
 
-    # Add human-readable names for indicators and organisation units
+    # Ensure Indicator name is correctly mapped
     rows$indicator_name <- sapply(rows$Indicator_ID, function(id) {
-        if (!is.null(indicator_map[[id]])) {
+        # First, check the metadata for displayName
+        indicator <- indicators[indicators$id == id, ]
+        if (nrow(indicator) > 0) {
+            return(indicator$displayName)
+        } else if (!is.null(indicator_map[[id]])) {
+            # Fallback to indicator_map name if metadata not found
             return(indicator_map[[id]]$name)
         } else {
-            # Fetch indicator name from API if not found in indicator_map
-            indicator <- indicators[indicators$id == id, ]
-            if (nrow(indicator) > 0) {
-                return(indicator$displayName)
-            } else {
-                cat("Warning: No mapping found for Indicator_ID:", id, "\n")
-                return(NA)
-            }
+            cat("Warning: No name found for Indicator_ID:", id, "\n")
+            return(NA)
         }
     })
+
+
+    # Add human-readable names for indicators and organisation units
+#    rows$indicator_name <- sapply(rows$Indicator_ID, function(id) {
+#        if (!is.null(indicator_map[[id]])) {
+#            return(indicator_map[[id]]$name)
+#        } else {
+            # Fetch indicator name from API if not found in indicator_map
+#            indicator <- indicators[indicators$id == id, ]
+#            if (nrow(indicator) > 0) {
+#                return(indicator$displayName)
+#            } else {
+#                cat("Warning: No mapping found for Indicator_ID:", id, "\n")
+#                return(NA)
+#            }
+#        }
+#    })
+ 
     rows$indicator_abbr <- sapply(rows$Indicator_ID, function(id) {
         if (!is.null(indicator_map[[id]])) {
             return(indicator_map[[id]]$abbr)
@@ -170,6 +192,9 @@ format_analytics_data <- function(analytics_data, indicators, org_units, populat
     rows$indicator_name <- as.character(rows$indicator_name)
     rows$indicator_abbr <- as.character(rows$indicator_abbr)
 
+    # Initialize favourable_indicator column with zeros
+    rows$favourable_indicator <- as.integer(0)
+
     # Calculate standard error (se), confidence intervals
     rows$se <- sqrt((rows$Value * (100 - rows$Value)) / rows$population)
 
@@ -182,9 +207,18 @@ format_analytics_data <- function(analytics_data, indicators, org_units, populat
     rows$ci_ub <- pmax(rows$ci_ub, 0)
 
     # Additional required columns
-    rows$setting <- "Ethiopia"
+    # Load source settings
+    if (file.exists("../saved_setting/source_settings.rds")) {
+        source_settings <- readRDS("../saved_setting/source_settings.rds")
+        rows$setting <- source_settings$setting
+        rows$source <- source_settings$source
+        rows$iso3 <- source_settings$iso3
+    } else {
+        rows$setting <- "Ethiopia"
+        rows$source <- "DHIS_2"
+        rows$iso3 <- "ETH"
+    }
     rows$date <- as.integer(rows$Period)
-    rows$source <- "DHIS_2"
     rows$subgroup <- rows$Organisation_Unit
     rows$estimate <- rows$Value
 
@@ -215,9 +249,13 @@ format_analytics_data <- function(analytics_data, indicators, org_units, populat
         cat("Warning: Inconsistent setting averages detected for unique combinations.\n")
     }
 
-    rows$iso3 <- "ETH"
-    rows$favourable_indicator <- as.integer(1)
-    rows$indicator_scale <- as.integer(100)
+    rows$indicator_scale <- 100  # Set default value to 100
+
+    if (!is.null(custom_scales)) {
+        for (id in names(custom_scales)) {
+            rows$indicator_scale[rows$Indicator_ID == id] <- as.integer(custom_scales[[id]])
+        }
+    }
     rows$ordered_dimension <- as.integer(0)
     rows$subgroup_order <- as.integer(0)
     rows$reference_subgroup <- as.integer(0)
@@ -241,10 +279,71 @@ format_analytics_data <- function(analytics_data, indicators, org_units, populat
 }
 
 # Indicator mapping for names and abbreviations
-# main Indicators
+# Test Indicators
+#indicator_map <- list(
+#    "AxBNUGGwwXJ" = list("name" = "Skilled birth attendants", "abbr" = "Sba"),
+#    "qbwqrHsRlr4" = list("name" = "Ratio of hospitals per populations", "abbr" = "RHPP")
+#)
+
 indicator_map <- list(
-    "AxBNUGGwwXJ" = list("name" = "Skilled birth attendants", "abbr" = "Sba"),
-    "qbwqrHsRlr4" = list("name" = "Ratio of hospitals per populations", "abbr" = "RHPP")
+    "wiCvecPtl0T" = list("name" = "Neonates discharged as dead from NICU", "abbr" = "3Pndn"),
+    "BsB9R6pi0uf" = list("name" = "Neonates discharged as recovered from NICU", "abbr" = "1Pnrn"),
+    "SUYR67uPFMk" = list("name" = "Neonates transferred out from NICU", "abbr" = "2Pnton"),
+    "DJiHqs9eJoN" = list("name" = "Other NICU discharges", "abbr" = "Pndno"),
+    "yu81UlnsaiH" = list("name" = "Full Immunization Coverage (< 1 year)", "abbr" = "Fv"),
+    "r2eJDQLBSY0" = list("name" = "Pentavalent 1st Dose Coverage (< 1 year)", "abbr" = "1Pv1"),
+    "YPfTaU4EtKm" = list("name" = "Pentavalent 3rd Dose Coverage (< 1 year)", "abbr" = "3Pv3"),
+ #   "Fb2ajzvMxH4" = list("name" = "HHs enrolled in CBHI (Woreda)", "abbr" = "PCBHI_member_enr"),
+    #"M5KYiOXZkr7" = list("name" = "Functional General Hospital to Population Ratio", "abbr" = "RHPP"),
+    #"AYQLnL5gKNe" = list("name" = "Functional Primary Hospital to Population Ratio", "abbr" = "RHPP"),
+    #"tFX3fkTo0tW" = list("name" = "Functional Referral Hospital to Population Ratio", "abbr" = "RHPP"),
+ #   "Fpxqdh9XxGd" = list("name" = "Adults on ART aged 15-19 by regimen", "abbr" = "CART"),
+ #   "TYYcdumng5v" = list("name" = "Adults on ART aged 15-19 by Sex", "abbr" = "CART"),
+ #   "zBtEVn0BWes" = list("name" = "Adults on ART aged 15-19 by Sex", "abbr" = "CART"),
+ #   "qiO8zxIsdVf" = list("name" = "Adults on ART aged 20-24 by Sex", "abbr" = "CART"),
+ #   "NMzj2KrZNpD" = list("name" = "Adults on ART aged 25-29 by Sex", "abbr" = "CART"),
+ #   "FDbjgpb71v6" = list("name" = "Adults on ART aged 25-49 by Sex", "abbr" = "CART"),
+ #   "gecQJ4OuMkd" = list("name" = "Adults on ART aged 30-34 by Sex", "abbr" = "CART"),
+ #   "FhvlCdtUnrR" = list("name" = "Adults on ART aged 35-39 by Sex", "abbr" = "CART"),
+ #   "lp1lqrdAlBh" = list("name" = "Adults on ART aged 40-44 by Sex", "abbr" = "CART"),
+ #   "niTCBDGkWru" = list("name" = "Adults on ART aged 45-49 by Sex", "abbr" = "CART"),
+ #   "H010uaIIg62" = list("name" = "Adults on ART aged 50+ by Sex", "abbr" = "CART"),
+    "DOjmzNXoBUS" = list("name" = "Adults on ART >=20 by regimen", "abbr" = "CART"),
+    "QPnMWX0VHL5" = list("name" = "Adults on ART", "abbr" = "CART"),
+    "cpVK4vg0qP9" = list("name" = "Children on ART", "abbr" = "CART"),
+    "erfov4UPPwm" = list("name" = "Children on ART aged 10-14 by regimen", "abbr" = "CART"),
+    "K4xjRgFlHVA" = list("name" = "Children on ART aged 10-14 by Sex", "abbr" = "CART"),
+    "T2aCB3BdjFo" = list("name" = "Children on ART aged 1-4 by regimen", "abbr" = "CART"),
+    "STKCPnfJE0J" = list("name" = "Children on ART aged 1-4 by Sex", "abbr" = "CART"),
+    "moCGWgByYvu" = list("name" = "Children on ART aged <1 by regimen", "abbr" = "CART"),
+    "DN4DxOG0KcJ" = list("name" = "Children on ART aged <1 by Sex", "abbr" = "CART"),
+    "lyvLEgMy53I" = list("name" = "Children on ART aged 5-9 by sex", "abbr" = "CART"),
+    "YyB2gQ7FNkU" = list("name" = "Children on ART aged 5-9 by regimen", "abbr" = "CART"),
+    "ndqrcnzGcUU" = list("name" = "Under 15 female on ART", "abbr" = "CART"),
+    "cMvVX98HjUA" = list("name" = "Under 15 male on ART", "abbr" = "CART"),
+    "YWkcclXH1R5" = list("name" = "Female >15 years on ART", "abbr" = "CART"),
+    "nIKDxJxGgxL" = list("name" = "Male >15 years on ART", "abbr" = "CART"),
+    "EM02m2HPZG6" = list("name" = "Total on ART by age, sex, regimen", "abbr" = "CART"),
+    "hE8RPX6Vaib" = list("name" = "Children on ART (<19) by regimen", "abbr" = "CART"),
+    "myWEyjn5FLo" = list("name" = "Leprosy Grade II Disability Rate", "abbr" = "Grade2DR"),
+    "n0lUZ6iJt7V" = list("name" = "Female Leadership in Health Facilities", "abbr" = "LP"),
+    "Lf9u3N1BPO2" = list("name" = "Primary Health Care Facilities with CSC >=80%", "abbr" = "PHCUsCS"),
+    "NLMn0xklEBd" = list("name" = "IRS Coverage in Unit Structures", "abbr" = "IRS"),
+    "kdkf3Zb6VD3" = list("name" = "ANC 4+ Contacts Coverage", "abbr" = "Anc4"),
+    "iMMy5SY9mnx" = list("name" = "C-Section Rate", "abbr" = "Cs"),
+    "EmPOBxh5K5S" = list("name" = "Early PNC Coverage", "abbr" = "Pnc"),
+    "kiWHNOMaX8W" = list("name" = "Early PNC Coverage (0-2 days)", "abbr" = "Pnc"),
+    "qVuwmOehUwg" = list("name" = "Early PNC Coverage (2-3 days)", "abbr" = "Pnc"),
+    "pz1GAp7xV2I" = list("name" = "Early PNC Coverage (4-7 days)", "abbr" = "Pnc"),
+    "AxBNUGGwwXJ" = list("name" = "% of Births Attended by Skilled Personnel", "abbr" = "Sba"),
+    "dAGUPaBm989" = list("name" = "Assistive Technology Service Coverage", "abbr" = "ATSU"),
+    "oksEqSjFgQm" = list("name" = "Hospital Bed Density", "abbr" = "HBD"),
+    "QmJZDJx2vz5" = list("name" = "Inpatient Mortality Rate", "abbr" = "IPMR"),
+    "TBAxe5hsc55" = list("name" = "Outpatient Attendance per Capita", "abbr" = "OPD_A"),
+    "nY0Smor9ccz" = list("name" = "% of HEI with Virological Test", "abbr" = "PHIVexposedVT"),
+    "x2urWGBth5P" = list("name" = "Women Aged 30–49 Screened for Cervical Cancer", "abbr" = "ScrCervCa"),
+    "yzeUuGbwEqb" = list("name" = "HIV Positive Adults and Children on ART", "abbr" = "CART"),
+    "QquJVpoNpH2" = list("name" = "TB Treatment Coverage", "abbr" = "TBRxCov")
 )
 
 # Fetch metadata
@@ -252,13 +351,38 @@ cat("Fetching metadata...\n")
 indicators_metadata <- get_dhis2_data("/api/indicators?paging=false")$indicators
 org_units_metadata <- get_dhis2_data("/api/organisationUnits?paging=false")$organisationUnits
 
+# Fetch Zones and Woredas metadata
+zones_metadata <- get_dhis2_data("/api/organisationUnits?fields=id,displayName&level=3&paging=false")$organisationUnits
+woredas_metadata <- get_dhis2_data("/api/organisationUnits?fields=id,displayName&level=4&paging=true&pageSize=600")$organisationUnits
+
 cat("Fetched metadata. Indicators:", length(indicators_metadata), "Organisation Units:", length(org_units_metadata), "\n")
+cat("Zones:", length(zones_metadata), "Woredas:", length(woredas_metadata), "\n")
 
 # Define specific indicators, organisation units, and periods
 # Testing
-specific_indicators <- c("AxBNUGGwwXJ", "qbwqrHsRlr4")
+# specific_indicators <- c("AxBNUGGwwXJ", "qbwqrHsRlr4")
 
-# Regions
+# Main Indicators
+
+specific_indicators <- c(
+    "wiCvecPtl0T", "BsB9R6pi0uf", "SUYR67uPFMk", "DJiHqs9eJoN", "yu81UlnsaiH",
+    "r2eJDQLBSY0", "YPfTaU4EtKm", 
+  #  "Fb2ajzvMxH4", "M5KYiOXZkr7", "AYQLnL5gKNe","tFX3fkTo0tW",
+#    "Fpxqdh9XxGd", "TYYcdumng5v", "zBtEVn0BWes", "qiO8zxIsdVf",
+#    "NMzj2KrZNpD", "FDbjgpb71v6", "gecQJ4OuMkd", "FhvlCdtUnrR", "lp1lqrdAlBh",
+#    "niTCBDGkWru", "H010uaIIg62", 
+    "DOjmzNXoBUS", "QPnMWX0VHL5", "cpVK4vg0qP9",
+    "erfov4UPPwm", "K4xjRgFlHVA", "T2aCB3BdjFo", "STKCPnfJE0J", "moCGWgByYvu",
+    "DN4DxOG0KcJ", "lyvLEgMy53I", "YyB2gQ7FNkU", "ndqrcnzGcUU", "cMvVX98HjUA",
+    "YWkcclXH1R5", "nIKDxJxGgxL", "EM02m2HPZG6", "hE8RPX6Vaib", "myWEyjn5FLo",
+    "n0lUZ6iJt7V", "Lf9u3N1BPO2", "NLMn0xklEBd", "kdkf3Zb6VD3", "iMMy5SY9mnx",
+    "EmPOBxh5K5S", "kiWHNOMaX8W", "qVuwmOehUwg", "pz1GAp7xV2I", "AxBNUGGwwXJ",
+    "dAGUPaBm989", "oksEqSjFgQm", "QmJZDJx2vz5", "TBAxe5hsc55", "nY0Smor9ccz",
+    "x2urWGBth5P", "yzeUuGbwEqb", "QquJVpoNpH2"
+)
+
+
+# Test Regions
 specific_org_units <- c(
     "yY9BLUUegel", "UFtGyqJMEZh", "yb9NKGA8uqt", "Fccw8uMlJHN",
     "tDoLtk2ylu4", "G9hDiPNoB7d", "moBiwh9h5Ce", "b9nYedsL8te",
@@ -266,8 +390,19 @@ specific_org_units <- c(
     "HIlnt7Qj8do", "Gmw0DJLXGtx"
 )
 
+# Main Regions
+#specific_org_units <- c(
+#    "yY9BLUUegel", "UFtGyqJMEZh", "yb9NKGA8uqt", "Fccw8uMlJHN",
+#    "tDoLtk2ylu4", "G9hDiPNoB7d", "moBiwh9h5Ce", "b9nYedsL8te",
+#    "XU2wpLlX4Vk", "xNUoZIrGKxQ", "PCKGSJoNHXi", "a2QIIR2UXcd",
+#    "HIlnt7Qj8do", "Gmw0DJLXGtx"
+#)
+
 # testing periods
-periods <- c("2016", "2017")
+periods <- c("2015", "2016", "2017")
+
+# Main Periods
+#periods <- c("2013", "2014", "2015", "2016", "2017")
 
 cat("Specific Indicators:", paste(specific_indicators, collapse = ", "), "\n")
 cat("Specific Organisation Units:", paste(specific_org_units, collapse = ", "), "\n")
@@ -290,7 +425,7 @@ formatted_data_zone <- format_analytics_data(analytics_data_zone, indicators_met
 # Fetch Woreda data (first 600 & or 200)
 woreda_data <- get_dhis2_data("/api/organisationUnits?fields=id,displayName&level=4&paging=true&pageSize=600")
 specific_woredas <- woreda_data$organisationUnits$id
-population_data_woreda <- fetch_population_data(NULL, periods, zone_ids = specific_woredas) # Pass Woreda IDs for population data
+population_data_woreda <- fetch_population_data(NULL, periods, woreda_ids = specific_woredas) # Pass Woreda IDs for population data
 analytics_data_woreda <- fetch_indicator_data(specific_indicators, specific_woredas, periods)
 formatted_data_woreda <- format_analytics_data(analytics_data_woreda, indicators_metadata, org_units_metadata, population_data_woreda, indicator_map, dimension = "Woreda")
 
@@ -300,7 +435,7 @@ combined_data <- rbind(formatted_data_region, formatted_data_zone, formatted_dat
 if (nrow(combined_data) > 0) {
     cat("Writing combined data to Excel...\n")
     timestamp <- format(Sys.time(), "%Y%m%d_%H%M%S")
-    file_name <- paste0("UI/fetched_data/DHIS2_DATA_", timestamp, ".xlsx")
+    file_name <- paste0("../fetched_data/xlsx/DHIS2_DATA_", timestamp, ".xlsx")
     write.xlsx(combined_data,
         file = file_name,
         sheetName = "Indicators_Data", rowNames = FALSE

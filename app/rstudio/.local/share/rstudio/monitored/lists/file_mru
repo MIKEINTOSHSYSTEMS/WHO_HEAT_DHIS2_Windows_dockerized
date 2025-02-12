@@ -1,5 +1,10 @@
-~/Dev/UI/app.R
 ~/Dev/UI/dhis2_data.R
+~/Dev/UI/ui.R
+~/Dev/UI/server.R
+~/Dev/UI/app.R
+~/Dev/UI/sys_app.R
+~/Dev/UI/sys_dhis2_data.R
+~/Dev/UI/system.R
 ~/Dev/DHIS2_DEV.R
 ~/Dev/DEV.R
 ~/Dev/MOH_HEATPLUS_DHIS2.R
@@ -8,5 +13,3 @@
 ~/Dev/MOH_HEATP_DHIS2.R
 ~/Dev/MOH.R
 ~/Dev/MOH_DHIS2_HEATPlus.R
-~/MOH.R
-~/.config/rstudio/rstudio-prefs.json

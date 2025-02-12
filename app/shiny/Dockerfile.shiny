@@ -1,23 +1,42 @@
 FROM rocker/shiny:latest
 
-# Install R packages required by the Shiny app
-RUN R -e "install.packages(c('shiny', 'shinyjs', 'shinyWidgets', 'shinycssloaders', 'DT', 'httr', 'jsonlite', 'openxlsx'), dependencies = TRUE, repos = 'https://cran.r-project.org/')"
-
 # Install necessary system dependencies
 RUN apt-get update && apt-get install -y \
     systemctl \
     nano \
+    htop \
+    lsof \
     inotify-tools \
     libssl-dev \
     libxml2-dev \
     && apt-get clean
 
-# Copy Shiny app files to the container
-COPY app/shiny /srv/shiny-server/
+# Install CRAN packages
+RUN R -e "install.packages(c('remotes', 'shiny', 'shinyjs', 'shinyWidgets', 'shinycssloaders', 'DT', 'httr', 'jsonlite', 'openxlsx', 'plotly', 'bslib', 'arrow', 'colourpicker'), dependencies = TRUE, repos = 'https://cran.r-project.org/')"
 
-# Add the deployment script
-COPY app/shiny/deploy_shiny_app.sh /srv/shiny-server/deploy_shiny_app.sh
+# Install GitHub packages
+RUN R -e "remotes::install_github(c('rstudio/gridlayout', 'tidyverse/ggplot2', 'thomasp85/patchwork'))"
+
+# Copy Shiny app files to the container
+#COPY app/shiny /srv/shiny-server/
+COPY . /srv/shiny-server/
+
+# Add deployment scripts
+#COPY app/shiny/deploy_shiny_app.sh /srv/shiny-server/deploy_shiny_app.sh
+COPY deploy_shiny_app.sh /srv/shiny-server/deploy_shiny_app.sh
 RUN chmod +x /srv/shiny-server/deploy_shiny_app.sh
+
+#COPY app/shiny/monitor_shiny_app.sh /srv/shiny-server/monitor_shiny_app.sh
+COPY monitor_shiny_app.sh /srv/shiny-server/monitor_shiny_app.sh
+RUN chmod +x /srv/shiny-server/monitor_shiny_app.sh
+
+#COPY app/shiny/start_shiny_app.sh /srv/shiny-server/start_shiny_app.sh
+COPY start_shiny_app.sh /srv/shiny-server/start_shiny_app.sh
+RUN chmod +x /srv/shiny-server/start_shiny_app.sh
+
+#COPY app/shiny/stop_shiny_app.sh /srv/shiny-server/stop_shiny_app.sh
+COPY stop_shiny_app.sh /srv/shiny-server/stop_shiny_app.sh
+RUN chmod +x /srv/shiny-server/stop_shiny_app.sh
 
 # Set working directory for the Shiny app
 WORKDIR /srv/shiny-server
@@ -25,8 +44,9 @@ WORKDIR /srv/shiny-server
 # Ensure correct permissions
 RUN chown -R shiny:shiny /srv/shiny-server
 
-# Expose port 3838 for Shiny Server
-EXPOSE 3838
+# Expose ports
+EXPOSE 3838 3939
 
 # Start Shiny Server
-CMD ["./deploy_shiny_app.sh"]
+#CMD ["./deploy_shiny_app.sh"]
+CMD ["./start_shiny_app.sh"]

@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Check and install necessary system dependencies (systemctl, nano, inotify-tools, libssl-dev, libxml2-dev)
-echo "Checking system dependencies (systemctl, nano, inotify-tools, libssl-dev, libxml2-dev)..."
+# Check and install necessary system dependencies (systemctl, nano, inotify-tools, libssl-dev, libxml2-dev, acl)
+echo "Checking system dependencies (systemctl, nano, inotify-tools, libssl-dev, libxml2-dev, acl)..."
 
-for pkg in systemctl nano inotify-tools libssl-dev libxml2-dev; do
+for pkg in systemctl nano inotify-tools libssl-dev libxml2-dev acl; do
     if dpkg -l | grep -q "$pkg"; then
         echo "$pkg is already installed."
     else
@@ -14,6 +14,20 @@ done
 
 # Clean up after installation
 apt-get clean
+
+# Set the cache directory to a valid location
+echo "Setting R_USER_CACHE_DIR to /tmp/R_cache"
+export R_USER_CACHE_DIR=/tmp/R_cache
+mkdir -p $R_USER_CACHE_DIR
+
+# Set ownership and permissions to allow both root and shiny users access
+echo "Setting ownership and permissions for /tmp/R_cache"
+chown shiny:shiny $R_USER_CACHE_DIR  # Set ownership to shiny user
+chmod 770 $R_USER_CACHE_DIR          # Give read, write, and execute permissions to root and shiny
+
+# Set Sass cache directory for bslib::bs_theme()
+echo "Setting Sass cache directory for bslib::bs_theme()..."
+R -e "options(sass.cache = '/tmp/R_cache')"
 
 # Shiny app source directory inside the container
 APP_SRC="/srv/shiny-server/UI"
@@ -27,12 +41,11 @@ if [ ! -d "$APP_SRC" ]; then
 fi
 
 # Step 2: Install required R libraries only if they are not already installed
-R_LIBS=("shiny" "shinyjs" "shinyWidgets" "shinycssloaders" "DT" "httr" "jsonlite" "openxlsx")
+R_LIBS=("remotes" "shiny" "shinyjs" "shinyWidgets" "shinycssloaders" "DT" "httr" "jsonlite" "openxlsx" "plotly" "bslib" "arrow" "colourpicker")
 
-echo "Checking R libraries..."
+echo "Checking CRAN R libraries..."
 
 for lib in "${R_LIBS[@]}"; do
-    # Check if the library is already installed
     if R -e "if (!require('$lib')) { quit(status = 1) }" > /dev/null 2>&1; then
         echo "$lib is already installed."
     else
@@ -41,8 +54,29 @@ for lib in "${R_LIBS[@]}"; do
     fi
 done
 
+# Define GitHub repositories for additional packages
+GITHUB_PACKAGES=("rstudio/gridlayout" "tidyverse/ggplot2" "thomasp85/patchwork")  # Add more as needed
+
+echo "Checking GitHub R packages..."
+
+for repo in "${GITHUB_PACKAGES[@]}"; do
+    package_name=$(basename "$repo")  # Extract package name from repo URL
+    if R -e "if (!require('$package_name')) { quit(status = 1) }" > /dev/null 2>&1; then
+        echo "$package_name is already installed."
+    else
+        echo "$package_name is not installed. Installing from GitHub..."
+        R -e "remotes::install_github('$repo')"
+    fi
+done
+
+# Ensure remotes package is installed
+if ! R -e "require('remotes')" > /dev/null 2>&1; then
+    echo "remotes package is missing. Installing..."
+    R -e "install.packages('remotes')"
+fi
+
 if [ $? -eq 0 ]; then
-  echo "R libraries installed successfully."
+  echo "All R libraries installed successfully."
 else
   echo "Error: Failed to install R libraries."
   exit 1
@@ -54,14 +88,10 @@ systemctl restart shiny-server
 
 # Step 4: Set ACL for both root and shiny users to ensure proper access to app files
 echo "Setting ACLs for Shiny app files..."
-setfacl -m u:root:rwx /srv/shiny-server/UI/app.R
-setfacl -m u:shiny:rwx /srv/shiny-server/UI/app.R
-setfacl -m u:root:rwx /srv/shiny-server/UI/dhis2_data.R
-setfacl -m u:shiny:rwx /srv/shiny-server/UI/dhis2_data.R
-
-# Set default ACL for new files in the directory
-setfacl -d -m u:root:rwx /srv/shiny-server/UI
-setfacl -d -m u:shiny:rwx /srv/shiny-server/UI
+setfacl -R -m u:shiny:rwx /srv/shiny-server/UI
+setfacl -R -m u:root:rwx /srv/shiny-server/UI
+setfacl -R -d -m u:shiny:rwx /srv/shiny-server/UI
+setfacl -R -d -m u:root:rwx /srv/shiny-server/UI
 
 # Step 5: Create a file monitoring script to watch for changes in the UI folder
 echo "Creating file monitoring script..."
@@ -87,7 +117,9 @@ done
 EOF
 
 # Step 6: Make the monitoring script executable
-chmod +x /srv/shiny-server/monitor_shiny_app.sh
+#chmod +x /srv/shiny-server/monitor_shiny_app.sh
+
+chmod +x /srv/shiny-server/start_shiny_app.sh
 
 # Step 7: Optionally, you can add the monitoring script to systemd to run on startup
 echo "Creating systemd service for Shiny app monitoring..."
@@ -104,6 +136,7 @@ WantedBy=multi-user.target
 EOF
 
 # Enable and start the systemd service
+systemctl daemon-reload
 systemctl enable shiny-app-monitor.service
 systemctl start shiny-app-monitor.service
 
@@ -114,9 +147,10 @@ echo "Setting ownership..."
 
 # Set ownership
 sudo chown 1009:1009 /srv/shiny-server/deploy_shiny_app.sh
-#sudo chown -R root:root /srv/shiny-server/UI
 sudo chown 1009:1009 /srv/shiny-server/monitor_shiny_app.sh
 sudo chown shiny:shiny /srv/shiny-server/settings.rds
+sudo chown shiny:shiny /srv/shiny-server/saved_setting/settings.rds
+sudo chown shiny:shiny /srv/shiny-server/saved_setting/source_settings.rds
 sudo chown -R shiny:shiny /srv/shiny-server/fetched_data
 sudo chown 1009:1009 /srv/shiny-server/HEAT
 sudo chown 1009:1009 /srv/shiny-server/HEAT-Plus
@@ -128,6 +162,8 @@ echo "Setting permissions..."
 sudo chmod 755 /srv/shiny-server/deploy_shiny_app.sh
 sudo chmod 755 /srv/shiny-server/monitor_shiny_app.sh
 sudo chmod 644 /srv/shiny-server/settings.rds
+sudo chmod 644 /srv/shiny-server/saved_setting/settings.rds
+sudo chmod 644 /srv/shiny-server/saved_setting/source_settings.rds
 sudo chmod 755 /srv/shiny-server/HEAT
 sudo chmod 755 /srv/shiny-server/HEAT-Plus
 
