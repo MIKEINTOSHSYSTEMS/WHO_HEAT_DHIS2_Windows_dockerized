@@ -12,7 +12,8 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean
 
 # Install CRAN packages
-RUN R -e "install.packages(c('remotes', 'shiny', 'shinyjs', 'shinyWidgets', 'shinycssloaders', 'DT', 'httr', 'jsonlite', 'openxlsx', 'plotly', 'bslib', 'arrow', 'colourpicker'), dependencies = TRUE, repos = 'https://cran.r-project.org/')"
+#RUN R -e "install.packages(c('remotes', 'shiny', 'shinyjs', 'shinyWidgets', 'shinycssloaders', 'DT', 'httr', 'jsonlite', 'openxlsx', 'plotly', 'bslib', 'arrow', 'colourpicker'), dependencies = TRUE, repos = 'https://cran.r-project.org/')"
+RUN R -e "install.packages(c('remotes', 'shiny', 'shinyjs', 'shinyWidgets', 'shinycssloaders', 'DT', 'httr', 'jsonlite', 'openxlsx', 'plotly', 'bslib', 'arrow', 'colourpicker', 'shinydashboard', 'shinyalert', 'dplyr', 'plyr', 'scales', 'pastecs', 'car', 'ggfortify', 'psych', 'sqldf', 'lubridate', 'kableExtra', 'gridExtra', 'reshape2', 'fastDummies', 'DataExplorer', 'tidyverse', 'colorspace'), dependencies = TRUE, repos = 'https://cran.r-project.org/')"
 
 # Install GitHub packages
 RUN R -e "remotes::install_github(c('rstudio/gridlayout', 'tidyverse/ggplot2', 'thomasp85/patchwork'))"
@@ -23,19 +24,19 @@ COPY . /srv/shiny-server/
 
 # Add deployment scripts
 #COPY app/shiny/deploy_shiny_app.sh /srv/shiny-server/deploy_shiny_app.sh
-COPY deploy_shiny_app.sh /srv/shiny-server/deploy_shiny_app.sh
+#COPY deploy_shiny_app.sh /srv/shiny-server/deploy_shiny_app.sh
 RUN chmod +x /srv/shiny-server/deploy_shiny_app.sh
 
 #COPY app/shiny/monitor_shiny_app.sh /srv/shiny-server/monitor_shiny_app.sh
-COPY monitor_shiny_app.sh /srv/shiny-server/monitor_shiny_app.sh
+#COPY monitor_shiny_app.sh /srv/shiny-server/monitor_shiny_app.sh
 RUN chmod +x /srv/shiny-server/monitor_shiny_app.sh
 
 #COPY app/shiny/start_shiny_app.sh /srv/shiny-server/start_shiny_app.sh
-COPY start_shiny_app.sh /srv/shiny-server/start_shiny_app.sh
+#COPY start_shiny_app.sh /srv/shiny-server/start_shiny_app.sh
 RUN chmod +x /srv/shiny-server/start_shiny_app.sh
 
 #COPY app/shiny/stop_shiny_app.sh /srv/shiny-server/stop_shiny_app.sh
-COPY stop_shiny_app.sh /srv/shiny-server/stop_shiny_app.sh
+#COPY stop_shiny_app.sh /srv/shiny-server/stop_shiny_app.sh
 RUN chmod +x /srv/shiny-server/stop_shiny_app.sh
 
 # Set working directory for the Shiny app
